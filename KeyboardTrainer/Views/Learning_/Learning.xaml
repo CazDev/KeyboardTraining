@@ -1,0 +1,20 @@
+﻿<Window x:Class="KeyboardTrainer.Views.Learning_.Learning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KeyboardTrainer.Views.Learning_"
+        WindowStartupLocation="CenterScreen" 
+        mc:Ignorable="d"
+        Title="Learning" Height="450" Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="btn_fastLearn" Grid.Row="0" Margin="30" Content="Fast learn" Click="Btn_fastLearn_Click"/>
+        <Button x:Name="btn_training"  Grid.Row="1" Margin="30" Content="Training"/>
+        <Button x:Name="btn_custom"    Grid.Row="2" Margin="30" Content="Custom"/>
+    </Grid>
+</Window>
