@@ -1,17 +1,31 @@
-﻿using KeyboardTrainer.Views.Training_.Models;
+﻿using KeyboardTrainer.Models;
+using KeyboardTrainer.Views.Training_.Models;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace KeyboardTrainer.Views.Training_.ViewModels
 {
-    class ViewModel
+    public class ViewModel
     {
         Model Model;
 
         Random rnd = new Random();
         public MLanguage Language { get; private set; }
+        /// <summary>
+        /// Length of string before sending chars
+        /// </summary>
         public int FirstLength { get; private set; }
-        public event Action Mistaked;
+        public delegate void Mistake(string letter);
+        /// <summary>
+        /// Invokes on user makes mistake when send wrong char
+        /// </summary>
+        public event Mistake Mistaked;
+        /// <summary>
+        /// string left to type
+        /// </summary>
+        public string CharsLeft => Model.ChrsLeft;
         public double Speed
         {
             get
@@ -21,6 +35,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         }
         public DateTime Begin { get; set; }
 
+
         public delegate void StatisticChanges(Statistics statistics);
         public event StatisticChanges StatisticChanged;
 
@@ -28,17 +43,37 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         {
             this.Model = new Model();
             this.Language = language;
-            Model.Mistaked += () => this.Mistaked?.Invoke();
-            //TODO: Task sendsat
-        }
-
-        void SendStatistics()
-        {
-
+            Model.Mistaked += (l) => this.Mistaked?.Invoke(l);
         }
 
         /// <summary>
-        /// retunrs true if it is right chat
+        /// Finds new version, asks user, update, restart app
+        /// </summary>
+        public void Update()
+        {
+            Updater updater = new Updater();
+            Task checkNewVersion = new Task(() =>
+            {
+                Thread.Sleep(1000);
+                try
+                {
+                    if (updater.NeedUpdate())
+                    {
+                        MessageBoxResult res = MessageBox.Show("New update found! Do you want to update it now?", "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (res == MessageBoxResult.Yes)
+                        {
+                            updater.Update();
+                        }
+                    }
+                }
+                catch { }
+            });
+            checkNewVersion.Start();
+        }
+
+        /// <summary>
+        /// retunrs true if it is right char.
+        /// Use: KeyConverter kc = new KeyConverter(); ConvertToString(e.Key);
         /// </summary>
         /// <param name="chr"></param>
         /// <returns></returns>
@@ -48,6 +83,10 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             {
                 chr = ToRussianChar(chr.ToLower());
             }
+            if (chr.ToLower() == "space")
+            {
+                chr = " ";
+            }
 
             bool? res = Model.SendChar(chr);
 
@@ -56,6 +95,10 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
 
             return res;
         }
+        /// <summary>
+        /// New string (random)
+        /// </summary>
+        /// <param name="updateTime">update Begin datetime</param>
         public void NewRound(bool updateTime = true)
         {
             if (updateTime)
@@ -70,6 +113,11 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             Statistics statistics = new Statistics(Model.ChrsLeft, Model.Mistakes);
             StatisticChanged?.Invoke(statistics);
         }
+        /// <summary>
+        /// New string
+        /// </summary>
+        /// <param name="input">Custom string</param>
+        /// <param name="updateTime">update Begin datetime</param>
         public void NewRound(string input, bool updateTime = true)
         {
             if (updateTime)
@@ -83,6 +131,41 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             Statistics statistics = new Statistics(Model.ChrsLeft, Model.Mistakes);
             StatisticChanged?.Invoke(statistics);
         }
+        /// <summary>
+        /// Gets random word
+        /// </summary>
+        /// <param name="mLanguage">Language</param>
+        /// <returns></returns>
+        public string GetWord(MLanguage mLanguage)//depends on this.Language
+        {
+            if (mLanguage == MLanguage.ENGLISH)
+            {
+                return Database.english[rnd.Next(0, Database.english.Length)];
+            }
+            else if (mLanguage == MLanguage.RUSSIAN)
+            {
+                return Database.russian[rnd.Next(0, Database.russian.Length)];
+            }
+            else
+            {
+                return "";
+            }
+        }
+        /// <summary>
+        /// Based on GetWord
+        /// </summary>
+        /// <returns></returns>
+        public string GetString(MLanguage mLanguage, int length)
+        {
+            string result = "";
+            do
+            {
+                result += GetWord(mLanguage) + " ";
+            } while (result.Length < length);
+            result = result.Remove(result.Length - 1);//remove last space
+            return result;
+        }
+
         private string ToRussianChar(string engChar)
         {
             if (engChar == "oem3")

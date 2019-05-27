@@ -29,14 +29,14 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
             };
             NewWord();
             ViewModel.StatisticChanged += StatChanged;
-            ViewModel.Mistaked += () => mistakes++;
+            ViewModel.Mistaked += (s) => mistakes++;
             this.KeyDown += window_KeyDown;
 
-            Timer timer = new Timer(100)
+            Timer tmrUpdateTime = new Timer(100)
             {
                 Enabled = true
             };
-            timer.Elapsed += Timer_Tick;
+            tmrUpdateTime.Elapsed += UpdateTime;
         }
 
         private void window_KeyDown(object sender, KeyEventArgs e)
@@ -73,7 +73,7 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
             });
         }
 
-        private void Timer_Tick(object sender, ElapsedEventArgs e)
+        private void UpdateTime(object sender, ElapsedEventArgs e)
         {
             txtbx_Time.Dispatcher.Invoke(new Action(() =>
             {
@@ -83,26 +83,9 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
 
         void NewWord()
         {
-            string rndWord = GetWord();
+            string rndWord = ViewModel.GetWord(this.MLanguage);
             ViewModel.NewRound(rndWord, false);
             txtbx_TextToType.Text = rndWord;
-        }
-
-
-        string GetWord()//depends on this.Language
-        {
-            if (this.MLanguage == MLanguage.ENGLISH)
-            {
-                return Database.english[rnd.Next(0, Database.english.Length)];
-            }
-            else if (this.MLanguage == MLanguage.RUSSIAN)
-            {
-                return Database.russian[rnd.Next(0, Database.russian.Length)];
-            }
-            else
-            {
-                return "";
-            }
         }
     }
 }

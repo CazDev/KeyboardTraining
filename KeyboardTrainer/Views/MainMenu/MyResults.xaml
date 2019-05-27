@@ -14,7 +14,7 @@
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="textblockText" Grid.Row="0"  Background="LightGray" Margin="2" Text="sdfsdfds" FontSize="20" TextAlignment="Center"/>
+        <TextBlock x:Name="textblockText" Grid.Row="0"  Background="LightGray" Margin="2" Text="" FontSize="30" TextAlignment="Left" VerticalAlignment="Center"/>
         <TextBlock x:Name="textInfo" Text="Type text" TextAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Row="1" Background="LightGray" Margin="2"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <StackPanel Grid.Row="2" Orientation="Vertical">

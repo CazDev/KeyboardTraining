@@ -1,4 +1,5 @@
 ﻿using System;
+using static KeyboardTrainer.Views.Training_.ViewModels.ViewModel;
 
 namespace KeyboardTrainer.Views.Training_.Models
 {
@@ -9,7 +10,7 @@ namespace KeyboardTrainer.Views.Training_.Models
         /// </summary>
         public string ChrsLeft { get; set; }
         public int Mistakes { get; set; }
-        public event Action Mistaked;
+        public event Mistake Mistaked;
 
         /// <summary>
         /// When user presses key, returns if it is right key
@@ -28,7 +29,7 @@ namespace KeyboardTrainer.Views.Training_.Models
             }
             else
             {
-                Mistaked?.Invoke();
+                Mistaked?.Invoke(ChrsLeft.Substring(0, 1));
                 Mistakes++;
                 return false;
             }

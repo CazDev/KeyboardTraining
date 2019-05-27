@@ -2,7 +2,7 @@
 
 namespace KeyboardTrainer.Views.Training_.ViewModels
 {
-    public class Statistics
+    public class Statistics : EventArgs
     {
         public string CharsLeft { get; set; }
         public int Mistakes { get; set; }
