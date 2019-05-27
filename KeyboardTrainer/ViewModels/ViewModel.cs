@@ -55,6 +55,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             Task checkNewVersion = new Task(() =>
             {
                 Thread.Sleep(1000);
+                bool sayAboutFail = false;
                 try
                 {
                     if (updater.NeedUpdate())
@@ -62,11 +63,18 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
                         MessageBoxResult res = MessageBox.Show("New update found! Do you want to update now?", "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (res == MessageBoxResult.Yes)
                         {
+                            sayAboutFail = true;
                             updater.Update();
                         }
                     }
                 }
-                catch { }
+                catch
+                {
+                    if (sayAboutFail)
+                    {
+                        MessageBox.Show("Update error", "Updater", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             });
             checkNewVersion.Start();
         }

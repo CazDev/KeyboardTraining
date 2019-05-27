@@ -8,7 +8,7 @@ using System.Text;
 
 public class Updater
 {
-    public string ThisVersion { get; } = "0.3"; //TODO: Before commiting change version here and in file "version_info"
+    public string ThisVersion { get; } = "0.4"; //TODO: Before commiting change version here and in file "version_info"
     string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
     string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
     string programName = "KeyboardTrainer";
