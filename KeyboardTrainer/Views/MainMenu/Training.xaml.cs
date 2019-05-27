@@ -21,6 +21,7 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
         {
             InitializeComponent();
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
+            this.Title = "Training";
             MLanguage = language;
             ViewModel = new ViewModel(language)
             {

@@ -2,12 +2,10 @@
 using KeyboardTrainer.Views;
 using KeyboardTrainer.Views.MainMenu.Learning_;
 using KeyboardTrainer.Views.Manual_;
-using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace KeyboardTrainer
 {
@@ -16,19 +14,35 @@ namespace KeyboardTrainer
     /// </summary>
     public partial class MainWindow : Window
     {
-        MLanguage MLanguage;
+        Updater updater = new Updater();
         public MainWindow()
         {
             InitializeComponent();
+            Task checkNewVersion = new Task(() =>
+            {
+                Thread.Sleep(1000);
+                try
+                {
+                    if (updater.NeedUpdate())
+                    {
+                        MessageBoxResult res = MessageBox.Show("New update found! Do you want to update it now?", "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (res == MessageBoxResult.Yes)
+                        {
+                            updater.Update();
+                        }
+                    }
+                }
+                catch { }
+            });
+            checkNewVersion.Start();
+
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
             cb_language.SelectedIndex = 0;
         }
 
         private void Btn_myResults_Click(object sender, RoutedEventArgs e)
         {
-            MLanguage language = MLanguage.ENGLISH;
-
-            language = GetSelectedLanguage();
+            MLanguage language = GetSelectedLanguage();
             MyResults results = new MyResults(language);
             this.Hide();
             if (results.ShowDialog() != null)

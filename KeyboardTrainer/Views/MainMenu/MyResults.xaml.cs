@@ -19,6 +19,7 @@ namespace KeyboardTrainer.Views
             InitializeComponent();
             viewModel = new ViewModel(language);
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
+            this.Title = "My results";
             viewModel.StatisticChanged += StatisticChanged;
             this.KeyDown += Training_KeyDown;
             Timer timer = new Timer(100);

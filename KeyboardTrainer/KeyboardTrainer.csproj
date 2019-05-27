@@ -61,6 +61,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Database.cs" />
     <Compile Include="Extentions.cs" />
+    <Compile Include="Models\Updater.cs" />
     <Compile Include="Views\MainMenu\Training.xaml.cs">
       <DependentUpon>Training.xaml</DependentUpon>
     </Compile>
