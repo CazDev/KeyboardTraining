@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MainWindowIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -52,44 +55,46 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="Views\MainMenu_\App.xaml">
+    <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\Learning_\Learning.xaml.cs">
-      <DependentUpon>Learning.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Manual_\Manual.xaml.cs">
-      <DependentUpon>Manual.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Training_\Models\Model.cs" />
-    <Compile Include="Views\Training_\ViewModels\MLanguage.cs" />
-    <Compile Include="Views\Training_\ViewModels\Statistics.cs" />
-    <Compile Include="Views\Training_\ViewModels\ViewModel.cs" />
-    <Compile Include="Views\Training_\Views\Training.xaml.cs">
+    <Compile Include="Models\Database.cs" />
+    <Compile Include="Extentions.cs" />
+    <Compile Include="Views\MainMenu\Training.xaml.cs">
       <DependentUpon>Training.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Learning_\Learning.xaml">
+    <Compile Include="Views\MainMenu\Manual_\Manual.xaml.cs">
+      <DependentUpon>Manual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="ViewModels\MLanguage.cs" />
+    <Compile Include="ViewModels\Statistics.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\MainMenu\MyResults.xaml.cs">
+      <DependentUpon>MyResults.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\MainMenu\Training.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainMenu_\MainWindow.xaml">
+    <Page Include="Views\MainMenu\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Views\MainMenu_\App.xaml.cs">
+    <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\MainMenu_\MainWindow.xaml.cs">
+    <Compile Include="Views\MainMenu\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Manual_\Manual.xaml">
+    <Page Include="Views\MainMenu\Manual_\Manual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Training_\Views\Training.xaml">
+    <Page Include="Views\MainMenu\MyResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,11 +123,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\MainMenu_\App.config" />
+    <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainWindowIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MainWindowIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

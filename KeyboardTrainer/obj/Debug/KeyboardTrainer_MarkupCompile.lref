@@ -1,7 +1,7 @@
 ﻿
 
-FC:\C#\KeyboardTrainer\KeyboardTrainer\Views\MainMenu_\MainWindow.xaml;;
-FC:\C#\KeyboardTrainer\KeyboardTrainer\Views\Manual_\Manual.xaml;;
-FC:\C#\KeyboardTrainer\KeyboardTrainer\Views\Training_\Views\Training.xaml;;
-FC:\C#\KeyboardTrainer\KeyboardTrainer\Views\Learning_\Learning.xaml;;
+FC:\C#\KeyboardTraining\KeyboardTrainer\Views\MainMenu\Training.xaml;;
+FC:\C#\KeyboardTraining\KeyboardTrainer\Views\MainMenu\MainWindow.xaml;;
+FC:\C#\KeyboardTraining\KeyboardTrainer\Views\MainMenu\Manual_\Manual.xaml;;
+FC:\C#\KeyboardTraining\KeyboardTrainer\Views\MainMenu\MyResults.xaml;;
 

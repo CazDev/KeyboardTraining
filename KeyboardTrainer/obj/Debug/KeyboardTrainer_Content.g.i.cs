@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/keyboard.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mainwindowicon.ico")]
 
 

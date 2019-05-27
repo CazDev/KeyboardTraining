@@ -1,0 +1,25 @@
+﻿<Window x:Class="KeyboardTrainer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KeyboardTrainer"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" 
+        Title="MainWindow" Height="450" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="btn_learning" Grid.Row="0" Margin="30" Content="Training" Click="Btn_learning_Click"/>
+        <Button x:Name="btn_training" Grid.Row="1" Margin="30" Content="My results" Click="Btn_myResults_Click"/>
+        <Button x:Name="btn_manual" Grid.Row="2" Margin="30" Content="Manual" Click="Btn_manual_Click"/>
+
+        <ComboBox Name="cb_language" Grid.Row="2" Height="30" VerticalAlignment="Bottom" Margin="0,99,0,0">
+            <TextBlock>Russian</TextBlock>
+            <TextBlock>English</TextBlock>
+        </ComboBox>
+    </Grid>
+</Window>
