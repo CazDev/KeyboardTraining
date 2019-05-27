@@ -59,7 +59,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
                 {
                     if (updater.NeedUpdate())
                     {
-                        MessageBoxResult res = MessageBox.Show("New update found! Do you want to update it now?", "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        MessageBoxResult res = MessageBox.Show("New update found! Do you want to update now?", "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (res == MessageBoxResult.Yes)
                         {
                             updater.Update();

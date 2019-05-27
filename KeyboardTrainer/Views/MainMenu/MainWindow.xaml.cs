@@ -2,6 +2,7 @@
 using KeyboardTrainer.Views;
 using KeyboardTrainer.Views.MainMenu.Learning_;
 using KeyboardTrainer.Views.Manual_;
+using KeyboardTrainer.Views.Training_.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,6 +16,7 @@ namespace KeyboardTrainer
         public MainWindow()
         {
             InitializeComponent();
+            new ViewModel(MLanguage.ENGLISH).Update();
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
             cb_language.SelectedIndex = 0;
         }

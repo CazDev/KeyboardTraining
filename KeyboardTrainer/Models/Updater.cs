@@ -8,7 +8,7 @@ using System.Text;
 
 public class Updater
 {
-    public string ThisVersion { get; } = "0.2"; //TODO: Before commiting change version here and in file "version_info"
+    public string ThisVersion { get; } = "0.3"; //TODO: Before commiting change version here and in file "version_info"
     string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
     string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
     string programName = "KeyboardTrainer";
@@ -32,6 +32,14 @@ public class Updater
     private void ReplaceFiles(string oldFilePath, string newFileFullPath)
     {
         Process.Start(newFileFullPath);
+        var Info = new ProcessStartInfo
+        {
+            Arguments = "/C choice /C Y /N /D Y /T 10 & Del " + Assembly.GetExecutingAssembly().Location,//wait 10 sec, self delete 
+            WindowStyle = ProcessWindowStyle.Hidden,
+            CreateNoWindow = true,
+            FileName = "cmd"
+        };
+        Process.Start(Info);
         Environment.Exit(0);
     }
 
