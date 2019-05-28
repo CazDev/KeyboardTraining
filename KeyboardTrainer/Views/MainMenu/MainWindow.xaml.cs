@@ -1,4 +1,5 @@
 ﻿using KeyboardTrainer.Models;
+using KeyboardTrainer.ViewModels;
 using KeyboardTrainer.Views;
 using KeyboardTrainer.Views.MainMenu.Learning_;
 using KeyboardTrainer.Views.Manual_;
@@ -10,12 +11,17 @@ namespace KeyboardTrainer
 {
     public partial class MainWindow : Window
     {
+        ViewModel viewModel;
         public MainWindow()
         {
-            InitializeComponent();
-            new ViewModel(MLanguage.ENGLISH).Update();
+            viewModel = new ViewModel(MLanguage.ENGLISH);
+
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
-            cb_language.SelectedIndex = 0;
+
+            viewModel.Update();//check updates
+            InitializeComponent();
+            viewModel.LocalizeButtons(btn_learning, btn_manual, btn_training);
+            cb_language.SelectedIndex = 0;            
         }
 
         private void Btn_myResults_Click(object sender, RoutedEventArgs e)
@@ -63,6 +69,12 @@ namespace KeyboardTrainer
             {
                 this.Show();
             }
+        }
+
+        private void cb_SelectedLangugeChanged(object sender, SelectionChangedEventArgs e)
+        {
+            viewModel.ChangeLanguageTo(GetSelectedLanguage());
+            this.Title = viewModel.Translate("MainWindow");
         }
     }
 }

@@ -22,8 +22,14 @@ namespace KeyboardTrainer.Views
             InitializeComponent();
             viewModel = new ViewModel(language);
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
-            this.Title = "My results";
+
+            this.Title = viewModel.Translate("My results");
+            retry.Text = viewModel.Translate("Retry");
+            textInfo.Text = viewModel.Translate("Type text");
+
             this.language = language;
+
+            StatisticChanged(new Statistics(new string('*', 100), 0));//to update labels
 
             StartGame();
 
@@ -42,10 +48,10 @@ namespace KeyboardTrainer.Views
                 {
                     if ((viewModel.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
                     {
-                        lbl_time.Content = $"Time: {(DateTime.Now - viewModel.Begin).TotalSeconds.ToString("0.0")}s";
+                        lbl_time.Content = $"{viewModel.Translate("Time")}: {(DateTime.Now - viewModel.Begin).TotalSeconds.ToString("0.0")}s";
                     }
                     else
-                        lbl_time.Content = $"Time: 0s";
+                        lbl_time.Content = $"{viewModel.Translate("Time")}: 0{viewModel.Translate("sec")}";
                 });
             };
 
@@ -64,15 +70,8 @@ namespace KeyboardTrainer.Views
             {
                 return;
             }
-            //if (e.Key == Key.Enter)
-            //{
-            //    return;
-            //}
             viewModel.SendChar(keyChar.ToString());
         }
-
-
-
 
         private void StartGame()
         {
@@ -104,7 +103,7 @@ namespace KeyboardTrainer.Views
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            textblockText.Text = "Please change keyboard layout";
+                            textblockText.Text = viewModel.Translate("Please change keyboard layout");
                         });
                     }
                     Thread.Sleep(TimeSpan.FromMilliseconds(500));
@@ -150,10 +149,10 @@ namespace KeyboardTrainer.Views
         {
             Dispatcher.Invoke(() =>
             {
-                lbl_left.Content = $"Chars left: {statistics.CharsLeft.Length}";
-                lbl_mistakes.Content = $"Mistakes: {statistics.Mistakes}";
+                lbl_left.Content = $"{viewModel.Translate("Chars left")}: {statistics.CharsLeft.Length}";
+                lbl_mistakes.Content = $"{viewModel.Translate("Mistakes")}: {statistics.Mistakes}";
 
-                lbl_time.Content = $"Time: {(int)statistics.Time.TotalSeconds}s";
+                lbl_time.Content = $"{viewModel.Translate("Time")}: {(int)statistics.Time.TotalSeconds}{viewModel.Translate("sec")}";
                 textblockText.Text = statistics.CharsLeft;
             });
             if (statistics.CharsLeft.Length == 0)

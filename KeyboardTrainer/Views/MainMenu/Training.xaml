@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KeyboardTrainer.Views.MainMenu.Learning_"
         WindowStartupLocation="CenterScreen" 
         mc:Ignorable="d"
-        Title="FastLearn" Height="450" Width="800">
+        Title="FastLearn" Height="450" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="350*"/>

@@ -17,7 +17,7 @@
         <Button x:Name="btn_training" Grid.Row="1" Margin="30" Content="My results" Click="Btn_myResults_Click"/>
         <Button x:Name="btn_manual" Grid.Row="2" Margin="30" Content="Manual" Click="Btn_manual_Click"/>
 
-        <ComboBox Name="cb_language" Grid.Row="2" Height="30" VerticalAlignment="Bottom" Margin="0,99,0,0">
+        <ComboBox Name="cb_language" Grid.Row="2" Height="30" VerticalAlignment="Bottom" Margin="0,99,0,0" SelectionChanged="cb_SelectedLangugeChanged">
             <TextBlock>Russian</TextBlock>
             <TextBlock>English</TextBlock>
         </ComboBox>

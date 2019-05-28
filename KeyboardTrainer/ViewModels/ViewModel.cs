@@ -1,17 +1,19 @@
 ﻿using KeyboardTrainer.Models;
+using KeyboardTrainer.ViewModels;
 using KeyboardTrainer.Views.Training_.Models;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace KeyboardTrainer.Views.Training_.ViewModels
 {
     public class ViewModel
     {
         Model Model;
-
+        Loc loc;
         Random rnd = new Random();
         public MLanguage Language { get; private set; }
         /// <summary>
@@ -44,32 +46,48 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         {
             this.Model = new Model();
             this.Language = language;
+            loc = new Loc(language);
             Model.Mistaked += (l) => this.Mistaked?.Invoke(l);
+
+            InitTranslates();
         }
 
-        public MLanguage? DetectLanguge(string text)
+        private void InitTranslates()
         {
-            var rus = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".ToCharArray();
-            var eng = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-            bool IsRusLettersExists = false;
-            bool IsEngLettersExists = false;
-            for (int i = 0; i < rus.Length; i++)
-            {
-                if (text.Contains(rus[i].ToString()))
-                {
-                    IsRusLettersExists = true;
-                }
-                if (text.Contains(rus[i].ToString()))
-                {
-                    IsEngLettersExists = true;
-                }
-                if (IsEngLettersExists && IsRusLettersExists)
-                {
-                    return null;
-                }
-            }
-            return IsRusLettersExists ? MLanguage.RUSSIAN : MLanguage.ENGLISH;
+            AddTranslate("Training", "Тренировка");
+            AddTranslate("Please change keyboard layout", "Пожалуйста смените раскладку");
+            AddTranslate("Mistakes", "Ошибки");
+            AddTranslate("Total work", "Всего");
+            AddTranslate("Time", "Время");
+            AddTranslate("Retry", "Заново");
+            AddTranslate("sec", "сек");
+            AddTranslate("Type text", "Вводите текст");
+            AddTranslate("Chars left", "Символов осталось");
+            AddTranslate("MainWindow", "Главное окно");
         }
+
+        public void LocalizeButtons(params Button[] buttons)
+        {
+            loc.AddButton(buttons);
+        }
+
+        public void AddTranslate(string eng, string rus)
+        {
+            loc.AddString(eng, rus);
+        }
+
+        public string Translate(string engOrRus)
+        {
+            return loc.Translate(engOrRus);
+        }
+
+        public void ChangeLanguageTo(MLanguage language)
+        {
+            Language = language;
+            loc.Curr_Language = language;
+            loc.TranslateButtons();
+        }
+
 
         /// <summary>
         /// Finds new version, asks user, update, restart app
@@ -223,7 +241,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
         }
 
-    private string GetRandomSperator()
+        private string GetRandomSperator()
         {
             string[] sperators =
             {

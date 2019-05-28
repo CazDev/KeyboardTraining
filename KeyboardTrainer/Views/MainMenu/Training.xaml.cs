@@ -19,14 +19,16 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
         public Training(MLanguage language)
         {
             InitializeComponent();
-            this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
-            this.Title = "Training";
+
             MLanguage = language;
             ViewModel = new ViewModel(language);
+            this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
+
+            this.Title = ViewModel.Translate("Training");
+
 
             ViewModel.StatisticChanged += StatChanged;
             ViewModel.Mistaked += (s) => mistakes++;
-            this.KeyDown += window_KeyDown;
             this.TextInput += Win_TextInput;
 
             System.Timers.Timer tmrUpdateTime = new System.Timers.Timer(100)
@@ -34,8 +36,15 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
                 Enabled = true
             };
             tmrUpdateTime.Elapsed += UpdateTime;
-            AskToChangeKeyboard();
+
+            txtbx_Mistakes.Text = $"{ViewModel.Translate("Mistakes")}: ";
+            txtbx_LettersTotalPrinted.Text = $"{ViewModel.Translate("Total work")}: ";
+            txtbx_Time.Text = $"{ViewModel.Translate("Time")}: ";
+
+
+            AskToChangeKeyboard();            
         }
+
         bool AskingToChangeKeyboardLayout = false;
         void AskToChangeKeyboard()
         {
@@ -58,7 +67,7 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            txtbx_TextToType.Text = "Please change keyboard layout";
+                            txtbx_TextToType.Text = ViewModel.Translate("Please change keyboard layout");
                         });
                     }
                     Thread.Sleep(TimeSpan.FromMilliseconds(500));
@@ -92,9 +101,6 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
             }
         }
 
-        private void window_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
         int mistakes = 0;
         int totalLettersPrinted = 0;
         private void StatChanged(Statistics statistics)
@@ -111,11 +117,11 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
             });
             txtbx_Mistakes.Dispatcher.Invoke(() =>
             {
-                txtbx_Mistakes.Text = "Mistakes: " + mistakes.ToString();
+                txtbx_Mistakes.Text = $"{ViewModel.Translate("Mistakes")}: " + mistakes.ToString();
             });
             txtbx_LettersTotalPrinted.Dispatcher.Invoke(() =>
             {
-                txtbx_LettersTotalPrinted.Text = "Total work: " + totalLettersPrinted.ToString();
+                txtbx_LettersTotalPrinted.Text = $"{ViewModel.Translate("Total work")}: " + totalLettersPrinted.ToString();
             });
         }
 
@@ -125,11 +131,11 @@ namespace KeyboardTrainer.Views.MainMenu.Learning_
             {
                 if (AskingToChangeKeyboardLayout)
                 {
-                    txtbx_Time.Text = "Time: 0s";
+                    txtbx_Time.Text = $"{ViewModel.Translate("Time")}: 0{ViewModel.Translate("sec")}";
                 }
                 else
                 {
-                    txtbx_Time.Text = "Time: " + (DateTime.Now - ViewModel.Begin).TotalSeconds.ToString("0.0") + "s";
+                    txtbx_Time.Text = $"{ViewModel.Translate("Time")}: " + (DateTime.Now - ViewModel.Begin).TotalSeconds.ToString("0.0") + $"{ViewModel.Translate("sec")}";
                 }
             }));
         }
