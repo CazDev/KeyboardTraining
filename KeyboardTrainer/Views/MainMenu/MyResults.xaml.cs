@@ -3,20 +3,20 @@ using KeyboardTrainer.Views.Training_.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace KeyboardTrainer.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для Training.xaml
-    /// </summary>
     public partial class MyResults : Window
     {
-        ViewModel viewModel;
-        List<string> mostMistakeLetters = new List<string>();
-        MLanguage language;
+        readonly ViewModel viewModel;
+        readonly List<string> mostMistakeLetters = new List<string>();
+        readonly MLanguage language;
+        bool IsTimerTicking = false; //timer before game 
         public MyResults(MLanguage language)
         {
             InitializeComponent();
@@ -25,11 +25,14 @@ namespace KeyboardTrainer.Views
             this.Title = "My results";
             this.language = language;
 
+            StartGame();
+
+            #region Register events
             viewModel.StatisticChanged += StatisticChanged;
             viewModel.Mistaked += Mistaked;
-            this.KeyDown += Training_KeyDown;
+            this.TextInput += Win_TextInput;
 
-            Timer updateTimeLabel = new Timer(100)
+            System.Timers.Timer updateTimeLabel = new System.Timers.Timer(100)
             {
                 Enabled = true
             };
@@ -37,12 +40,106 @@ namespace KeyboardTrainer.Views
             {
                 Dispatcher.Invoke(() =>
                 {
-                    lbl_time.Content = $"Time: {(DateTime.Now - viewModel.Begin).TotalSeconds.ToString("0.0")}s";
+                    if ((viewModel.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
+                    {
+                        lbl_time.Content = $"Time: {(DateTime.Now - viewModel.Begin).TotalSeconds.ToString("0.0")}s";
+                    }
+                    else
+                        lbl_time.Content = $"Time: 0s";
                 });
             };
 
-            viewModel.NewRound(viewModel.GetString(language, 100));
+            retry.MouseDown += (s, e) =>
+            {
+                StartGame();
+            };
+            #endregion
         }
+
+        private void Win_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            Char keyChar = e.Text[0];
+
+            if (IsTimerTicking)
+            {
+                return;
+            }
+            //if (e.Key == Key.Enter)
+            //{
+            //    return;
+            //}
+            viewModel.SendChar(keyChar.ToString());
+        }
+
+
+
+
+        private void StartGame()
+        {
+            if (IsTimerTicking)
+            {
+                return; //timer is already started
+            }
+            Dispatcher.Invoke(() =>
+            {
+                textblockText.TextAlignment = TextAlignment.Center;
+            });
+
+            Task askToChangeLayout = new Task(() =>
+            {
+                IsTimerTicking = true;
+
+                while (true)
+                {
+                    var keybaordLayout = viewModel.GetKeyboardLayout();
+                    if (language == MLanguage.ENGLISH && keybaordLayout == 1033)
+                    {
+                        break;
+                    }
+                    else if (language == MLanguage.RUSSIAN && keybaordLayout == 1049)
+                    {
+                        break;
+                    }
+                    else//if keyboard layout is wrong
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            textblockText.Text = "Please change keyboard layout";
+                        });
+                    }
+                    Thread.Sleep(TimeSpan.FromMilliseconds(500));
+                }
+
+                StartTimerBeforeGame();
+            });
+            askToChangeLayout.Start();
+
+            
+        }
+        private void StartTimerBeforeGame()
+        {
+            Task timerBeforeStart = new Task(() =>
+            {
+                #region timer
+                for (int i = 3; i > 0; i--)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        textblockText.Text = i.ToString();
+                    });
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                }
+                Dispatcher.Invoke(() =>
+                {
+                    textblockText.TextAlignment = TextAlignment.Left;
+                });
+                #endregion
+                viewModel.NewRound(viewModel.GetString(language, 100));// txt will change text using event StatisticChanged
+                IsTimerTicking = false;
+            });
+            timerBeforeStart.Start();
+        }
+
 
         private void Mistaked(string letter)
         {
@@ -53,7 +150,6 @@ namespace KeyboardTrainer.Views
         {
             Dispatcher.Invoke(() =>
             {
-
                 lbl_left.Content = $"Chars left: {statistics.CharsLeft.Length}";
                 lbl_mistakes.Content = $"Mistakes: {statistics.Mistakes}";
 
@@ -63,21 +159,11 @@ namespace KeyboardTrainer.Views
             if (statistics.CharsLeft.Length == 0)
             {
                 ShowEndMessage(statistics);
-                viewModel.NewRound(viewModel.GetString(language, 100)); // txt will change text using event StatisticChanged
+                StartGame(); 
+                mostMistakeLetters.Clear();
             }
         }
 
-        private void Training_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                return;
-            }
-
-            KeyConverter kc = new KeyConverter();
-            string str = kc.ConvertToString(e.Key);
-            viewModel.SendChar(str);
-        }
         struct NumOfLetter
         {
             public int Frequency { get; set; }//num
@@ -96,8 +182,8 @@ namespace KeyboardTrainer.Views
         private void ShowEndMessage(Statistics statistics)
         {
             string str_mistakeLetters = GetStringMistakesInEachLetter();
-
-            MessageBox.Show($"Your speed {statistics.Speed.ToString("G")} keys per minute.\nYou make most mistakes in:\n{str_mistakeLetters}", "Statistics", MessageBoxButton.OK, MessageBoxImage.Information);
+            viewModel.Begin = new DateTime(1, 1, 1);//stop time counter (year = 1)
+            MessageBox.Show($"Your speed {statistics.Speed.ToString("0.00")} keys per minute.\nYou make most mistakes in:\n{str_mistakeLetters}", "Statistics", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
 

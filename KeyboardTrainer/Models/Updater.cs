@@ -8,10 +8,10 @@ using System.Text;
 
 public class Updater
 {
-    public string ThisVersion { get; } = "0.4"; //TODO: Before commiting change version here and in file "version_info"
-    string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
-    string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
-    string programName = "KeyboardTrainer";
+    public string ThisVersion { get; } = "0.5"; //TODO: Before commiting change version here and in file "version_info"
+    readonly string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
+    readonly string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
+    readonly string programName = "KeyboardTrainer";
 
     public bool NeedUpdate()
     {
@@ -25,14 +25,14 @@ public class Updater
         {
             string fileName = DownloadFile();
 
-            ReplaceFiles(Assembly.GetExecutingAssembly().Location, $"{Environment.CurrentDirectory}\\{fileName}");
+            ReplaceFiles($"{Environment.CurrentDirectory}\\{fileName}");
         }
     }
 
-    private void ReplaceFiles(string oldFilePath, string newFileFullPath)
+    private void ReplaceFiles(string newFileFullPath)
     {
         Process.Start(newFileFullPath);
-        var Info = new ProcessStartInfo
+        ProcessStartInfo Info = new ProcessStartInfo
         {
             Arguments = "/C choice /C Y /N /D Y /T 10 & Del " + Assembly.GetExecutingAssembly().Location,//wait 10 sec, self delete 
             WindowStyle = ProcessWindowStyle.Hidden,

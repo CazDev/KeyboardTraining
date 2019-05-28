@@ -1,6 +1,7 @@
 ﻿using KeyboardTrainer.Models;
 using KeyboardTrainer.Views.Training_.Models;
 using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -46,6 +47,30 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             Model.Mistaked += (l) => this.Mistaked?.Invoke(l);
         }
 
+        public MLanguage? DetectLanguge(string text)
+        {
+            var rus = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".ToCharArray();
+            var eng = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            bool IsRusLettersExists = false;
+            bool IsEngLettersExists = false;
+            for (int i = 0; i < rus.Length; i++)
+            {
+                if (text.Contains(rus[i].ToString()))
+                {
+                    IsRusLettersExists = true;
+                }
+                if (text.Contains(rus[i].ToString()))
+                {
+                    IsEngLettersExists = true;
+                }
+                if (IsEngLettersExists && IsRusLettersExists)
+                {
+                    return null;
+                }
+            }
+            return IsRusLettersExists ? MLanguage.RUSSIAN : MLanguage.ENGLISH;
+        }
+
         /// <summary>
         /// Finds new version, asks user, update, restart app
         /// </summary>
@@ -89,7 +114,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         {
             if (Language == MLanguage.RUSSIAN)
             {
-                chr = ToRussianChar(chr.ToLower());
+                //chr = ToRussianChar(chr.ToLower());
             }
             if (chr.ToLower() == "space")
             {
@@ -168,12 +193,48 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             string result = "";
             do
             {
-                result += GetWord(mLanguage) + " ";
+                result += GetWord(mLanguage) + GetRandomSperator();
             } while (result.Length < length);
             result = result.Remove(result.Length - 1);//remove last space
             return result;
         }
 
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern int GetWindowThreadProcessId(
+   [In] IntPtr hWnd,
+   [Out, Optional] IntPtr lpdwProcessId
+   );
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern ushort GetKeyboardLayout(//get current keyboard layout
+            [In] int idThread
+            );
+
+        /// <summary>
+        /// Вернёт Id раскладки.
+        /// 1033 - eng
+        /// 1049 - rus
+        /// </summary>
+        public ushort GetKeyboardLayout()
+        {
+            return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
+        }
+
+    private string GetRandomSperator()
+        {
+            string[] sperators =
+            {
+                ", ",
+                " ",
+                ". ",
+                "! ",
+                "? "
+            };
+            return sperators[rnd.Next(0, sperators.Length)];
+        }
         private string ToRussianChar(string engChar)
         {
             if (engChar == "oem3")
@@ -300,7 +361,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             {
                 return "ь";
             }
-            else if (engChar == "oemcomma")
+            else if (engChar == ",")
             {
                 return "б";
             }

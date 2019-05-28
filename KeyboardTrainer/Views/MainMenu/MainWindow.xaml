@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:KeyboardTrainer"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
-        Title="MainWindow" Height="450" Width="600">
-    <Grid>
+        Title="MainWindow" Height="600" Width="600">
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
