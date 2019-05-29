@@ -108,6 +108,26 @@ namespace KeyboardTrainer.Views
                     counterofTextWithoutSpaces = 0;
                 }
             }
+            while (true)//remove spaces in the end
+            {
+                bool IsBroken = false;
+                for (int i = result.Length - 1; i >= 0; i--)
+                {
+                    if (result[i] == ' ')
+                    {
+                        result = result.Remove(result.Length - 1);
+                        IsBroken = true;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (!IsBroken)
+                {
+                    break;
+                }
+            }
             return result;
         }
 
