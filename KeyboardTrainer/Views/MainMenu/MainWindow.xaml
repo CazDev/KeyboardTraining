@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeyboardTrainer"
+        xmlns:tools="clr-namespace:MyApp.Tools"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
-        Title="MainWindow" Height="600" Width="600">
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={tools:RatioConverter}, ConverterParameter='0.5' }" 
+        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.25' }" 
+        Title="MainWindow">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#373737" />
@@ -48,7 +51,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btn_learning" Grid.Row="0" Content="Training" Click="Btn_learning_Click"/>
+        <Button x:Name="btn_learning" Grid.Row="0" Content="Lessons" Click="Btn_learning_Click"/>
         <Button x:Name="btn_training" Grid.Row="1" Content="My results" Click="Btn_myResults_Click"/>
         <Button x:Name="btn_manual" Grid.Row="2" Content="Manual" Click="Btn_manual_Click"/>
 

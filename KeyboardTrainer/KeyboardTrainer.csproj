@@ -64,9 +64,7 @@
     <Compile Include="Extentions.cs" />
     <Compile Include="Models\Updater.cs" />
     <Compile Include="ViewModels\Loc.cs" />
-    <Compile Include="Views\MainMenu\Training.xaml.cs">
-      <DependentUpon>Training.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="RatioConverter.cs" />
     <Compile Include="Views\MainMenu\Manual_\Manual.xaml.cs">
       <DependentUpon>Manual.xaml</DependentUpon>
     </Compile>
@@ -77,10 +75,9 @@
     <Compile Include="Views\MainMenu\MyResults.xaml.cs">
       <DependentUpon>MyResults.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\MainMenu\Training.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Views\MainMenu\SelectLesson.xaml.cs">
+      <DependentUpon>SelectLesson.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\MainMenu\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainMenu\MyResults.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainMenu\SelectLesson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

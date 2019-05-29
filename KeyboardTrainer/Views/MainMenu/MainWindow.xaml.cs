@@ -1,7 +1,6 @@
 ﻿using KeyboardTrainer.Models;
-using KeyboardTrainer.ViewModels;
 using KeyboardTrainer.Views;
-using KeyboardTrainer.Views.MainMenu.Learning_;
+using KeyboardTrainer.Views.MainMenu;
 using KeyboardTrainer.Views.Manual_;
 using KeyboardTrainer.Views.Training_.ViewModels;
 using System.Windows;
@@ -21,7 +20,7 @@ namespace KeyboardTrainer
             viewModel.Update();//check updates
             InitializeComponent();
             viewModel.LocalizeButtons(btn_learning, btn_manual, btn_training);
-            cb_language.SelectedIndex = 0;            
+            cb_language.SelectedIndex = 0;
         }
 
         private void Btn_myResults_Click(object sender, RoutedEventArgs e)
@@ -63,12 +62,11 @@ namespace KeyboardTrainer
 
         private void Btn_learning_Click(object sender, RoutedEventArgs e)
         {
-            Training learning = new Training(GetSelectedLanguage());
+            SelectLesson selectLesson = new SelectLesson(GetSelectedLanguage());
             this.Hide();
-            if (learning.ShowDialog() != null)
-            {
-                this.Show();
-            }
+            selectLesson.Show();
+            selectLesson.Closed += (_s, _e) => this.Show();
+            
         }
 
         private void cb_SelectedLangugeChanged(object sender, SelectionChangedEventArgs e)

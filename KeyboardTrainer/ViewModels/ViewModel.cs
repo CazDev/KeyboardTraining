@@ -54,7 +54,8 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
 
         private void InitTranslates()
         {
-            AddTranslate("Training", "Тренировка");
+            //TODO: you can add new translated for string here
+            AddTranslate("Lessons", "Уроки");
             AddTranslate("Please change keyboard layout", "Пожалуйста смените раскладку");
             AddTranslate("Mistakes", "Ошибки");
             AddTranslate("Total work", "Всего");
@@ -64,6 +65,18 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             AddTranslate("Type text", "Вводите текст");
             AddTranslate("Chars left", "Символов осталось");
             AddTranslate("MainWindow", "Главное окно");
+            AddTranslate("Training", "Тренировка");
+            AddTranslate("My results", "Мои результаты");
+            AddTranslate("Manual", "Руководство");
+            AddTranslate("Your speed", "Ваша скорость");
+            AddTranslate("keys per minute", "символов в минуту");
+            AddTranslate("You make most mistakes in", "Больше всего ошибок в");
+            AddTranslate("Statistics", "Статистика");
+            AddTranslate("New update found! Do you want to update now?", "Найдено новое обновление! Хотите обновиться сейчас?");
+            AddTranslate("Update error", "Ошибка во время обновления");
+            AddTranslate("Lesson", "Урок");
+            AddTranslate("You have passed the lesson", "Вы прошли урок");
+            AddTranslate("Select lesson", "Выберите урок");
         }
 
         public void LocalizeButtons(params Button[] buttons)
@@ -103,7 +116,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
                 {
                     if (updater.NeedUpdate())
                     {
-                        MessageBoxResult res = MessageBox.Show("New update found! Do you want to update now?", "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        MessageBoxResult res = MessageBox.Show(Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (res == MessageBoxResult.Yes)
                         {
                             sayAboutFail = true;
@@ -115,7 +128,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
                 {
                     if (sayAboutFail)
                     {
-                        MessageBox.Show("Update error", "Updater", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Translate("Update error"), "Updater", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             });
@@ -240,7 +253,6 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         {
             return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
         }
-
         private string GetRandomSperator()
         {
             string[] sperators =
@@ -252,142 +264,6 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
                 "? "
             };
             return sperators[rnd.Next(0, sperators.Length)];
-        }
-        private string ToRussianChar(string engChar)
-        {
-            if (engChar == "oem3")
-            {
-                return "ё";
-            }
-            if (engChar == "q")
-            {
-                return "й";
-            }
-            else if (engChar == "w")
-            {
-                return "ц";
-            }
-            else if (engChar == "e")
-            {
-                return "у";
-            }
-            else if (engChar == "r")
-            {
-                return "к";
-            }
-            else if (engChar == "t")
-            {
-                return "е";
-            }
-            else if (engChar == "y")
-            {
-                return "н";
-            }
-            else if (engChar == "u")
-            {
-                return "г";
-            }
-            else if (engChar == "i")
-            {
-                return "ш";
-            }
-            else if (engChar == "o")
-            {
-                return "щ";
-            }
-            else if (engChar == "p")
-            {
-                return "з";
-            }
-            else if (engChar == "oemopenbrackets")
-            {
-                return "х";
-            }
-            else if (engChar == "oem6")
-            {
-                return "ъ";
-            }
-            else if (engChar == "a")
-            {
-                return "ф";
-            }
-            else if (engChar == "s")
-            {
-                return "ы";
-            }
-            else if (engChar == "d")
-            {
-                return "в";
-            }
-            else if (engChar == "f")
-            {
-                return "а";
-            }
-            else if (engChar == "g")
-            {
-                return "п";
-            }
-            else if (engChar == "h")
-            {
-                return "р";
-            }
-            else if (engChar == "j")
-            {
-                return "о";
-            }
-            else if (engChar == "k")
-            {
-                return "л";
-            }
-            else if (engChar == "l")
-            {
-                return "д";
-            }
-            else if (engChar == "oem1")
-            {
-                return "ж";
-            }
-            else if (engChar == "oemquotes")
-            {
-                return "э";
-            }
-            else if (engChar == "z")
-            {
-                return "я";
-            }
-            else if (engChar == "x")
-            {
-                return "ч";
-            }
-            else if (engChar == "c")
-            {
-                return "с";
-            }
-            else if (engChar == "v")
-            {
-                return "м";
-            }
-            else if (engChar == "b")
-            {
-                return "и";
-            }
-            else if (engChar == "n")
-            {
-                return "т";
-            }
-            else if (engChar == "m")
-            {
-                return "ь";
-            }
-            else if (engChar == ",")
-            {
-                return "б";
-            }
-            else if (engChar == "oemperiod")
-            {
-                return "ю";
-            }
-            return engChar;
         }
         private string GetRandomString()
         {

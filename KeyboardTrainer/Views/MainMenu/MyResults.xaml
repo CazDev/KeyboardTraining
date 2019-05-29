@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeyboardTrainer.Views"
+        xmlns:tools="clr-namespace:MyApp.Tools"
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
+        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Training" Height="450" Width="800">
+        Title="Training">
     <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="250*"/>

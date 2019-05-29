@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace KeyboardTrainer.ViewModels
@@ -15,26 +12,9 @@ namespace KeyboardTrainer.ViewModels
         Dictionary<string, string> eng_rus = new Dictionary<string, string>();
         List<Button> Buttons = new List<Button>();
         public MLanguage Curr_Language;
-        bool inited = false;
         public Loc(MLanguage language)
         {
             this.Curr_Language = language;
-            if (!inited)
-            {
-                init();
-            }
-        }
-
-        void init()
-        {
-            eng_rus.Add("Training", "Тренировка");
-            eng_rus.Add("My results", "Мои результаты");
-            eng_rus.Add("Manual", "Руководство");
-            eng_rus.Add("Your speed", "Ваша скорость");
-            eng_rus.Add("keys per minute", "символов в минуту");
-            eng_rus.Add("You make most mistakes in", "Больше всего ошибок в");
-            eng_rus.Add("Statistics", "Статистика");
-            inited = true;
         }
 
         public void AddButton(params Button[] buttons)
@@ -61,7 +41,7 @@ namespace KeyboardTrainer.ViewModels
             }
             if (Curr_Language == MLanguage.ENGLISH)//translate to rus find key by value
             {
-                foreach (var currValue in eng_rus.Values)
+                foreach (string currValue in eng_rus.Values)
                 {
                     if (currValue == engOrRus)
                     {
@@ -79,7 +59,7 @@ namespace KeyboardTrainer.ViewModels
         {
             if (Curr_Language == MLanguage.RUSSIAN)//translate to rus
             {
-                foreach (var btn in Buttons)
+                foreach (Button btn in Buttons)
                 {
                     if (eng_rus.TryGetValue(btn.Content.ToString(), out string value))
                     {
@@ -89,9 +69,9 @@ namespace KeyboardTrainer.ViewModels
             }
             if (Curr_Language == MLanguage.ENGLISH)//translate to rus find key by value
             {
-                foreach (var btn in Buttons)
+                foreach (Button btn in Buttons)
                 {
-                    foreach (var currValue in eng_rus.Values)
+                    foreach (string currValue in eng_rus.Values)
                     {
                         if (currValue == btn.Content.ToString())
                         {
