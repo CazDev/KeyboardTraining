@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyboardTrainer.Views.Training_.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -22,9 +23,14 @@ namespace KeyboardTrainer.Views.Manual_
     /// </summary>
     public partial class Manual : Window
     {
-        public Manual()
+        ViewModel viewModel;
+        public MLanguage language { get; set; }
+        public Manual(MLanguage language)
         {
             InitializeComponent();
+            this.language = language;
+            viewModel = new ViewModel(language);
+            this.Title = viewModel.Translate("Manual");
             tab2_image.Source = ImageSourceForBitmap(Properties.Resources.keyboard);
         }
 

@@ -19,7 +19,6 @@ namespace KeyboardTrainer
 
             viewModel.Update();//check updates
             InitializeComponent();
-            viewModel.LocalizeButtons(btn_learning, btn_manual, btn_training);
             cb_language.SelectedIndex = 0;
         }
 
@@ -52,7 +51,7 @@ namespace KeyboardTrainer
 
         private void Btn_manual_Click(object sender, RoutedEventArgs e)
         {
-            Manual manual = new Manual();
+            Manual manual = new Manual(GetSelectedLanguage());
             this.Hide();
             if (manual.ShowDialog() != null)
             {
@@ -73,6 +72,9 @@ namespace KeyboardTrainer
         {
             viewModel.ChangeLanguageTo(GetSelectedLanguage());
             this.Title = viewModel.Translate("MainWindow");
+            btn_learning.Content = viewModel.Translate("Lessons");
+            btn_training.Content = viewModel.Translate("My results");
+            btn_manual.Content = viewModel.Translate("Manual");
         }
     }
 }

@@ -25,8 +25,8 @@ namespace KeyboardTrainer.Views.MainMenu
                 Button btn = new Button()
                 {
                     Content = viewModel.Translate("Lesson") + " " + i,
-                    Height = 40,
-                    Width = 300
+                    Height = this.Height * 0.061728,//height depends on window height
+                    Width = this.Width * 0.625
                 };
                 btn.Click += Btn_Click;
 

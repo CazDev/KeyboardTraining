@@ -79,14 +79,9 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             AddTranslate("Select lesson", "Выберите урок");
         }
 
-        public void LocalizeButtons(params Button[] buttons)
-        {
-            loc.AddButton(buttons);
-        }
-
         public void AddTranslate(string eng, string rus)
         {
-            loc.AddString(eng, rus);
+            loc.AddTranslate(eng, rus);
         }
 
         public string Translate(string engOrRus)
@@ -98,7 +93,6 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         {
             Language = language;
             loc.Curr_Language = language;
-            loc.TranslateButtons();
         }
 
 

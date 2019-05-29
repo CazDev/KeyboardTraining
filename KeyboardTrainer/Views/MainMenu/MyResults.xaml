@@ -7,14 +7,16 @@
         xmlns:tools="clr-namespace:MyApp.Tools"
         Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
+        MinHeight="430"
+        MinWidth="600"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Training">
     <Grid Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="250*"/>
+            <RowDefinition Height="300*"/>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="150*"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="textblockText" Grid.Row="0"  Background="LightGray" Margin="2" Text="" FontSize="30" TextAlignment="Left" VerticalAlignment="Center"/>

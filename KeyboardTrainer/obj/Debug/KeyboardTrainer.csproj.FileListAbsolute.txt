@@ -19,3 +19,4 @@ C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.csproj.Generate
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.csproj.CoreCompileInputs.cache
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.exe
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.pdb
+C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.csprojAssemblyReference.cache
