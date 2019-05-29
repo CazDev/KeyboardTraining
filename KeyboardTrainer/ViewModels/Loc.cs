@@ -30,6 +30,10 @@ namespace KeyboardTrainer.ViewModels
             eng_rus.Add("Training", "Тренировка");
             eng_rus.Add("My results", "Мои результаты");
             eng_rus.Add("Manual", "Руководство");
+            eng_rus.Add("Your speed", "Ваша скорость");
+            eng_rus.Add("keys per minute", "символов в минуту");
+            eng_rus.Add("You make most mistakes in", "Больше всего ошибок в");
+            eng_rus.Add("Statistics", "Статистика");
             inited = true;
         }
 

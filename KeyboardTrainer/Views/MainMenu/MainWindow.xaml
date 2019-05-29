@@ -7,15 +7,50 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Title="MainWindow" Height="600" Width="600">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#373737" />
+            <Setter Property="Margin" Value="30"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="50" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6a00ff" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#0050ef" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </Window.Resources>
+    
     <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btn_learning" Grid.Row="0" Margin="30" Content="Training" Click="Btn_learning_Click"/>
-        <Button x:Name="btn_training" Grid.Row="1" Margin="30" Content="My results" Click="Btn_myResults_Click"/>
-        <Button x:Name="btn_manual" Grid.Row="2" Margin="30" Content="Manual" Click="Btn_manual_Click"/>
+        <Button x:Name="btn_learning" Grid.Row="0" Content="Training" Click="Btn_learning_Click"/>
+        <Button x:Name="btn_training" Grid.Row="1" Content="My results" Click="Btn_myResults_Click"/>
+        <Button x:Name="btn_manual" Grid.Row="2" Content="Manual" Click="Btn_manual_Click"/>
 
         <ComboBox Name="cb_language" Grid.Row="2" Height="30" VerticalAlignment="Bottom" Margin="0,99,0,0" SelectionChanged="cb_SelectedLangugeChanged">
             <TextBlock>Russian</TextBlock>

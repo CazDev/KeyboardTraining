@@ -7,12 +7,12 @@
         WindowStartupLocation="CenterScreen" 
         mc:Ignorable="d"
         Title="FastLearn" Height="450" Width="850">
-    <Grid>
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="350*"/>
             <RowDefinition Height="55*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="txtbx_TextToType" Grid.Row="0" Background="Gray" IsEnabled="False" Margin="50,184,50,116" FontSize="50" TextAlignment="Center" VerticalAlignment="Center" Height="68"/>
+        <TextBlock x:Name="txtbx_TextToType" Background="White" Grid.Row="0" IsEnabled="False" Margin="50,150,50,100" FontSize="50" TextAlignment="Center" VerticalAlignment="Center" Height="70"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock x:Name="txtbx_Time" Grid.Row="1" Background="Gray" IsEnabled="False" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Time:"/>
             <TextBlock x:Name="txtbx_Mistakes" Grid.Row="1" Margin="100, 0, 0, 0" Background="Gray" IsEnabled="False" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Mistakes: 0"/>

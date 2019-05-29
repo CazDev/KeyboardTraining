@@ -182,8 +182,11 @@ namespace KeyboardTrainer.Views
         {
             string str_mistakeLetters = GetStringMistakesInEachLetter();
             viewModel.Begin = new DateTime(1, 1, 1);//stop time counter (year = 1)
-            MessageBox.Show($"Your speed {statistics.Speed.ToString("0.00")} keys per minute.\nYou make most mistakes in:\n{str_mistakeLetters}", "Statistics", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            ShowStatistics(statistics.Speed, str_mistakeLetters);
+        }
+        void ShowStatistics(double Speed, string str_mistakeLetters)
+        {
+            MessageBox.Show($"{viewModel.Translate("Your speed")} {Speed.ToString("0.00")} {viewModel.Translate("keys per minute")}.\n{viewModel.Translate("You make most mistakes in")}:\n{str_mistakeLetters}", viewModel.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private string GetStringMistakesInEachLetter()
