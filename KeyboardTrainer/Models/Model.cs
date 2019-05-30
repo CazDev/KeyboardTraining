@@ -3,10 +3,13 @@ using static KeyboardTrainer.Views.Training_.ViewModels.ViewModel;
 
 namespace KeyboardTrainer.Views.Training_.Models
 {
+    /// <summary>
+    /// Start new round, send chars on user input, get result using public fields
+    /// </summary>
     public class Model
     {
         /// <summary>
-        /// Chars that user should type
+        /// Chars that user should type, string left
         /// </summary>
         public string ChrsLeft { get; set; }
         public int Mistakes { get; set; }
@@ -18,7 +21,7 @@ namespace KeyboardTrainer.Views.Training_.Models
         /// <param name="chr">key char, translated to russian if need</param>
         public bool? SendChar(string chr)
         {
-            if (chr.ToLower() == "backspace")
+            if (chr.ToLower() == "\b")
             {
                 return null;
             }

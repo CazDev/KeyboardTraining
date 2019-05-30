@@ -9,9 +9,9 @@ using System.Text;
 public class Updater
 {
     public string ThisVersion { get; } = "0.8.2"; //TODO: Before commiting change version here and in file "version_info"
-    readonly string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
-    readonly string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
-    readonly string programName = "KeyboardTrainer";
+    private readonly string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
+    private readonly string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
+    private readonly string programName = "KeyboardTrainer";
 
     public bool NeedUpdate()
     {
@@ -86,7 +86,7 @@ public class Updater
         string[] str = ParseMethod("<td id=\"LC1\" class=\"blob-code blob-code-inner js-file-line\">", "</td>", html);
         return str[0];
     }
-    public string[] ParseMethod(string str_begin, string str_end, string str_html)
+    private string[] ParseMethod(string str_begin, string str_end, string str_html)
     {
         List<string> list = new List<string>();
         for (int i = 0; i < str_html.Length - str_begin.Length; i++)

@@ -2,7 +2,6 @@ C:\C#\KeyboardTraining\KeyboardTrainer\bin\Debug\KeyboardTrainer.exe.config
 C:\C#\KeyboardTraining\KeyboardTrainer\bin\Debug\KeyboardTrainer.exe
 C:\C#\KeyboardTraining\KeyboardTrainer\bin\Debug\KeyboardTrainer.pdb
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\MainWindow.g.cs
-C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\Manual_\Manual.g.cs
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\MyResults.g.cs
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\SelectLesson.g.cs
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\App.g.cs
@@ -10,7 +9,6 @@ C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\GeneratedInternalTypeHelper.g.c
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer_MarkupCompile.cache
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer_MarkupCompile.lref
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\MainWindow.baml
-C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\Manual_\Manual.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\MyResults.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\SelectLesson.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.g.resources
@@ -20,3 +18,5 @@ C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.csproj.CoreComp
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.exe
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.pdb
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.csprojAssemblyReference.cache
+C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\Manual.g.cs
+C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainMenu\Manual.baml

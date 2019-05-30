@@ -6,7 +6,7 @@ using System.Windows.Controls;
 namespace KeyboardTrainer.Views.MainMenu
 {
     /// <summary>
-    /// Логика взаимодействия для SelectLesson.xaml
+    /// Logic for SelectLesson.xaml
     /// </summary>
     public partial class SelectLesson : Window
     {

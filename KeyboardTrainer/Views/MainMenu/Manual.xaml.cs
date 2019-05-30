@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 namespace KeyboardTrainer.Views.Manual_
 {
     /// <summary>
-    /// Логика взаимодействия для Manual.xaml
+    /// Logic for Manual.xaml
     /// </summary>
     public partial class Manual : Window
     {

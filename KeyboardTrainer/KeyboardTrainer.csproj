@@ -63,9 +63,9 @@
     <Compile Include="Models\Database.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="Models\Updater.cs" />
-    <Compile Include="ViewModels\Loc.cs" />
+    <Compile Include="Models\Loc.cs" />
     <Compile Include="RatioConverter.cs" />
-    <Compile Include="Views\MainMenu\Manual_\Manual.xaml.cs">
+    <Compile Include="Views\MainMenu\Manual.xaml.cs">
       <DependentUpon>Manual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Model.cs" />
@@ -90,7 +90,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\MainMenu\Manual_\Manual.xaml">
+    <Page Include="Views\MainMenu\Manual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

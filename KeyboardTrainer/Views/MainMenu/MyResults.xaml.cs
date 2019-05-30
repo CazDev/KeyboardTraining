@@ -234,7 +234,7 @@ namespace KeyboardTrainer.Views
 
                 while (true)
                 {
-                    var keybaordLayout = viewModel.GetKeyboardLayout();
+                    ushort keybaordLayout = viewModel.GetKeyboardLayout();
                     if (language == MLanguage.ENGLISH && keybaordLayout == 1033)
                     {
                         break;
@@ -280,7 +280,7 @@ namespace KeyboardTrainer.Views
                 {
                     textblockText.TextAlignment = TextAlignment.Left;
                 });
-            #endregion
+                #endregion
                 if (customString == "")
                 {
                     viewModel.NewRound(viewModel.GetString(language, 100));// txt will change text using event StatisticChanged
@@ -321,7 +321,7 @@ namespace KeyboardTrainer.Views
                         this.DialogResult = true;
                     });
                 }
-                StartGame(); 
+                StartGame();
                 mostMistakeLetters.Clear();
             }
         }

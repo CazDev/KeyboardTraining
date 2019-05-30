@@ -6,7 +6,7 @@ using System.Windows.Markup;
 namespace MyApp.Tools
 {
     /// <summary>
-    /// Convert xaml window heght and width, depends on user's screen
+    /// Convert xaml window height and width, depends on user's screen
     /// </summary>
     [ValueConversion(typeof(string), typeof(string))]
     public class RatioConverter : MarkupExtension, IValueConverter

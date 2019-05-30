@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace KeyboardTrainer.Views.Training_.ViewModels
 {
@@ -15,11 +14,23 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         Model Model;
         Loc loc;
         Random rnd = new Random();
-        public MLanguage Language { get; private set; }
         /// <summary>
         /// Length of string before sending chars
         /// </summary>
-        public int FirstLength { get; private set; }
+        private int FirstLength { get;  set; }
+        private MLanguage Current_Language { get; set; }
+        /// <summary>
+        /// Speed of user's typing
+        /// </summary>
+        private double Speed
+        {
+            get
+            {
+                return FirstLength / ((DateTime.Now - Begin).TotalMilliseconds / 60000);
+            }
+        }
+
+
         public delegate void Mistake(string letter);
         /// <summary>
         /// Invokes on user makes mistake when send wrong char
@@ -29,13 +40,6 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// string left to type
         /// </summary>
         public string CharsLeft => Model.ChrsLeft;
-        public double Speed
-        {
-            get
-            {
-                return FirstLength / ((DateTime.Now - Begin).TotalMilliseconds / 60000);
-            }
-        }
         public DateTime Begin { get; set; }
 
 
@@ -45,57 +49,25 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         public ViewModel(MLanguage language)
         {
             this.Model = new Model();
-            this.Language = language;
+            this.Current_Language = language;
             loc = new Loc(language);
             Model.Mistaked += (l) => this.Mistaked?.Invoke(l);
 
             InitTranslates();
         }
-
-        private void InitTranslates()
-        {
-            //TODO: you can add new translated for string here
-            AddTranslate("Lessons", "Уроки");
-            AddTranslate("Please change keyboard layout", "Пожалуйста смените раскладку");
-            AddTranslate("Mistakes", "Ошибки");
-            AddTranslate("Total work", "Всего");
-            AddTranslate("Time", "Время");
-            AddTranslate("Retry", "Заново");
-            AddTranslate("sec", "сек");
-            AddTranslate("Type text", "Вводите текст");
-            AddTranslate("Chars left", "Символов осталось");
-            AddTranslate("MainWindow", "Главное окно");
-            AddTranslate("Training", "Тренировка");
-            AddTranslate("My results", "Мои результаты");
-            AddTranslate("Manual", "Руководство");
-            AddTranslate("Your speed", "Ваша скорость");
-            AddTranslate("keys per minute", "символов в минуту");
-            AddTranslate("You make most mistakes in", "Больше всего ошибок в");
-            AddTranslate("Statistics", "Статистика");
-            AddTranslate("New update found! Do you want to update now?", "Найдено новое обновление! Хотите обновиться сейчас?");
-            AddTranslate("Update error", "Ошибка во время обновления");
-            AddTranslate("Lesson", "Урок");
-            AddTranslate("You have passed the lesson", "Вы прошли урок");
-            AddTranslate("Select lesson", "Выберите урок");
-        }
-
         public void AddTranslate(string eng, string rus)
         {
             loc.AddTranslate(eng, rus);
         }
-
         public string Translate(string engOrRus)
         {
             return loc.Translate(engOrRus);
         }
-
         public void ChangeLanguageTo(MLanguage language)
         {
-            Language = language;
+            Current_Language = language;
             loc.Curr_Language = language;
         }
-
-
         /// <summary>
         /// Finds new version, asks user, update, restart app
         /// </summary>
@@ -128,19 +100,14 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             });
             checkNewVersion.Start();
         }
-
         /// <summary>
-        /// retunrs true if it is right char.
+        /// returns true if it is right char.
         /// Use: KeyConverter kc = new KeyConverter(); ConvertToString(e.Key);
         /// </summary>
         /// <param name="chr"></param>
         /// <returns></returns>
         public bool? SendChar(string chr)
         {
-            if (Language == MLanguage.RUSSIAN)
-            {
-                //chr = ToRussianChar(chr.ToLower());
-            }
             if (chr.ToLower() == "space")
             {
                 chr = " ";
@@ -189,12 +156,44 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             Statistics statistics = new Statistics(Model.ChrsLeft, Model.Mistakes);
             StatisticChanged?.Invoke(statistics);
         }
+
+        /// <summary>
+        /// You can add translations here
+        /// </summary>
+        private void InitTranslates()
+        {
+            //TODO: you can add new translated for string here
+            AddTranslate("Lessons", "Уроки");
+            AddTranslate("Please change keyboard layout", "Пожалуйста смените раскладку");
+            AddTranslate("Mistakes", "Ошибки");
+            AddTranslate("Total work", "Всего");
+            AddTranslate("Time", "Время");
+            AddTranslate("Retry", "Заново");
+            AddTranslate("sec", "сек");
+            AddTranslate("Type text", "Вводите текст");
+            AddTranslate("Chars left", "Символов осталось");
+            AddTranslate("MainWindow", "Главное окно");
+            AddTranslate("Training", "Тренировка");
+            AddTranslate("My results", "Мои результаты");
+            AddTranslate("Manual", "Руководство");
+            AddTranslate("Your speed", "Ваша скорость");
+            AddTranslate("keys per minute", "символов в минуту");
+            AddTranslate("You make most mistakes in", "Больше всего ошибок в");
+            AddTranslate("Statistics", "Статистика");
+            AddTranslate("New update found! Do you want to update now?", "Найдено новое обновление! Хотите обновиться сейчас?");
+            AddTranslate("Update error", "Ошибка во время обновления");
+            AddTranslate("Lesson", "Урок");
+            AddTranslate("You have passed the lesson", "Вы прошли урок");
+            AddTranslate("Select lesson", "Выберите урок");
+        }
+        #region private
+
         /// <summary>
         /// Gets random word
         /// </summary>
         /// <param name="mLanguage">Language</param>
         /// <returns></returns>
-        public string GetWord(MLanguage mLanguage)//depends on this.Language
+        private string GetWordFromDataBase(MLanguage mLanguage)//depends on this.Language
         {
             if (mLanguage == MLanguage.ENGLISH)
             {
@@ -213,12 +212,12 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// Based on GetWord
         /// </summary>
         /// <returns></returns>
-        public string GetString(MLanguage mLanguage, int length)
+        private string GetString(MLanguage mLanguage, int length)
         {
             string result = "";
             do
             {
-                result += GetWord(mLanguage) + GetRandomSperator();
+                result += GetWordFromDataBase(mLanguage) + GetRandomSperator();
             } while (result.Length < length);
             result = result.Remove(result.Length - 1);//remove last space
             return result;
@@ -243,7 +242,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// 1033 - eng
         /// 1049 - rus
         /// </summary>
-        public ushort GetKeyboardLayout()
+        private ushort GetKeyboardLayout()
         {
             return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
         }
@@ -262,12 +261,12 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         private string GetRandomString()
         {
             char[] chrs = new char[2];
-            if (Language == MLanguage.ENGLISH)
+            if (Current_Language == MLanguage.ENGLISH)
             {
                 chrs[0] = 'a';
                 chrs[1] = 'z';
             }
-            else if (Language == MLanguage.RUSSIAN)
+            else if (Current_Language == MLanguage.RUSSIAN)
             {
                 chrs[0] = 'а';
                 chrs[1] = 'я';
@@ -281,5 +280,6 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             }
             return result;
         }
+        #endregion
     }
 }
