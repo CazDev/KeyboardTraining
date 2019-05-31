@@ -124,4 +124,13 @@
   <data name="MainWindowIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainWindowIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="githubIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\githubIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infoIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="updateIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\updateIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

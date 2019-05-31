@@ -61,6 +61,26 @@ namespace KeyboardTrainer.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon githubIcon {
+            get {
+                object obj = ResourceManager.GetObject("githubIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon infoIcon {
+            get {
+                object obj = ResourceManager.GetObject("infoIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap keyboard {
@@ -76,6 +96,16 @@ namespace KeyboardTrainer.Properties {
         internal static System.Drawing.Icon MainWindowIcon {
             get {
                 object obj = ResourceManager.GetObject("MainWindowIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon updateIcon {
+            get {
+                object obj = ResourceManager.GetObject("updateIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

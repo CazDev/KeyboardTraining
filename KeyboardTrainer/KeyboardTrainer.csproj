@@ -138,5 +138,17 @@
   <ItemGroup>
     <Resource Include="MainWindowIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\githubIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\infoIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\updateIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\githubIcon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

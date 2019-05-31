@@ -12,7 +12,6 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
     public class ViewModel
     {
         Model Model;
-        Loc loc;
         Random rnd = new Random();
         /// <summary>
         /// Length of string before sending chars
@@ -50,43 +49,42 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         {
             this.Model = new Model();
             this.Current_Language = language;
-            loc = new Loc(language);
+            Loc.Curr_Language = language;
             Model.Mistaked += (l) => this.Mistaked?.Invoke(l);
 
             InitTranslates();
         }
         public void AddTranslate(string eng, string rus)
         {
-            loc.AddTranslate(eng, rus);
+            Loc.AddTranslate(eng, rus);
         }
         public string Translate(string engOrRus)
         {
-            return loc.Translate(engOrRus);
+            return Loc.Translate(engOrRus);
         }
         public void ChangeLanguageTo(MLanguage language)
         {
             Current_Language = language;
-            loc.Curr_Language = language;
+            Loc.Curr_Language = language;
         }
         /// <summary>
         /// Finds new version, asks user, update, restart app
         /// </summary>
         public void Update()
         {
-            Updater updater = new Updater();
             Task checkNewVersion = new Task(() =>
             {
                 Thread.Sleep(1000);
                 bool sayAboutFail = false;
                 try
                 {
-                    if (updater.NeedUpdate())
+                    if (Updater.NeedUpdate())
                     {
                         MessageBoxResult res = MessageBox.Show(Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (res == MessageBoxResult.Yes)
                         {
                             sayAboutFail = true;
-                            updater.Update();
+                            Updater.Update();
                         }
                     }
                 }
@@ -185,6 +183,10 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             AddTranslate("Lesson", "Урок");
             AddTranslate("You have passed the lesson", "Вы прошли урок");
             AddTranslate("Select lesson", "Выберите урок");
+            AddTranslate("Updates not found", "Обновления не найдены");
+            AddTranslate("Check for updates", "Проверьте наличие обновлений");
+            AddTranslate("Visit github.com", "Посетить github.com");
+            AddTranslate("Show information", "Показать информацию");
         }
         #region private
 
@@ -212,7 +214,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// Based on GetWord
         /// </summary>
         /// <returns></returns>
-        private string GetString(MLanguage mLanguage, int length)
+        public string GetString(MLanguage mLanguage, int length)
         {
             string result = "";
             do
@@ -242,7 +244,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// 1033 - eng
         /// 1049 - rus
         /// </summary>
-        private ushort GetKeyboardLayout()
+        public ushort GetKeyboardLayout()
         {
             return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
         }

@@ -11,6 +11,7 @@
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.25' }" 
         MinHeight="500"
         MinWidth="350"
+        ResizeMode="NoResize"
         Title="MainWindow">
     <Window.Resources>
         <Style TargetType="Button">
@@ -44,20 +45,27 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
     </Window.Resources>
-    
+
     <Grid Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="150*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btn_learning" Grid.Row="0" Content="Lessons" Click="Btn_learning_Click"/>
-        <Button x:Name="btn_training" Grid.Row="1" Content="My results" Click="Btn_myResults_Click"/>
-        <Button x:Name="btn_manual" Grid.Row="2" Content="Manual" Click="Btn_manual_Click"/>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Image x:Name="image_githubLink" Margin="5, 3"/>
+            <Image x:Name="image_Update" Margin="5, 3"/>
+            <Image x:Name="image_Info" Margin="5, 3"/>
+        </StackPanel>
+        <Button x:Name="btn_learning" Grid.Row="1" Content="Lessons" Click="Btn_learning_Click"/>
+        <Button x:Name="btn_training" Grid.Row="2" Content="My results" Click="Btn_myResults_Click"/>
+        <Button x:Name="btn_manual" Grid.Row="3" Content="Manual" Click="Btn_manual_Click"/>
 
-        <ComboBox Name="cb_language" Grid.Row="2" Height="30" VerticalAlignment="Bottom" Margin="0,99,0,0" SelectionChanged="cb_SelectedLangugeChanged">
+        <ComboBox Name="cb_language" Grid.Row="3" Height="30" VerticalAlignment="Bottom" SelectionChanged="cb_SelectedLangugeChanged">
             <TextBlock>Russian</TextBlock>
             <TextBlock>English</TextBlock>
         </ComboBox>

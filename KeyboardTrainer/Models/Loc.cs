@@ -5,16 +5,12 @@ namespace KeyboardTrainer.ViewModels
     /// <summary>
     /// Localization
     /// </summary>
-    public class Loc
+    public static class Loc
     {
-        Dictionary<string, string> eng_rus = new Dictionary<string, string>();
-        public MLanguage Curr_Language;
-        public Loc(MLanguage language)
-        {
-            this.Curr_Language = language;
-        }
+        static Dictionary<string, string> eng_rus = new Dictionary<string, string>();
+        static public MLanguage Curr_Language;
 
-        public void AddTranslate(string eng, string rus)
+        public static void AddTranslate(string eng, string rus)
         {
             if (eng_rus.TryGetValue(eng, out string v))
             {
@@ -22,7 +18,7 @@ namespace KeyboardTrainer.ViewModels
             }
             eng_rus.Add(eng, rus);
         }
-        public string Translate(string engOrRus)
+        public static string Translate(string engOrRus)
         {
             if (Curr_Language == MLanguage.RUSSIAN)//translate to rus
             {
@@ -47,7 +43,7 @@ namespace KeyboardTrainer.ViewModels
         /// Get key by value
         /// </summary>
         /// <returns></returns>
-        string KeyByValue(Dictionary<string, string> dict, string val)
+        static string KeyByValue(Dictionary<string, string> dict, string val)
         {
             string key = null;
             foreach (KeyValuePair<string, string> pair in dict)
