@@ -1,12 +1,12 @@
 ﻿using System;
-using static KeyboardTrainer.Views.Training_.ViewModels.ViewModel;
+using static KeyboardTrainer.Views.Training_.ViewModels.TextType;
 
 namespace KeyboardTrainer.Views.Training_.Models
 {
     /// <summary>
     /// Start new round, send chars on user input, get result using public fields
     /// </summary>
-    public class Model
+    public class TypeLogic
     {
         /// <summary>
         /// Chars that user should type, string left

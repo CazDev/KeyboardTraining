@@ -1,4 +1,4 @@
-﻿using KeyboardTrainer.Models;
+﻿using KeyboardTrainer.ViewModels;
 using KeyboardTrainer.Views.Training_.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,40 +17,23 @@ namespace KeyboardTrainer.Views
         bool IsTimerTicking = false; //timer before game 
         bool LessonMode { get; set; }
         public Statistics LastStatistics { get; set; }
-        bool exited = false; //if form is closed
+        bool FormIsClosed = false;
 
         /// <summary>
         /// Get results
         /// </summary>
         /// <param name="language"></param>
-        public MyResults(MLanguage language)
+        public MyResults()
         {
             InitializeComponent();
-            this.Closing += (s, e) => exited = true;
 
-            ViewModel.Current_Language = language;
-            this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
+            this.Title = Loc.Translate("My results");            
+            LessonMode = false;
 
-            this.Title = ViewModel.Translate("My results");
-            retry.Text = ViewModel.Translate("Retry");
-            textInfo.Text = ViewModel.Translate("Type text");
-
-            StatisticChanged(new Statistics(new string('*', 100), 0));//to update labels
-
+            TranslateUIElements();
+            InitEvents();
             StartGame();
-
-            #region Register events
-
-            ViewModel.StatisticChanged += StatisticChanged;
-            ViewModel.Mistaked += Mistaked;
-            this.TextInput += Win_TextInput;
-            StartTimeTimer();
-            retry.MouseDown += (s, e) =>
-            {
-                StartGame();
-            };
-
-            #endregion
+            StartTimeCounter();
         }
 
         /// <summary>
@@ -58,7 +41,7 @@ namespace KeyboardTrainer.Views
         /// </summary>
         /// <param name="language"></param>
         /// <param name="numOfLesson"></param>
-        public MyResults(MLanguage language, int numOfLesson)
+        public MyResults(int numOfLesson)
         {
             if (numOfLesson < 1 || numOfLesson > 18)
             {
@@ -66,28 +49,44 @@ namespace KeyboardTrainer.Views
             }
 
             InitializeComponent();
-            this.Closing += (s, e) => exited = true;
-
+            this.Title = Loc.Translate("Lesson") + " " + numOfLesson;
             LessonMode = true;
-            string avaibleChrs = GetAvaibleChrs(language, numOfLesson);
-            ViewModel.Current_Language = language;
-            this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
 
-            this.Title = ViewModel.Translate("Lesson") + " " + numOfLesson;
-            retry.Text = ViewModel.Translate("Retry");
-            textInfo.Text = ViewModel.Translate("Type text");
-            lbl_left.Content = ViewModel.Translate("Chars left") + ":";
-            lbl_mistakes.Content = ViewModel.Translate("Mistakes") + ":";
-            retry.Opacity = 0;
+            string avaibleChrs = GetAvaibleChrs(Loc.Curr_Language, numOfLesson);
 
-            ViewModel.StatisticChanged += StatisticChanged;
-            ViewModel.Mistaked += Mistaked;
-            this.TextInput += Win_TextInput;
+            lbl_retry.Opacity = 0; //hide retry label, can't retry in lesson mode 
 
+            TranslateUIElements();
+            InitEvents();
             StartGame(GetStringUsingChars(avaibleChrs, 100));
-
-            StartTimeTimer();
+            StartTimeCounter();
         }
+
+        private void InitEvents()
+        {
+            this.Closing += (s, e) => FormIsClosed = true;
+            TextType.StatisticChanged += StatisticChanged;
+            TextType.Mistaked += Mistaked;
+            this.TextInput += Win_TextInput;
+            lbl_retry.MouseDown += (s, e) =>
+            {
+                StartGame();
+            };
+        }
+
+        private void TranslateUIElements()
+        {
+            this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
+            lbl_retry.Text = Loc.Translate("Retry");
+            textInfo.Text = Loc.Translate("Type text");
+            lbl_retry.Text = Loc.Translate("Retry");
+            textInfo.Text = Loc.Translate("Type text");
+
+            lbl_left.Content = $"{Loc.Translate("Chars left")}: 0";
+            lbl_mistakes.Content = $"{Loc.Translate("Mistakes")}: 0";
+            lbl_time.Content = $"{Loc.Translate("Time")}: 0.0{Loc.Translate("sec")}";
+        }
+
         private string GetStringUsingChars(string chrs, int length)
         {
             string result = "";
@@ -105,26 +104,9 @@ namespace KeyboardTrainer.Views
                     counterofTextWithoutSpaces = 0;
                 }
             }
-            while (true)//remove spaces in the end
-            {
-                bool IsBroken = false;
-                for (int i = result.Length - 1; i >= 0; i--)
-                {
-                    if (result[i] == ' ')
-                    {
-                        result = result.Remove(result.Length - 1);
-                        IsBroken = true;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                if (!IsBroken)
-                {
-                    break;
-                }
-            }
+
+            result = result.RemoveSpacesFromEnd();
+
             return result;
         }
 
@@ -178,7 +160,7 @@ namespace KeyboardTrainer.Views
             return avaibleChrs;
         }
 
-        private void StartTimeTimer()
+        private void StartTimeCounter()
         {
             System.Timers.Timer updateTimeLabel = new System.Timers.Timer(100)
             {
@@ -188,14 +170,18 @@ namespace KeyboardTrainer.Views
             {
                 try
                 {
+                    if (FormIsClosed)
+                    {
+                        return;
+                    }
                     Dispatcher.Invoke(() =>
                     {
-                        if ((ViewModel.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
+                        if ((TextType.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
                     {
-                            lbl_time.Content = $"{ViewModel.Translate("Time")}: {(DateTime.Now - ViewModel.Begin).TotalSeconds.ToString("0.0")}{ViewModel.Translate("sec")}";
+                            lbl_time.Content = $"{Loc.Translate("Time")}: {(DateTime.Now - TextType.Begin).TotalSeconds.ToString("0.0")}{Loc.Translate("sec")}";
                         }
                         else
-                            lbl_time.Content = $"{ViewModel.Translate("Time")}: 0{ViewModel.Translate("sec")}";
+                            lbl_time.Content = $"{Loc.Translate("Time")}: 0{Loc.Translate("sec")}";
                     });
                 }
                 catch { }
@@ -210,7 +196,8 @@ namespace KeyboardTrainer.Views
             {
                 return;
             }
-            ViewModel.SendChar(keyChar.ToString());
+
+            TextType.SendChar(keyChar.ToString());
         }
 
         /// <summary>
@@ -234,12 +221,7 @@ namespace KeyboardTrainer.Views
                 IsTimerTicking = true;
                 while (true)
                 {
-                    ushort keybaordLayout = ViewModel.GetKeyboardLayout();
-                    if (ViewModel.Current_Language == MLanguage.ENGLISH && keybaordLayout == 1033)
-                    {
-                        break;
-                    }
-                    else if (ViewModel.Current_Language == MLanguage.RUSSIAN && keybaordLayout == 1049)
+                    if (KeyBoardLayoutIsRight())
                     {
                         break;
                     }
@@ -247,69 +229,73 @@ namespace KeyboardTrainer.Views
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            this.WindowStyle = WindowStyle.None;
-                            this.ResizeMode = ResizeMode.NoResize;
-                            textblockText.Text = ViewModel.Translate("Please change keyboard layout");
+                            textblockText.Text = Loc.Translate("Please change keyboard layout");
                         });
                     }
                     Thread.Sleep(TimeSpan.FromMilliseconds(500));
                 }
 
-                Dispatcher.Invoke(() => this.WindowStyle = WindowStyle.SingleBorderWindow);
-                Dispatcher.Invoke(() => this.ResizeMode = ResizeMode.CanResize);
-
-                if (customString == "")
-                {
-                    StartGameBeforeTimer();
-                }
-                else
-                {
-                    StartGameBeforeTimer(customString);
-                }
+                StartGameBeforeTimer(customString);
             });
             askToChangeLayout.Start();
         }
+        bool KeyBoardLayoutIsRight()
+        {
+            ushort keybaordLayout = TextType.GetKeyboardLayout();
+            if (Loc.Curr_Language == MLanguage.ENGLISH && keybaordLayout == 1033)
+            {
+                return true;
+            }
+            else if (Loc.Curr_Language == MLanguage.RUSSIAN && keybaordLayout == 1049)
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void StartGameBeforeTimer(string customString = "")
         {
             Task timerBeforeStart = new Task(() =>
             {
-                #region timer
-                for (int i = 3; i > 0; i--)
-                {
-                    Dispatcher.Invoke(() =>
-                    {
-                        if (exited)
-                        {
-                            IsTimerTicking = false;
-                            return;
-                        }
-                        textblockText.Text = i.ToString();
-                    });
-                    Thread.Sleep(TimeSpan.FromSeconds(1));
-                }
+                ShowTimer(3);
                 Dispatcher.Invoke(() =>
                 {
                     textblockText.TextAlignment = TextAlignment.Left;
                 });
-                #endregion
-                if (exited)
+                if (FormIsClosed)
                 {
                     IsTimerTicking = false;
                     return;
                 }
                 if (customString == "")
                 {
-                    ViewModel.NewRound(ViewModel.GetString(ViewModel.Current_Language, 100));// txt will change text using event StatisticChanged
+                    TextType.NewRound(TextType.GetString(Loc.Curr_Language, 100));
                 }
                 else
                 {
-                    ViewModel.NewRound(customString);
+                    TextType.NewRound(customString);
                 }
                 IsTimerTicking = false;
             });
             timerBeforeStart.Start();
         }
 
+        private void ShowTimer(int timeSeconds)
+        {
+            for (int i = timeSeconds; i > 0; i--)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    if (FormIsClosed)
+                    {
+                        IsTimerTicking = false;
+                        return;
+                    }
+                    textblockText.Text = i.ToString();
+                });
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+        }
 
         private void Mistaked(string letter)
         {
@@ -321,28 +307,40 @@ namespace KeyboardTrainer.Views
             LastStatistics = statistics;
             Dispatcher.Invoke(() =>
             {
-                lbl_left.Content = $"{ViewModel.Translate("Chars left")}: {statistics.CharsLeft.Length}";
-                lbl_mistakes.Content = $"{ViewModel.Translate("Mistakes")}: {statistics.Mistakes}";
-
-                lbl_time.Content = $"{ViewModel.Translate("Time")}: {statistics.Time.TotalSeconds.ToString("0.0")}{ViewModel.Translate("sec")}";
-                textblockText.Text = statistics.CharsLeft;
+                ShowStatisticsOnWindow(statistics);
             });
             if (statistics.CharsLeft.Length == 0)
             {
                 ShowEndMessage(statistics);
                 if (LessonMode)
                 {
-                    Dispatcher.Invoke(() =>
+                    try
                     {
-                        this.DialogResult = true;
-                    });
+                        Dispatcher.Invoke(() =>
+                        {
+                            this.DialogResult = true;
+                        });
+                    }
+                    catch { }
                 }
-                StartGame();
-                mostMistakeLetters.Clear();
+                else
+                {
+                    StartGame();
+                    mostMistakeLetters.Clear();
+                }
             }
         }
 
-        struct NumOfLetter
+        private void ShowStatisticsOnWindow(Statistics statistics)
+        {
+            lbl_left.Content = $"{Loc.Translate("Chars left")}: {statistics.CharsLeft.Length}";
+            lbl_mistakes.Content = $"{Loc.Translate("Mistakes")}: {statistics.Mistakes}";
+
+            lbl_time.Content = $"{Loc.Translate("Time")}: {statistics.Time.TotalSeconds.ToString("0.0")}{Loc.Translate("sec")}";
+            textblockText.Text = statistics.CharsLeft;
+        }
+
+        private struct NumOfLetter
         {
             public int Frequency { get; set; }//num
             public string Letter { get; set; }
@@ -360,12 +358,19 @@ namespace KeyboardTrainer.Views
         private void ShowEndMessage(Statistics statistics)
         {
             string str_mistakeLetters = GetStringMistakesInEachLetter();
-            ViewModel.Begin = new DateTime(1, 1, 1);//stop time counter (year = 1)
+            TextType.Begin = new DateTime(1, 1, 1);//stop time counter (year = 1)
             ShowStatistics(statistics.Speed, str_mistakeLetters);
         }
         void ShowStatistics(double Speed, string str_mistakeLetters)
         {
-            MessageBox.Show($"{ViewModel.Translate("Your speed")} {Speed.ToString("0.00")} {ViewModel.Translate("keys per minute")}.\n{ViewModel.Translate("You make most mistakes in")}:\n{str_mistakeLetters}", ViewModel.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
+            if (string.IsNullOrWhiteSpace(str_mistakeLetters))
+            {
+                MessageBox.Show($"{Loc.Translate("Your speed")} {Speed.ToString("0.00")} {Loc.Translate("keys per minute")}.", Loc.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show($"{Loc.Translate("Your speed")} {Speed.ToString("0.00")} {Loc.Translate("keys per minute")}.\n{Loc.Translate("You make most mistakes in")}:\n{str_mistakeLetters}", Loc.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private string GetStringMistakesInEachLetter()

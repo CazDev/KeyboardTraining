@@ -1,20 +1,12 @@
-﻿using KeyboardTrainer.Views.Training_.ViewModels;
+﻿using KeyboardTrainer.ViewModels;
+using KeyboardTrainer.Views.Training_.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace KeyboardTrainer.Views.Manual_
 {
@@ -28,8 +20,7 @@ namespace KeyboardTrainer.Views.Manual_
         {
             InitializeComponent();
             this.language = language;
-            ViewModel.Current_Language = language;
-            this.Title = ViewModel.Translate("Manual");
+            this.Title = Loc.Translate("Manual");
             tab2_image.Source = ImageSourceForBitmap(Properties.Resources.keyboard);
         }
 
@@ -39,7 +30,7 @@ namespace KeyboardTrainer.Views.Manual_
 
         public ImageSource ImageSourceForBitmap(Bitmap bmp)
         {
-            var handle = bmp.GetHbitmap();
+            IntPtr handle = bmp.GetHbitmap();
             try
             {
                 return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());

@@ -1,26 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace KeyboardTrainer.Models
+public static class Extentions
 {
-    public static class Extentions
+    public static ImageSource ToImageSource(this Icon icon)
     {
-        public static ImageSource ToImageSource(this Icon icon)
-        {
-            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                icon.Handle,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
+        ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+            icon.Handle,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions());
 
-            return imageSource;
+        return imageSource;
+    }
+
+    public static string RemoveSpacesFromEnd(this string input)
+    {
+        string result = input;
+        while (true)
+        {
+            bool IsBroken = false;
+            for (int i = result.Length - 1; i >= 0; i--)
+            {
+                if (result[i] == ' ')
+                {
+                    result = result.Remove(result.Length - 1);
+                    IsBroken = true;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (!IsBroken)
+            {
+                break;
+            }
         }
+        return result;
     }
 }

@@ -1,6 +1,8 @@
-﻿using KeyboardTrainer.Views.Training_.ViewModels;
+﻿using KeyboardTrainer.ViewModels;
+using KeyboardTrainer.Views.Training_.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,21 +13,18 @@ namespace KeyboardTrainer.Views.MainMenu
     /// </summary>
     public partial class SelectLesson : Window
     {
-        public MLanguage language { get; set; }
         List<Button> buttons = new List<Button>();
         public SelectLesson(MLanguage language)
         {
             InitializeComponent();
-            ViewModel.Current_Language = language;
-            this.language = language;
-            this.Title = ViewModel.Translate("Select lesson");
+            this.Title = Loc.Translate("Select lesson");
 
             for (int i = 1; i <= 17; i++)
             {
-                string ButtonSym = (ViewModel.Config.LevelsPassed.Contains(i)) ? "✓ " : "X "; 
+                string ButtonSym = (UserProgressSaver.Config.LevelsPassed.Contains(i)) ? "✓ " : "X "; 
                 Button btn = new Button()
                 {
-                    Content = ButtonSym + ViewModel.Translate("Lesson") + " " + i,
+                    Content = ButtonSym + Loc.Translate("Lesson") + " " + i,
                     Height = this.Height * 0.061728,//height depends on window height
                     Width = this.Width * 0.625
                 };
@@ -38,9 +37,9 @@ namespace KeyboardTrainer.Views.MainMenu
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            int numOfLesson = Convert.ToInt32((sender as Button).Content.ToString().Split(' ')[2]);//get num of lesson (written on button)
+            int numOfLesson = Convert.ToInt32((sender as Button).Content.ToString().Split(' ').Last());//get num of lesson (written on button)
 
-            MyResults lesson = new MyResults(language, numOfLesson);
+            MyResults lesson = new MyResults(numOfLesson);
             this.Hide();
             try
             {
@@ -54,12 +53,12 @@ namespace KeyboardTrainer.Views.MainMenu
                 return;
             }
 
-            if (lesson.LastStatistics.CharsLeft.Length == 0 || string.IsNullOrWhiteSpace(lesson.LastStatistics.CharsLeft))
+            if (lesson.LastStatistics.Mistakes == 0 && (lesson.LastStatistics.CharsLeft.Length == 0 || string.IsNullOrWhiteSpace(lesson.LastStatistics.CharsLeft)))
             {
-                if (!ViewModel.Config.LevelsPassed.Contains(numOfLesson))
+                if (!UserProgressSaver.Config.LevelsPassed.Contains(numOfLesson))
                 {
-                    MessageBox.Show(ViewModel.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    ViewModel.Config.LevelsPassed.Add(numOfLesson);
+                    MessageBox.Show(Loc.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    UserProgressSaver.Config.LevelsPassed.Add(numOfLesson);
                     UpdateButtonsText();
                 }
             }
@@ -70,12 +69,12 @@ namespace KeyboardTrainer.Views.MainMenu
         {
             foreach (var btn in buttons)
             {
-                int numOfLesson = Convert.ToInt32(btn.Content.ToString().Split(' ')[2]);
+                int numOfLesson = Convert.ToInt32(btn.Content.ToString().Split(' ').Last());
 
-                if (ViewModel.Config.LevelsPassed.Contains(numOfLesson))
+                if (UserProgressSaver.Config.LevelsPassed.Contains(numOfLesson))
                 {
-                    string ButtonSym = (ViewModel.Config.LevelsPassed.Contains(numOfLesson)) ? "✓ " : "X ";
-                    btn.Content = ButtonSym + ViewModel.Translate("Lesson") + " " + numOfLesson;
+                    string ButtonSym = (UserProgressSaver.Config.LevelsPassed.Contains(numOfLesson)) ? "✓ " : "X ";
+                    btn.Content = ButtonSym + Loc.Translate("Lesson") + " " + numOfLesson;
                 }
             }
         }

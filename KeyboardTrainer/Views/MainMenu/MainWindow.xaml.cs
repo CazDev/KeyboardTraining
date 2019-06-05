@@ -1,8 +1,7 @@
-﻿using KeyboardTrainer.Models;
+﻿using KeyboardTrainer.ViewModels;
 using KeyboardTrainer.Views;
 using KeyboardTrainer.Views.MainMenu;
 using KeyboardTrainer.Views.Manual_;
-using KeyboardTrainer.Views.Training_.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -16,15 +15,23 @@ namespace KeyboardTrainer
         {
             InitializeComponent();
 
-            ViewModel.Current_Language = GetSelectedLanguage();
-            ViewModel.Load();
+            Loc.Curr_Language = GetSelectedLanguage();
+            UserProgressSaver.LoadProgress();
 
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
-
             this.image_githubLink.Source = Properties.Resources.githubIcon.ToImageSource();
             this.image_Info.Source = Properties.Resources.infoIcon.ToImageSource();
             this.image_Update.Source = Properties.Resources.updateIcon.ToImageSource();
-            this.Closing += (s, e) => ViewModel.Save();
+
+            InitEvents();
+
+            AppUpdater.Update();//check updates
+            cb_language.SelectedIndex = 0;
+        }
+
+        private void InitEvents()
+        {
+            this.Closing += (s, e) => UserProgressSaver.SaveProgress();
 
             image_githubLink.MouseLeave += ImageSmaller;
             image_githubLink.MouseEnter += ImageBigger;
@@ -36,26 +43,28 @@ namespace KeyboardTrainer
             image_Info.MouseEnter += ImageBigger;
 
             image_githubLink.MouseDown += (s, e) => Process.Start("https://github.com/tavvi1337/KeyboardTraining");
-            image_Info.MouseDown += (s, e) => MessageBox.Show($"Product version - {Updater.ThisVersion}\nDeveloped by tavvi", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            image_Info.MouseDown += (s, e) => MessageBox.Show($"Product version - {GitUpdater.ThisVersion}\nDeveloped by tavvi", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             image_Update.MouseDown += (s, e) =>
             {
-                try
-                {
-                    if (!Updater.NeedUpdate())
-                    {
-                        MessageBox.Show(ViewModel.Translate("Updates not found"), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    else
-                        ViewModel.Update();
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ViewModel.Translate("Update error") + ex.ToString(), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                UpdateMessage();
             };
+        }
 
-            ViewModel.Update();//check updates
-            cb_language.SelectedIndex = 0;
+        static void UpdateMessage()
+        {
+            try
+            {
+                if (!AppUpdater.NeedUpdate)
+                {
+                    MessageBox.Show(Loc.Translate("Updates not found"), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                    AppUpdater.Update();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Loc.Translate("Update error") + ex.ToString(), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         int resizeValue = 3;
@@ -73,7 +82,7 @@ namespace KeyboardTrainer
         private void Btn_myResults_Click(object sender, RoutedEventArgs e)
         {
             MLanguage language = GetSelectedLanguage();
-            MyResults results = new MyResults(language);
+            MyResults results = new MyResults();
             this.Hide();
             if (results.ShowDialog() != null)
             {
@@ -117,14 +126,15 @@ namespace KeyboardTrainer
 
         private void cb_SelectedLangugeChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.ChangeLanguageTo(GetSelectedLanguage());
-            this.Title = ViewModel.Translate("MainWindow");
-            btn_learning.Content = ViewModel.Translate("Lessons");
-            btn_training.Content = ViewModel.Translate("My results");
-            btn_manual.Content = ViewModel.Translate("Manual");
-            image_githubLink.ToolTip = ViewModel.Translate("Visit github.com");
-            image_Update.ToolTip = ViewModel.Translate("Check for updates");
-            image_Info.ToolTip = ViewModel.Translate("Show information");
+            Loc.Curr_Language = GetSelectedLanguage();
+            this.Title = Loc.Translate("MainWindow");
+
+            btn_learning.Content = Loc.Translate("Lessons");
+            btn_training.Content = Loc.Translate("My results");
+            btn_manual.Content = Loc.Translate("Manual");
+            image_githubLink.ToolTip = Loc.Translate("Visit github.com");
+            image_Update.ToolTip = Loc.Translate("Check for updates");
+            image_Info.ToolTip = Loc.Translate("Show information");
         }
     }
 }

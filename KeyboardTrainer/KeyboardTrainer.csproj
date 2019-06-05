@@ -62,17 +62,19 @@
     </ApplicationDefinition>
     <Compile Include="Models\Database.cs" />
     <Compile Include="Extentions.cs" />
-    <Compile Include="Models\Updater.cs" />
-    <Compile Include="Models\Loc.cs" />
+    <Compile Include="Models\GitUpdater.cs" />
+    <Compile Include="ViewModels\Loc.cs" />
     <Compile Include="RatioConverter.cs" />
-    <Compile Include="ViewModels\Config.cs" />
+    <Compile Include="ViewModels\ConfigStorage.cs" />
+    <Compile Include="ViewModels\AppUpdater.cs" />
+    <Compile Include="ViewModels\UserProgressSaver.cs" />
     <Compile Include="Views\MainMenu\Manual.xaml.cs">
       <DependentUpon>Manual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Model.cs" />
-    <Compile Include="ViewModels\MLanguage.cs" />
+    <Compile Include="Models\MLanguage.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\TextType.cs" />
     <Compile Include="Views\MainMenu\MyResults.xaml.cs">
       <DependentUpon>MyResults.xaml</DependentUpon>
     </Compile>

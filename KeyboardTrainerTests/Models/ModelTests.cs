@@ -14,7 +14,7 @@ namespace KeyboardTrainer.Views.Training_.Models.Tests
         [TestMethod()]
         public void SendCharTest()
         {
-            Model model = new Model();
+            TypeLogic model = new TypeLogic();
             model.NewRound("qwertyuiopasdfghjklzxcvbnm");//starts new round using this string
             model.SendChar("q");//user input
             Assert.AreEqual("wertyuiopasdfghjklzxcvbnm", model.ChrsLeft);
