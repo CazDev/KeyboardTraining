@@ -65,13 +65,13 @@
     <Compile Include="Models\GitUpdater.cs" />
     <Compile Include="ViewModels\Loc.cs" />
     <Compile Include="RatioConverter.cs" />
-    <Compile Include="ViewModels\ConfigStorage.cs" />
+    <Compile Include="Models\ConfigStorage.cs" />
     <Compile Include="ViewModels\AppUpdater.cs" />
     <Compile Include="ViewModels\UserProgressSaver.cs" />
     <Compile Include="Views\MainMenu\Manual.xaml.cs">
       <DependentUpon>Manual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\TypeLogic.cs" />
     <Compile Include="Models\MLanguage.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
     <Compile Include="ViewModels\TextType.cs" />

@@ -1,41 +1,32 @@
-The main project logic is in the Model.cs class (KeyBoardTrainer/Models/Model.cs), methods:
-NewRound (str_input) - a method for initializing a new round for typing a workout; the string parameter str_input is the characters that the user must enter from the keyboard to complete the round.
-SendChar (chr) - the method that should be called when the user presses a button on the keyboard, the string parameter chr is the character that the key pressed gives.
-Fields:
-ChrsLeft - characters that the user needs to enter to complete the round.
-Developments:
-Mistaked - an event that is invoked when the user enters the wrong character.
-
-The Updater.cs class (KeyBoardTrainer/Models/Updater.cs) is used to update the program from the repository on github.com, methods:
-NeedUpdate - a method that compares the current version of the product and the version in the repository on github.com.
-Update - the method that downloads the updated version of the product if the local version and the version from the repository are different and runs the downloaded file, closing the program.
-Fields:
-ThisVersion - is a local version of the product.
-
-The Loc.cs class (KeyBoardTrainer/Models/Loc.cs) is used to store translations of strings (English, Russian), methods:
-AddTranslate (eng, rus) - adds an English string to the translation repository and its translation.
-Translate (engOrRus) - returns the new line engOrRus (input string in any of the languages).
-Fields:
-Curr_Language - language translate to (used by the Translate method).
-
-The MLanguage.cs enum (KeyBoardTrainer/ViewModels/MLanguage.cs) stores the available program languages.
-
-The Statistics.cs class (KeyBoardTrainer/ViewModels/Statistics.cs) is used as parameters for events, fields:
-CharsLeft - a string field, the characters that the user needs to enter to complete the round.
-Mistakes - numeric field, the number of mistakes made by the user during this round.
-Speed ​​- numeric field, user dialing speed.
-Time - the amount of time that has passed since the start of the round.
-
-The main layer between the Views and Models is the ViewModel.cs (KeyBoardTrainer/ViewModels/ViewModel.cs), methods:
-AddTranslate (eng, rus) - add a translation for an English word (calls AddTranstale from Loc.cs).
-Translate (engOrRus) - returns the translation of a word (calls Translate from Loc.cs).
-ChangeLanguageTo (language) - change language.
-Update () - asks the user if he wants to update and updates if necessary (uses Updater.cs).
-SendChar (chr) - informs the model that the button was pressed, chr - the character that is obtained when the button is pressed.
-NewRound (updateTime) - launches a new round with random characters (the characters depend on the language), updateTime - whether to update the start time of the round.
-NewRound (input, updateTime) - overload NewRound (updateTime), instead of a random string use your own.
-Fields:
-CharsLeft - a string that must be entered by the user to complete the round.
-Begin - time when the round was started.
-Developments:
-StatisticChanged - invoked when statistics change (as a parameter is Statistics.cs).
+Models:
+DataBase.cs - contains array of eng/rus words
+GitUpdater.cs - logic to update program from git repository
+•ThisVersion - current version of product
+•NeedUpdate() - returns if new version exists in repository (checks update)
+•Update() - checks update and if new update found, download new vesion and replaces current file to new version file
+MLanguage.cs - enum languages
+TypeLogic.cs - Logic of user's input
+•ChrsLeft - characters that the user needs to enter to complete the round.
+•Mistaked - an event that is invoked when the user enters the wrong character.
+•SendChar (chr) - the method that should be called when the user presses a button on the keyboard, the string parameter chr is the character that the key pressed gives.
+•NewRound (str_input) - a method for initializing a new round for typing a workout; the string parameter str_input is the characters that the user must enter from the keyboard to complete the round.
+ConfigStorage.cs  - storage of config fiels
+•Save() - serialize ConfigStorage object
+•Load() - derialize ConfigStorage object
+ViewModels:
+AppUpdater.cs - update application
+•Update() - updates using GitUpdater.cs
+Loc.cs - localization of strings
+•Translate(engOrRus) - translate string
+•AddTranslate(eng, rus) - add translate for string
+Statistics.cs class (KeyBoardTrainer/ViewModels/Statistics.cs) is used as parameters for events, fields:
+•CharsLeft - a string field, the characters that the user needs to enter to complete the round.
+•Mistakes - numeric field, the number of mistakes made by the user during this round.
+•Speed ​​- numeric field, user dialing speed.
+•Time - the amount of time that has passed since the start of the round. 
+TextType.cs - uses TypeLogic.cs
+•SendChar (chr) - informs the model that the button was pressed, chr - the character that is obtained when the button is pressed.
+•NewRound (updateTime) - launches a new round with random characters (the characters depend on the language), updateTime - whether to update the start time of the round.
+UserProgressSaver.cs - saves user progress
+•SaveProgress() - save progress to file
+•LoadProgress() - export progress from file

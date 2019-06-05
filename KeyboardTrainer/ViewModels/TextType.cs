@@ -1,5 +1,4 @@
 ﻿using KeyboardTrainer.Models;
-using KeyboardTrainer.ViewModels;
 using KeyboardTrainer.Views.Training_.Models;
 using System;
 using System.Runtime.InteropServices;
