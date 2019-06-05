@@ -357,6 +357,11 @@ namespace KeyboardTrainer.Views
         }
         private void ShowEndMessage(Statistics statistics)
         {
+            if (FormIsClosed)
+            {
+                return;
+            }
+
             string str_mistakeLetters = GetStringMistakesInEachLetter();
             TextType.Begin = new DateTime(1, 1, 1);//stop time counter (year = 1)
             ShowStatistics(statistics.Speed, str_mistakeLetters);
