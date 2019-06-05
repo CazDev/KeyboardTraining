@@ -14,10 +14,10 @@ namespace KeyboardTrainer.Views
     {
         Random rnd = new Random();
         readonly List<string> mostMistakeLetters = new List<string>();
-        readonly MLanguage language;
         bool IsTimerTicking = false; //timer before game 
         bool LessonMode { get; set; }
         public Statistics LastStatistics { get; set; }
+        bool exited = false; //if form is closed
 
         /// <summary>
         /// Get results
@@ -26,6 +26,7 @@ namespace KeyboardTrainer.Views
         public MyResults(MLanguage language)
         {
             InitializeComponent();
+            this.Closing += (s, e) => exited = true;
 
             ViewModel.Current_Language = language;
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
@@ -33,8 +34,6 @@ namespace KeyboardTrainer.Views
             this.Title = ViewModel.Translate("My results");
             retry.Text = ViewModel.Translate("Retry");
             textInfo.Text = ViewModel.Translate("Type text");
-
-            this.language = language;
 
             StatisticChanged(new Statistics(new string('*', 100), 0));//to update labels
 
@@ -67,13 +66,13 @@ namespace KeyboardTrainer.Views
             }
 
             InitializeComponent();
+            this.Closing += (s, e) => exited = true;
 
             LessonMode = true;
             string avaibleChrs = GetAvaibleChrs(language, numOfLesson);
             ViewModel.Current_Language = language;
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
 
-            this.language = language;
             this.Title = ViewModel.Translate("Lesson") + " " + numOfLesson;
             retry.Text = ViewModel.Translate("Retry");
             textInfo.Text = ViewModel.Translate("Type text");
@@ -86,7 +85,6 @@ namespace KeyboardTrainer.Views
             this.TextInput += Win_TextInput;
 
             StartGame(GetStringUsingChars(avaibleChrs, 100));
-
 
             StartTimeTimer();
         }
@@ -188,21 +186,25 @@ namespace KeyboardTrainer.Views
             };
             updateTimeLabel.Elapsed += (s, e) =>
             {
-                Dispatcher.Invoke(() =>
+                try
                 {
-                    if ((ViewModel.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
+                    Dispatcher.Invoke(() =>
                     {
-                        lbl_time.Content = $"{ViewModel.Translate("Time")}: {(DateTime.Now - ViewModel.Begin).TotalSeconds.ToString("0.0")}{ViewModel.Translate("sec")}";
-                    }
-                    else
-                        lbl_time.Content = $"{ViewModel.Translate("Time")}: 0{ViewModel.Translate("sec")}";
-                });
+                        if ((ViewModel.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
+                    {
+                            lbl_time.Content = $"{ViewModel.Translate("Time")}: {(DateTime.Now - ViewModel.Begin).TotalSeconds.ToString("0.0")}{ViewModel.Translate("sec")}";
+                        }
+                        else
+                            lbl_time.Content = $"{ViewModel.Translate("Time")}: 0{ViewModel.Translate("sec")}";
+                    });
+                }
+                catch { }
             };
         }
 
         private void Win_TextInput(object sender, TextCompositionEventArgs e)
         {
-            Char keyChar = e.Text[0];
+            char keyChar = e.Text[0];
 
             if (IsTimerTicking)
             {
@@ -230,15 +232,14 @@ namespace KeyboardTrainer.Views
             Task askToChangeLayout = new Task(() =>
             {
                 IsTimerTicking = true;
-
                 while (true)
                 {
                     ushort keybaordLayout = ViewModel.GetKeyboardLayout();
-                    if (language == MLanguage.ENGLISH && keybaordLayout == 1033)
+                    if (ViewModel.Current_Language == MLanguage.ENGLISH && keybaordLayout == 1033)
                     {
                         break;
                     }
-                    else if (language == MLanguage.RUSSIAN && keybaordLayout == 1049)
+                    else if (ViewModel.Current_Language == MLanguage.RUSSIAN && keybaordLayout == 1049)
                     {
                         break;
                     }
@@ -246,11 +247,17 @@ namespace KeyboardTrainer.Views
                     {
                         Dispatcher.Invoke(() =>
                         {
+                            this.WindowStyle = WindowStyle.None;
+                            this.ResizeMode = ResizeMode.NoResize;
                             textblockText.Text = ViewModel.Translate("Please change keyboard layout");
                         });
                     }
                     Thread.Sleep(TimeSpan.FromMilliseconds(500));
                 }
+
+                Dispatcher.Invoke(() => this.WindowStyle = WindowStyle.SingleBorderWindow);
+                Dispatcher.Invoke(() => this.ResizeMode = ResizeMode.CanResize);
+
                 if (customString == "")
                 {
                     StartGameBeforeTimer();
@@ -271,6 +278,11 @@ namespace KeyboardTrainer.Views
                 {
                     Dispatcher.Invoke(() =>
                     {
+                        if (exited)
+                        {
+                            IsTimerTicking = false;
+                            return;
+                        }
                         textblockText.Text = i.ToString();
                     });
                     Thread.Sleep(TimeSpan.FromSeconds(1));
@@ -280,9 +292,14 @@ namespace KeyboardTrainer.Views
                     textblockText.TextAlignment = TextAlignment.Left;
                 });
                 #endregion
+                if (exited)
+                {
+                    IsTimerTicking = false;
+                    return;
+                }
                 if (customString == "")
                 {
-                    ViewModel.NewRound(ViewModel.GetString(language, 100));// txt will change text using event StatisticChanged
+                    ViewModel.NewRound(ViewModel.GetString(ViewModel.Current_Language, 100));// txt will change text using event StatisticChanged
                 }
                 else
                 {

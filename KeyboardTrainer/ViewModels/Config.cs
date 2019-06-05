@@ -18,7 +18,7 @@ namespace KeyboardTrainer.ViewModels
             {
                 Directory.CreateDirectory(pathToDir);
             }
-
+                
             BinaryFormatter bf = new BinaryFormatter();
             FileStream fs = new FileStream(pathToDir + fileName, FileMode.OpenOrCreate);
             bf.Serialize(fs, config);
@@ -30,7 +30,6 @@ namespace KeyboardTrainer.ViewModels
         {
             try
             {
-
                 BinaryFormatter bf = new BinaryFormatter();
                 FileStream fs = new FileStream(pathToDir + fileName, FileMode.OpenOrCreate);
                 Config config = bf.Deserialize(fs) as Config;

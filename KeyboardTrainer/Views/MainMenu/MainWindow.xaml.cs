@@ -113,7 +113,6 @@ namespace KeyboardTrainer
             this.Hide();
             selectLesson.Show();
             selectLesson.Closed += (_s, _e) => this.Show();
-            
         }
 
         private void cb_SelectedLangugeChanged(object sender, SelectionChangedEventArgs e)
