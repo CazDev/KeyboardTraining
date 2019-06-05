@@ -23,14 +23,13 @@ namespace KeyboardTrainer.Views.Manual_
     /// </summary>
     public partial class Manual : Window
     {
-        ViewModel viewModel;
         public MLanguage language { get; set; }
         public Manual(MLanguage language)
         {
             InitializeComponent();
             this.language = language;
-            viewModel = new ViewModel(language);
-            this.Title = viewModel.Translate("Manual");
+            ViewModel.Current_Language = language;
+            this.Title = ViewModel.Translate("Manual");
             tab2_image.Source = ImageSourceForBitmap(Properties.Resources.keyboard);
         }
 

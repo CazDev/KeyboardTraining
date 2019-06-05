@@ -12,7 +12,6 @@ namespace KeyboardTrainer.Views
 {
     public partial class MyResults : Window
     {
-        readonly ViewModel viewModel;
         Random rnd = new Random();
         readonly List<string> mostMistakeLetters = new List<string>();
         readonly MLanguage language;
@@ -28,12 +27,12 @@ namespace KeyboardTrainer.Views
         {
             InitializeComponent();
 
-            viewModel = new ViewModel(language);
+            ViewModel.Current_Language = language;
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
 
-            this.Title = viewModel.Translate("My results");
-            retry.Text = viewModel.Translate("Retry");
-            textInfo.Text = viewModel.Translate("Type text");
+            this.Title = ViewModel.Translate("My results");
+            retry.Text = ViewModel.Translate("Retry");
+            textInfo.Text = ViewModel.Translate("Type text");
 
             this.language = language;
 
@@ -43,8 +42,8 @@ namespace KeyboardTrainer.Views
 
             #region Register events
 
-            viewModel.StatisticChanged += StatisticChanged;
-            viewModel.Mistaked += Mistaked;
+            ViewModel.StatisticChanged += StatisticChanged;
+            ViewModel.Mistaked += Mistaked;
             this.TextInput += Win_TextInput;
             StartTimeTimer();
             retry.MouseDown += (s, e) =>
@@ -71,19 +70,19 @@ namespace KeyboardTrainer.Views
 
             LessonMode = true;
             string avaibleChrs = GetAvaibleChrs(language, numOfLesson);
-            viewModel = new ViewModel(language);
+            ViewModel.Current_Language = language;
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
 
             this.language = language;
-            this.Title = viewModel.Translate("Lesson") + " " + numOfLesson;
-            retry.Text = viewModel.Translate("Retry");
-            textInfo.Text = viewModel.Translate("Type text");
-            lbl_left.Content = viewModel.Translate("Chars left") + ":";
-            lbl_mistakes.Content = viewModel.Translate("Mistakes") + ":";
+            this.Title = ViewModel.Translate("Lesson") + " " + numOfLesson;
+            retry.Text = ViewModel.Translate("Retry");
+            textInfo.Text = ViewModel.Translate("Type text");
+            lbl_left.Content = ViewModel.Translate("Chars left") + ":";
+            lbl_mistakes.Content = ViewModel.Translate("Mistakes") + ":";
             retry.Opacity = 0;
 
-            viewModel.StatisticChanged += StatisticChanged;
-            viewModel.Mistaked += Mistaked;
+            ViewModel.StatisticChanged += StatisticChanged;
+            ViewModel.Mistaked += Mistaked;
             this.TextInput += Win_TextInput;
 
             StartGame(GetStringUsingChars(avaibleChrs, 100));
@@ -191,12 +190,12 @@ namespace KeyboardTrainer.Views
             {
                 Dispatcher.Invoke(() =>
                 {
-                    if ((viewModel.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
+                    if ((ViewModel.Begin.Year != 1) && (!IsTimerTicking))//not inited or stopped && timer is not counting
                     {
-                        lbl_time.Content = $"{viewModel.Translate("Time")}: {(DateTime.Now - viewModel.Begin).TotalSeconds.ToString("0.0")}{viewModel.Translate("sec")}";
+                        lbl_time.Content = $"{ViewModel.Translate("Time")}: {(DateTime.Now - ViewModel.Begin).TotalSeconds.ToString("0.0")}{ViewModel.Translate("sec")}";
                     }
                     else
-                        lbl_time.Content = $"{viewModel.Translate("Time")}: 0{viewModel.Translate("sec")}";
+                        lbl_time.Content = $"{ViewModel.Translate("Time")}: 0{ViewModel.Translate("sec")}";
                 });
             };
         }
@@ -209,7 +208,7 @@ namespace KeyboardTrainer.Views
             {
                 return;
             }
-            viewModel.SendChar(keyChar.ToString());
+            ViewModel.SendChar(keyChar.ToString());
         }
 
         /// <summary>
@@ -234,7 +233,7 @@ namespace KeyboardTrainer.Views
 
                 while (true)
                 {
-                    ushort keybaordLayout = viewModel.GetKeyboardLayout();
+                    ushort keybaordLayout = ViewModel.GetKeyboardLayout();
                     if (language == MLanguage.ENGLISH && keybaordLayout == 1033)
                     {
                         break;
@@ -247,7 +246,7 @@ namespace KeyboardTrainer.Views
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            textblockText.Text = viewModel.Translate("Please change keyboard layout");
+                            textblockText.Text = ViewModel.Translate("Please change keyboard layout");
                         });
                     }
                     Thread.Sleep(TimeSpan.FromMilliseconds(500));
@@ -283,11 +282,11 @@ namespace KeyboardTrainer.Views
                 #endregion
                 if (customString == "")
                 {
-                    viewModel.NewRound(viewModel.GetString(language, 100));// txt will change text using event StatisticChanged
+                    ViewModel.NewRound(ViewModel.GetString(language, 100));// txt will change text using event StatisticChanged
                 }
                 else
                 {
-                    viewModel.NewRound(customString);
+                    ViewModel.NewRound(customString);
                 }
                 IsTimerTicking = false;
             });
@@ -305,10 +304,10 @@ namespace KeyboardTrainer.Views
             LastStatistics = statistics;
             Dispatcher.Invoke(() =>
             {
-                lbl_left.Content = $"{viewModel.Translate("Chars left")}: {statistics.CharsLeft.Length}";
-                lbl_mistakes.Content = $"{viewModel.Translate("Mistakes")}: {statistics.Mistakes}";
+                lbl_left.Content = $"{ViewModel.Translate("Chars left")}: {statistics.CharsLeft.Length}";
+                lbl_mistakes.Content = $"{ViewModel.Translate("Mistakes")}: {statistics.Mistakes}";
 
-                lbl_time.Content = $"{viewModel.Translate("Time")}: {statistics.Time.TotalSeconds.ToString("0.0")}{viewModel.Translate("sec")}";
+                lbl_time.Content = $"{ViewModel.Translate("Time")}: {statistics.Time.TotalSeconds.ToString("0.0")}{ViewModel.Translate("sec")}";
                 textblockText.Text = statistics.CharsLeft;
             });
             if (statistics.CharsLeft.Length == 0)
@@ -344,12 +343,12 @@ namespace KeyboardTrainer.Views
         private void ShowEndMessage(Statistics statistics)
         {
             string str_mistakeLetters = GetStringMistakesInEachLetter();
-            viewModel.Begin = new DateTime(1, 1, 1);//stop time counter (year = 1)
+            ViewModel.Begin = new DateTime(1, 1, 1);//stop time counter (year = 1)
             ShowStatistics(statistics.Speed, str_mistakeLetters);
         }
         void ShowStatistics(double Speed, string str_mistakeLetters)
         {
-            MessageBox.Show($"{viewModel.Translate("Your speed")} {Speed.ToString("0.00")} {viewModel.Translate("keys per minute")}.\n{viewModel.Translate("You make most mistakes in")}:\n{str_mistakeLetters}", viewModel.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{ViewModel.Translate("Your speed")} {Speed.ToString("0.00")} {ViewModel.Translate("keys per minute")}.\n{ViewModel.Translate("You make most mistakes in")}:\n{str_mistakeLetters}", ViewModel.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private string GetStringMistakesInEachLetter()

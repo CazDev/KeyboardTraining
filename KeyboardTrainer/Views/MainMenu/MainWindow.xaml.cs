@@ -12,19 +12,19 @@ namespace KeyboardTrainer
 {
     public partial class MainWindow : Window
     {
-        ViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
 
-            viewModel = new ViewModel(GetSelectedLanguage());
+            ViewModel.Current_Language = GetSelectedLanguage();
+            ViewModel.Load();
 
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
 
             this.image_githubLink.Source = Properties.Resources.githubIcon.ToImageSource();
             this.image_Info.Source = Properties.Resources.infoIcon.ToImageSource();
             this.image_Update.Source = Properties.Resources.updateIcon.ToImageSource();
-
+            this.Closing += (s, e) => ViewModel.Save();
 
             image_githubLink.MouseLeave += ImageSmaller;
             image_githubLink.MouseEnter += ImageBigger;
@@ -43,18 +43,18 @@ namespace KeyboardTrainer
                 {
                     if (!Updater.NeedUpdate())
                     {
-                        MessageBox.Show(viewModel.Translate("Updates not found"), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(ViewModel.Translate("Updates not found"), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
-                        viewModel.Update();
+                        ViewModel.Update();
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(viewModel.Translate("Update error") + ex.ToString(), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(ViewModel.Translate("Update error") + ex.ToString(), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             };
 
-            viewModel.Update();//check updates
+            ViewModel.Update();//check updates
             cb_language.SelectedIndex = 0;
         }
 
@@ -118,14 +118,14 @@ namespace KeyboardTrainer
 
         private void cb_SelectedLangugeChanged(object sender, SelectionChangedEventArgs e)
         {
-            viewModel.ChangeLanguageTo(GetSelectedLanguage());
-            this.Title = viewModel.Translate("MainWindow");
-            btn_learning.Content = viewModel.Translate("Lessons");
-            btn_training.Content = viewModel.Translate("My results");
-            btn_manual.Content = viewModel.Translate("Manual");
-            image_githubLink.ToolTip = viewModel.Translate("Visit github.com");
-            image_Update.ToolTip = viewModel.Translate("Check for updates");
-            image_Info.ToolTip = viewModel.Translate("Show information");
+            ViewModel.ChangeLanguageTo(GetSelectedLanguage());
+            this.Title = ViewModel.Translate("MainWindow");
+            btn_learning.Content = ViewModel.Translate("Lessons");
+            btn_training.Content = ViewModel.Translate("My results");
+            btn_manual.Content = ViewModel.Translate("Manual");
+            image_githubLink.ToolTip = ViewModel.Translate("Visit github.com");
+            image_Update.ToolTip = ViewModel.Translate("Check for updates");
+            image_Info.ToolTip = ViewModel.Translate("Show information");
         }
     }
 }

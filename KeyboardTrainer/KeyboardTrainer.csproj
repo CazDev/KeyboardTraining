@@ -65,6 +65,7 @@
     <Compile Include="Models\Updater.cs" />
     <Compile Include="Models\Loc.cs" />
     <Compile Include="RatioConverter.cs" />
+    <Compile Include="ViewModels\Config.cs" />
     <Compile Include="Views\MainMenu\Manual.xaml.cs">
       <DependentUpon>Manual.xaml</DependentUpon>
     </Compile>

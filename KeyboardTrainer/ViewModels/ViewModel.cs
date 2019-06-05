@@ -9,19 +9,33 @@ using System.Windows;
 
 namespace KeyboardTrainer.Views.Training_.ViewModels
 {
-    public class ViewModel
+    public static class ViewModel
     {
-        Model Model;
-        Random rnd = new Random();
+        static Model Model;
+        static Random rnd = new Random();
         /// <summary>
         /// Length of string before sending chars
         /// </summary>
-        private int FirstLength { get;  set; }
-        private MLanguage Current_Language { get; set; }
+        private static int FirstLength { get;  set; }
+        private static MLanguage currLanguage;
+        public static Config Config { get; set; }
+
+        public static MLanguage Current_Language
+        {
+            get
+            {
+                return currLanguage;
+            }
+            set
+            {
+                currLanguage = value;
+                Loc.Curr_Language = value;
+            }
+        }
         /// <summary>
         /// Speed of user's typing
         /// </summary>
-        private double Speed
+        private static double Speed
         {
             get
             {
@@ -34,35 +48,34 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// <summary>
         /// Invokes on user makes mistake when send wrong char
         /// </summary>
-        public event Mistake Mistaked;
+        public static event Mistake Mistaked;
         /// <summary>
         /// string left to type
         /// </summary>
-        public string CharsLeft => Model.ChrsLeft;
-        public DateTime Begin { get; set; }
+        public static string CharsLeft => Model.ChrsLeft;
+        public static DateTime Begin { get; set; }
 
 
         public delegate void StatisticChanges(Statistics statistics);
-        public event StatisticChanges StatisticChanged;
+        public static event StatisticChanges StatisticChanged;
 
-        public ViewModel(MLanguage language)
+        static ViewModel()
         {
-            this.Model = new Model();
-            this.Current_Language = language;
-            Loc.Curr_Language = language;
-            Model.Mistaked += (l) => this.Mistaked?.Invoke(l);
+            Model = new Model();
+
+            Model.Mistaked += (l) => Mistaked?.Invoke(l);
 
             InitTranslates();
         }
-        public void AddTranslate(string eng, string rus)
+        public static void AddTranslate(string eng, string rus)
         {
             Loc.AddTranslate(eng, rus);
         }
-        public string Translate(string engOrRus)
+        public static string Translate(string engOrRus)
         {
             return Loc.Translate(engOrRus);
         }
-        public void ChangeLanguageTo(MLanguage language)
+        public static void ChangeLanguageTo(MLanguage language)
         {
             Current_Language = language;
             Loc.Curr_Language = language;
@@ -70,7 +83,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// <summary>
         /// Finds new version, asks user, update, restart app
         /// </summary>
-        public void Update()
+        public static void Update()
         {
             Task checkNewVersion = new Task(() =>
             {
@@ -104,7 +117,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// </summary>
         /// <param name="chr"></param>
         /// <returns></returns>
-        public bool? SendChar(string chr)
+        public static bool? SendChar(string chr)
         {
             if (chr.ToLower() == "space")
             {
@@ -122,7 +135,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// New string (random)
         /// </summary>
         /// <param name="updateTime">update Begin datetime</param>
-        public void NewRound(bool updateTime = true)
+        public static void NewRound(bool updateTime = true)
         {
             if (updateTime)
             {
@@ -141,7 +154,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// </summary>
         /// <param name="input">Custom string</param>
         /// <param name="updateTime">update Begin datetime</param>
-        public void NewRound(string input, bool updateTime = true)
+        public static void NewRound(string input, bool updateTime = true)
         {
             if (updateTime)
             {
@@ -155,10 +168,13 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             StatisticChanged?.Invoke(statistics);
         }
 
+        public static void Save() => Config.Save(Config);
+        public static void Load() => Config = Config.Load();
+
         /// <summary>
         /// You can add translations here
         /// </summary>
-        private void InitTranslates()
+        private static void InitTranslates()
         {
             //TODO: you can add new translated for string here
             AddTranslate("Lessons", "Уроки");
@@ -195,7 +211,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// </summary>
         /// <param name="mLanguage">Language</param>
         /// <returns></returns>
-        private string GetWordFromDataBase(MLanguage mLanguage)//depends on this.Language
+        private static string GetWordFromDataBase(MLanguage mLanguage)//depends on this.Language
         {
             if (mLanguage == MLanguage.ENGLISH)
             {
@@ -214,7 +230,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// Based on GetWord
         /// </summary>
         /// <returns></returns>
-        public string GetString(MLanguage mLanguage, int length)
+        public static string GetString(MLanguage mLanguage, int length)
         {
             string result = "";
             do
@@ -244,11 +260,11 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// 1033 - eng
         /// 1049 - rus
         /// </summary>
-        public ushort GetKeyboardLayout()
+        public static ushort GetKeyboardLayout()
         {
             return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
         }
-        private string GetRandomSperator()
+        private static string GetRandomSperator()
         {
             string[] sperators =
             {
@@ -260,7 +276,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
             };
             return sperators[rnd.Next(0, sperators.Length)];
         }
-        private string GetRandomString()
+        private static string GetRandomString()
         {
             char[] chrs = new char[2];
             if (Current_Language == MLanguage.ENGLISH)
