@@ -42,11 +42,8 @@ namespace KeyboardTrainer
             image_Info.MouseEnter += ImageBigger;
 
             image_githubLink.MouseDown += (s, e) => Process.Start("https://github.com/tavvi1337/KeyboardTraining");
-            image_Info.MouseDown += (s, e) => MessageBox.Show($"Product version - {GitUpdater.ThisVersion}\nDeveloped by tavvi", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            image_Update.MouseDown += (s, e) =>
-            {
-                UpdateMessage();
-            };
+            image_Info.MouseDown += (s, e) => MessageBox.Show($"{Loc.Translate("Product version")} - {GitUpdater.ThisVersion}\n{Loc.Translate("Developed by tavvi")}", Loc.Translate("Information"), MessageBoxButton.OK, MessageBoxImage.Information);
+            image_Update.MouseDown += (s, e) => UpdateMessage();
         }
 
         static void UpdateMessage()
@@ -55,14 +52,14 @@ namespace KeyboardTrainer
             {
                 if (!AppUpdater.NeedUpdate)
                 {
-                    MessageBox.Show(Loc.Translate("Updates not found"), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Loc.Translate("Updates not found"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                     AppUpdater.Update(true);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Loc.Translate("Update error") + ex.ToString(), "Updater", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Loc.Translate("Update error") + ex.ToString(), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

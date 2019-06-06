@@ -43,6 +43,10 @@ namespace KeyboardTrainer.ViewModels
             AddTranslate("Check for updates", "Проверьте наличие обновлений");
             AddTranslate("Visit github.com", "Посетить github.com");
             AddTranslate("Show information", "Показать информацию");
+            AddTranslate("Product version", "Версия продукта");
+            AddTranslate("Developed by tavvi", "Разработано tavvi");
+            AddTranslate("Information", "Информация");
+            AddTranslate("Updater", "Проверка обновлений");
         }
 
         public static void AddTranslate(string eng, string rus)

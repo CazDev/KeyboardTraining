@@ -18,6 +18,7 @@ namespace KeyboardTrainer.Views
         bool LessonMode { get; set; }
         public Statistics LastStatistics { get; set; }
         bool FormIsClosed = false;
+        string avaibleChrs;
 
         /// <summary>
         /// Get results
@@ -52,13 +53,11 @@ namespace KeyboardTrainer.Views
             this.Title = Loc.Translate("Lesson") + " " + numOfLesson;
             LessonMode = true;
 
-            string avaibleChrs = GetAvaibleChrs(Loc.Curr_Language, numOfLesson);
-
-            lbl_retry.Opacity = 0; //hide retry label, can't retry in lesson mode 
+            avaibleChrs = GetAvaibleChrs(Loc.Curr_Language, numOfLesson);
 
             TranslateUIElements();
             InitEvents();
-            StartGame(GetStringUsingChars(avaibleChrs, 100));
+            StartGame();
             StartTimeCounter();
         }
 
@@ -209,6 +208,11 @@ namespace KeyboardTrainer.Views
             if (IsTimerTicking)
             {
                 return; //if timer is already started
+            }
+
+            if (LessonMode)
+            {
+                customString = GetStringUsingChars(avaibleChrs, 100);
             }
 
             Dispatcher.Invoke(() =>

@@ -48,7 +48,7 @@ namespace KeyboardTrainer.ViewModels
                 {
                     if (sayAboutFail)
                     {
-                        MessageBox.Show(Loc.Translate("Update error"), "Updater", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Loc.Translate("Update error"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             });
