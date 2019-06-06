@@ -1,0 +1,33 @@
+﻿<Window x:Class="KeyboardTrainer.Views.MyResults"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KeyboardTrainer.Views"
+        xmlns:tools="clr-namespace:MyApp.Tools"
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
+        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
+        MinHeight="430"
+        MinWidth="600"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Training">
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="150*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="textblockText" Grid.Row="0"  Background="LightGray" Margin="2" Text="" FontSize="30" TextAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock x:Name="textInfo" Text="Type text" TextAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Row="1" Background="LightGray" Margin="2"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                <Label x:Name="lbl_left" Content="Chars left:"/>
+                <Label x:Name="lbl_mistakes" Content="Mistakes: "/>
+                <Label x:Name="lbl_time" Content="Time: "/>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock x:Name="lbl_retry" Text="Retry" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
+    </Grid>
+</Window>

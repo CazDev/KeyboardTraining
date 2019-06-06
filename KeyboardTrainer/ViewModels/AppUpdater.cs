@@ -10,7 +10,7 @@ namespace KeyboardTrainer.ViewModels
         /// <summary>
         /// Finds new version, asks user, update, restart app
         /// </summary>
-        public static void Update()
+        public static void Update(bool silence)
         {
             Task checkNewVersion = new Task(() =>
             {
@@ -20,7 +20,23 @@ namespace KeyboardTrainer.ViewModels
                 {
                     if (GitUpdater.NeedUpdate())
                     {
-                        MessageBoxResult res = MessageBox.Show(Loc.Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        MessageBoxResult res = MessageBoxResult.No;
+                        if (!silence)
+                        {
+                            if (UserProgressSaver.Config.SayAboutUpdate)
+                            {
+                                res = MessageBox.Show(Loc.Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            }
+                            if (res == MessageBoxResult.No)
+                            {
+                                UserProgressSaver.Config.SayAboutUpdate = false;
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            res = MessageBox.Show(Loc.Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        }
                         if (res == MessageBoxResult.Yes)
                         {
                             sayAboutFail = true;

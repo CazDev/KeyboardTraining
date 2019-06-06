@@ -68,20 +68,26 @@
     <Compile Include="Models\ConfigStorage.cs" />
     <Compile Include="ViewModels\AppUpdater.cs" />
     <Compile Include="ViewModels\UserProgressSaver.cs" />
-    <Compile Include="Views\MainMenu\Manual.xaml.cs">
+    <Compile Include="Views\Manual.xaml.cs">
       <DependentUpon>Manual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\TypeLogic.cs" />
     <Compile Include="Models\MLanguage.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
     <Compile Include="ViewModels\TextType.cs" />
-    <Compile Include="Views\MainMenu\MyResults.xaml.cs">
+    <Compile Include="Views\MyResults.xaml.cs">
       <DependentUpon>MyResults.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainMenu\SelectLesson.xaml.cs">
+    <Compile Include="Views\SelectLesson.xaml.cs">
       <DependentUpon>SelectLesson.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\MainMenu\MainWindow.xaml">
+    <Compile Include="Views\UserGuideForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserGuideForm.Designer.cs">
+      <DependentUpon>UserGuideForm.cs</DependentUpon>
+    </Compile>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -89,19 +95,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\MainMenu\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\MainMenu\Manual.xaml">
+    <Page Include="Views\Manual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainMenu\MyResults.xaml">
+    <Page Include="Views\MyResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainMenu\SelectLesson.xaml">
+    <Page Include="Views\SelectLesson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +129,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserGuideForm.resx">
+      <DependentUpon>UserGuideForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

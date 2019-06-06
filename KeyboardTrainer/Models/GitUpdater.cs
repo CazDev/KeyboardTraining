@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyboardTrainer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Text;
 
 public static class GitUpdater
 {
-    public static string ThisVersion { get; } = "0.9.3"; //TODO: Before commiting change version here and in file "version_info"
+    public static string ThisVersion { get; } = "0.9.4"; //TODO: Before commiting change version here and in file "version_info"
     private static readonly string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
     private static readonly string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
     private static readonly string programName = "KeyboardTrainer";
@@ -40,6 +41,10 @@ public static class GitUpdater
             FileName = "cmd"
         };
         Process.Start(Info);
+
+        UserProgressSaver.Config.SayAboutUpdate = true;
+        UserProgressSaver.SaveProgress();
+
         Environment.Exit(0);
     }
 

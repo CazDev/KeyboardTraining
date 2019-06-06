@@ -9,6 +9,8 @@ namespace KeyboardTrainer.ViewModels
     public class ConfigStorage
     {
         public List<int> LevelsPassed { get; set; } = new List<int>();
+        public bool IsFirstProgramLoad = true;
+        public bool SayAboutUpdate = true;
 
         internal static void Save(object config)
         {
