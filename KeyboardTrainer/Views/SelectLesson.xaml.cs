@@ -1,5 +1,4 @@
 ﻿using KeyboardTrainer.ViewModels;
-using KeyboardTrainer.Views.Training_.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,11 +71,23 @@ namespace KeyboardTrainer.Views.MainMenu
 
             if (lesson.LastStatistics.Mistakes == 0 && (lesson.LastStatistics.CharsLeft.Length == 0 || string.IsNullOrWhiteSpace(lesson.LastStatistics.CharsLeft)))
             {
-                if (!UserProgressSaver.Config.LevelsPassed_Rus.Contains(numOfLesson))
+                if (Loc.Curr_Language == MLanguage.RUSSIAN)
                 {
-                    SilenceMessageBox.Show(Loc.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    UserProgressSaver.Config.LevelsPassed_Rus.Add(numOfLesson);
-                    UpdateButtonsText();
+                    if (!UserProgressSaver.Config.LevelsPassed_Rus.Contains(numOfLesson))
+                    {
+                        SilenceMessageBox.Show(Loc.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        UserProgressSaver.Config.LevelsPassed_Rus.Add(numOfLesson);
+                        UpdateButtonsText();
+                    }
+                }
+                else if (Loc.Curr_Language == MLanguage.ENGLISH)
+                {
+                    if (!UserProgressSaver.Config.LevelsPassed_Eng.Contains(numOfLesson))
+                    {
+                        SilenceMessageBox.Show(Loc.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        UserProgressSaver.Config.LevelsPassed_Eng.Add(numOfLesson);
+                        UpdateButtonsText();
+                    }
                 }
             }
             //else -> user closed the window
@@ -84,7 +95,7 @@ namespace KeyboardTrainer.Views.MainMenu
 
         public void UpdateButtonsText()
         {
-            foreach (var btn in buttons)
+            foreach (Button btn in buttons)
             {
                 int numOfLesson = Convert.ToInt32(btn.Content.ToString().Split(' ').Last());
 

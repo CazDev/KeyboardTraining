@@ -214,6 +214,8 @@ namespace KeyboardTrainer.Views
                 return; //if timer is already started
             }
 
+            mostMistakeLetters.Clear();
+
             if (LessonMode)
             {
                 customString = GetStringUsingChars(avaibleChrs, 100);
