@@ -1,5 +1,4 @@
-﻿using System;
-using static KeyboardTrainer.Views.Training_.ViewModels.TextType;
+﻿using static KeyboardTrainer.Views.Training_.ViewModels.TextType;
 
 namespace KeyboardTrainer.Views.Training_.Models
 {
@@ -21,11 +20,12 @@ namespace KeyboardTrainer.Views.Training_.Models
         /// <param name="chr">key char, translated to russian if need</param>
         public bool? SendChar(string chr)
         {
-            if (chr.ToLower() == "\b")
+            if (chr == null || chr.ToLower() == "\b")
             {
                 return null;
             }
-            if (chr.ToLower() == ChrsLeft.Substring(0, 1))
+            string firstChar = ChrsLeft.Substring(0, 1);
+            if (chr == firstChar)
             {
                 ChrsLeft = ChrsLeft.Substring(1);
                 return true;

@@ -21,7 +21,9 @@ namespace KeyboardTrainer.Views.MainMenu
 
             for (int i = 1; i <= 17; i++)
             {
-                string ButtonSym = (UserProgressSaver.Config.LevelsPassed.Contains(i)) ? "✓ " : "X "; 
+                string ButtonSym;
+                ButtonSym = GetLessonPrefix(i);
+
                 Button btn = new Button()
                 {
                     Content = ButtonSym + Loc.Translate("Lesson") + " " + i,
@@ -33,6 +35,21 @@ namespace KeyboardTrainer.Views.MainMenu
                 stackPanel.Children.Add(btn);
                 buttons.Add(btn);
             }
+        }
+
+        private static string GetLessonPrefix(int numOfLesson)
+        {
+            string ButtonSym;
+            if (Loc.Curr_Language == MLanguage.RUSSIAN)
+            {
+                ButtonSym = (UserProgressSaver.Config.LevelsPassed_Rus.Contains(numOfLesson)) ? "✓ " : "X ";
+            }
+            else
+            {
+                ButtonSym = (UserProgressSaver.Config.LevelsPassed_Eng.Contains(numOfLesson)) ? "✓ " : "X ";
+            }
+
+            return ButtonSym;
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
@@ -55,10 +72,10 @@ namespace KeyboardTrainer.Views.MainMenu
 
             if (lesson.LastStatistics.Mistakes == 0 && (lesson.LastStatistics.CharsLeft.Length == 0 || string.IsNullOrWhiteSpace(lesson.LastStatistics.CharsLeft)))
             {
-                if (!UserProgressSaver.Config.LevelsPassed.Contains(numOfLesson))
+                if (!UserProgressSaver.Config.LevelsPassed_Rus.Contains(numOfLesson))
                 {
                     SilenceMessageBox.Show(Loc.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    UserProgressSaver.Config.LevelsPassed.Add(numOfLesson);
+                    UserProgressSaver.Config.LevelsPassed_Rus.Add(numOfLesson);
                     UpdateButtonsText();
                 }
             }
@@ -71,9 +88,9 @@ namespace KeyboardTrainer.Views.MainMenu
             {
                 int numOfLesson = Convert.ToInt32(btn.Content.ToString().Split(' ').Last());
 
-                if (UserProgressSaver.Config.LevelsPassed.Contains(numOfLesson))
+                if (UserProgressSaver.Config.LevelsPassed_Rus.Contains(numOfLesson))
                 {
-                    string ButtonSym = (UserProgressSaver.Config.LevelsPassed.Contains(numOfLesson)) ? "✓ " : "X ";
+                    string ButtonSym = GetLessonPrefix(numOfLesson);
                     btn.Content = ButtonSym + Loc.Translate("Lesson") + " " + numOfLesson;
                 }
             }
