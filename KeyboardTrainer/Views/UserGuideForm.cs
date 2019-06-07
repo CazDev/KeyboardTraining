@@ -18,7 +18,7 @@ namespace KeyboardTrainer.Views
 
             this.Text = Loc.Translate("User guide");
 
-            if (MessageBox.Show(Loc.Translate("Do you want to know the features of the program?"), "", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (SilenceMessageBox.Show(Loc.Translate("Do you want to know the features of the program?"), "", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.No)
             {
                 this.Close();
             }

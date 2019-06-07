@@ -67,10 +67,9 @@ namespace KeyboardTrainer.Views
             TextType.StatisticChanged += StatisticChanged;
             TextType.Mistaked += Mistaked;
             this.TextInput += Win_TextInput;
-            lbl_retry.MouseDown += (s, e) =>
-            {
-                StartGame();
-            };
+            lbl_retry.MouseDown += (s, e) => StartGame();
+            this.MouseLeftButtonDown += (s, e) => this.DragMove();
+            this.btn_back.Click += (s, e) => this.Close();
         }
 
         private void TranslateUIElements()
@@ -189,6 +188,11 @@ namespace KeyboardTrainer.Views
 
         private void Win_TextInput(object sender, TextCompositionEventArgs e)
         {
+            if (e.Text.Length < 1)
+            {
+                return;
+            }
+
             char keyChar = e.Text[0];
 
             if (IsTimerTicking)
@@ -374,11 +378,11 @@ namespace KeyboardTrainer.Views
         {
             if (string.IsNullOrWhiteSpace(str_mistakeLetters))
             {
-                MessageBox.Show($"{Loc.Translate("Your speed")} {Speed.ToString("0.00")} {Loc.Translate("keys per minute")}.", Loc.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
+                SilenceMessageBox.Show($"{Loc.Translate("Your speed")} {Speed.ToString("0.00")} {Loc.Translate("keys per minute")}.", Loc.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show($"{Loc.Translate("Your speed")} {Speed.ToString("0.00")} {Loc.Translate("keys per minute")}.\n{Loc.Translate("You make most mistakes in")}:\n{str_mistakeLetters}", Loc.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
+                SilenceMessageBox.Show($"{Loc.Translate("Your speed")} {Speed.ToString("0.00")} {Loc.Translate("keys per minute")}.\n{Loc.Translate("You make most mistakes in")}:\n{str_mistakeLetters}", Loc.Translate("Statistics"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

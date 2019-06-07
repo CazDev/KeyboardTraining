@@ -7,27 +7,35 @@
         xmlns:tools="clr-namespace:MyApp.Tools"
         Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.4' }" 
+        WindowStyle="None"
         MinHeight="430"
         MinWidth="600"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Training">
     <Grid Background="Gray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="550*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="300*"/>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="150*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="textblockText" Grid.Row="0"  Background="LightGray" Margin="2" Text="" FontSize="30" TextAlignment="Left" VerticalAlignment="Center"/>
-        <TextBlock x:Name="textInfo" Text="Type text" TextAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Row="1" Background="LightGray" Margin="2"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <Button x:Name="btn_back" Background="Gray" Foreground="Black" BorderThickness="0" Content="←" FontSize="20" VerticalAlignment="Center" FontFamily="Arial"/>
+
+        <TextBlock x:Name="textblockText" Grid.Row="1"  Background="LightGray"  Text="" FontSize="30" TextAlignment="Left" VerticalAlignment="Center" Height="36" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="textInfo" Text="Type text" TextAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Row="2" Background="LightGray" Height="30" Grid.ColumnSpan="2"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="2">
             <StackPanel Grid.Row="2" Orientation="Vertical">
                 <Label x:Name="lbl_left" Content="Chars left:"/>
                 <Label x:Name="lbl_mistakes" Content="Mistakes: "/>
                 <Label x:Name="lbl_time" Content="Time: "/>
             </StackPanel>
         </StackPanel>
-        <TextBlock x:Name="lbl_retry" Text="Retry" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40"/>
+        <TextBlock x:Name="lbl_retry" Text="Retry" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40" Grid.Column="1"/>
     </Grid>
 </Window>

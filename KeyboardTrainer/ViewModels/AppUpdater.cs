@@ -25,7 +25,7 @@ namespace KeyboardTrainer.ViewModels
                         {
                             if (UserProgressSaver.Config.SayAboutUpdate)
                             {
-                                res = MessageBox.Show(Loc.Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                res = SilenceMessageBox.Show(Loc.Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
                             }
                             if (res == MessageBoxResult.No)
                             {
@@ -35,7 +35,7 @@ namespace KeyboardTrainer.ViewModels
                         }
                         else
                         {
-                            res = MessageBox.Show(Loc.Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            res = SilenceMessageBox.Show(Loc.Translate("New update found! Do you want to update now?"), "KeyboardTrainer", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         }
                         if (res == MessageBoxResult.Yes)
                         {
@@ -48,7 +48,7 @@ namespace KeyboardTrainer.ViewModels
                 {
                     if (sayAboutFail)
                     {
-                        MessageBox.Show(Loc.Translate("Update error"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Error);
+                        SilenceMessageBox.Show(Loc.Translate("Update error"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             });

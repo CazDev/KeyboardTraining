@@ -38,6 +38,7 @@
     <ApplicationIcon>MainWindowIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -67,6 +68,7 @@
     <Compile Include="RatioConverter.cs" />
     <Compile Include="Models\ConfigStorage.cs" />
     <Compile Include="ViewModels\AppUpdater.cs" />
+    <Compile Include="ViewModels\SilenceMessageBox.cs" />
     <Compile Include="ViewModels\UserProgressSaver.cs" />
     <Compile Include="Views\Manual.xaml.cs">
       <DependentUpon>Manual.xaml</DependentUpon>

@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace KeyboardTrainer
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window//TODO: add back btn to my results window
     {
         public MainWindow()
         {
@@ -42,7 +42,7 @@ namespace KeyboardTrainer
             image_Info.MouseEnter += ImageBigger;
 
             image_githubLink.MouseDown += (s, e) => Process.Start("https://github.com/tavvi1337/KeyboardTraining");
-            image_Info.MouseDown += (s, e) => MessageBox.Show($"{Loc.Translate("Product version")} - {GitUpdater.ThisVersion}\n{Loc.Translate("Developed by tavvi")}", Loc.Translate("Information"), MessageBoxButton.OK, MessageBoxImage.Information);
+            image_Info.MouseDown += (s, e) => SilenceMessageBox.Show($"{Loc.Translate("Product version")} - {GitUpdater.ThisVersion}\n{Loc.Translate("Developed by tavvi")}", Loc.Translate("Information"), MessageBoxButton.OK, MessageBoxImage.Information);
             image_Update.MouseDown += (s, e) => UpdateMessage();
         }
 
@@ -52,14 +52,14 @@ namespace KeyboardTrainer
             {
                 if (!AppUpdater.NeedUpdate)
                 {
-                    MessageBox.Show(Loc.Translate("Updates not found"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
+                    SilenceMessageBox.Show(Loc.Translate("Updates not found"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                     AppUpdater.Update(true);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Loc.Translate("Update error") + ex.ToString(), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
+                SilenceMessageBox.Show(Loc.Translate("Update error") + ex.ToString(), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

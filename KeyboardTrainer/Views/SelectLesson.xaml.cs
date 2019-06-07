@@ -57,7 +57,7 @@ namespace KeyboardTrainer.Views.MainMenu
             {
                 if (!UserProgressSaver.Config.LevelsPassed.Contains(numOfLesson))
                 {
-                    MessageBox.Show(Loc.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    SilenceMessageBox.Show(Loc.Translate("You have passed the lesson"), "", MessageBoxButton.OK, MessageBoxImage.Information);
                     UserProgressSaver.Config.LevelsPassed.Add(numOfLesson);
                     UpdateButtonsText();
                 }
