@@ -17,3 +17,4 @@ C:\C#\KeyboardTraining\KeyboardTrainerTests1\obj\Debug\KeyboardTrainerTests.cspr
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\obj\Debug\KeyboardTrainerTests.csproj.CopyComplete
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\obj\Debug\KeyboardTrainerTests1.dll
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\obj\Debug\KeyboardTrainerTests1.pdb
+C:\C#\KeyboardTraining\KeyboardTrainerTests1\obj\Debug\KeyboardTrainerTests.csprojAssemblyReference.cache

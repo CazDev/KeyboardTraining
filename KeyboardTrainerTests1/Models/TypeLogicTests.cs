@@ -33,6 +33,7 @@ namespace KeyboardTrainer.Views.Training_.Models.Tests
                 expectedMistakes++;
             }
 
+            expectedMistakes++;
             bool? res = typeLogic.SendChar(null);
             Assert.AreEqual(null, res);
 

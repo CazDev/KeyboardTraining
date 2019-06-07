@@ -56,11 +56,6 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// <returns></returns>
         public static bool? SendChar(string chr)
         {
-            if (chr.ToLower() == "space")
-            {
-                chr = " ";
-            }
-
             bool? res = Model.SendChar(chr);
 
             Statistics statistics = new Statistics(Model.ChrsLeft, Model.Mistakes, Speed, DateTime.Now - Begin);

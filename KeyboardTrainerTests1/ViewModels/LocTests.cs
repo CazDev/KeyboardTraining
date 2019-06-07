@@ -1,10 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KeyboardTrainer.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KeyboardTrainer.ViewModels.Tests
 {
@@ -20,6 +14,9 @@ namespace KeyboardTrainer.ViewModels.Tests
             Loc.Curr_Language = MLanguage.RUSSIAN;
             Assert.AreEqual("привет", Loc.Translate("привет"));
             Assert.AreEqual("привет", Loc.Translate("hello"));
+            Loc.Curr_Language = MLanguage.ENGLISH;
+            Assert.AreEqual("hello", Loc.Translate("привет"));
+            Assert.AreEqual("hello", Loc.Translate("hello"));
         }
     }
 }
