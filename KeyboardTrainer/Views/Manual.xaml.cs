@@ -40,6 +40,8 @@ namespace KeyboardTrainer.Views.Manual_
             txtbx7.Text = Loc.Translate(txtbx7.Text);
             txtbx8.Text = Loc.Translate(txtbx8.Text);
             txtbx9.Text = Loc.Translate(txtbx9.Text);
+            btn_tab1.Content = btn_tab2.Content = Loc.Translate("Next >>");
+            btn_tab3.Content = Loc.Translate("Exit");
 
             if (UserProgressSaver.Config.IsFirstProgramLoad)
             {

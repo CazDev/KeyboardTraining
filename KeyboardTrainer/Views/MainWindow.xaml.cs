@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace KeyboardTrainer
 {
-    public partial class MainWindow : Window//TODO: add back btn to my results window
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {

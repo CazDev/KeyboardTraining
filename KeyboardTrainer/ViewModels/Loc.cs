@@ -47,6 +47,8 @@ namespace KeyboardTrainer.ViewModels
             AddTranslate("Developed by tavvi", "Разработано tavvi");
             AddTranslate("Information", "Информация");
             AddTranslate("Updater", "Проверка обновлений");
+            AddTranslate("Next >>", "Далее >>");
+            AddTranslate("Exit", "Выйти");
         }
 
         public static void AddTranslate(string eng, string rus)
