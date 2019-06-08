@@ -19,6 +19,7 @@ namespace KeyboardTrainer
 
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
             this.image_githubLink.Source = Properties.Resources.githubIcon.ToImageSource();
+            this.image_Settings.Source = Properties.Resources.settingsIcon.ToImageSource();
             this.image_Info.Source = Properties.Resources.infoIcon.ToImageSource();
             this.image_Update.Source = Properties.Resources.updateIcon.ToImageSource();
 
@@ -35,6 +36,9 @@ namespace KeyboardTrainer
             image_githubLink.MouseLeave += ImageSmaller;
             image_githubLink.MouseEnter += ImageBigger;
 
+            image_Settings.MouseLeave += ImageSmaller;
+            image_Settings.MouseEnter += ImageBigger;
+
             image_Update.MouseLeave += ImageSmaller;
             image_Update.MouseEnter += ImageBigger;
 
@@ -43,6 +47,7 @@ namespace KeyboardTrainer
 
             image_githubLink.MouseDown += (s, e) => Process.Start("https://github.com/tavvi1337/KeyboardTraining");
             image_Info.MouseDown += (s, e) => SilenceMessageBox.Show($"{Loc.Translate("Product version")} - {GitUpdater.ThisVersion}\n{Loc.Translate("Developed by tavvi")}", Loc.Translate("Information"), MessageBoxButton.OK, MessageBoxImage.Information);
+            image_Settings.MouseDown += (s, e) => new Settings().ShowDialog();
             image_Update.MouseDown += (s, e) => UpdateMessage();
         }
 
@@ -131,6 +136,7 @@ namespace KeyboardTrainer
             image_githubLink.ToolTip = Loc.Translate("Visit github.com");
             image_Update.ToolTip = Loc.Translate("Check for updates");
             image_Info.ToolTip = Loc.Translate("Show information");
+            image_Settings.ToolTip = Loc.Translate("Settings");
         }
     }
 }

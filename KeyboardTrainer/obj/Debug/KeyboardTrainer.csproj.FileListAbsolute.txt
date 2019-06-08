@@ -21,3 +21,4 @@ C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\Manual.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MyResults.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\SelectLesson.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.Views.UserGuideForm.resources
+C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.Views.Settings.resources

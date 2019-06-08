@@ -2,11 +2,14 @@
 using KeyboardTrainer.Views.Training_.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace KeyboardTrainer.Views
 {
@@ -307,9 +310,16 @@ namespace KeyboardTrainer.Views
             }
         }
 
+
+
         private void Mistaked(string letter)
         {
             mostMistakeLetters.Add(letter);
+
+            if (UserProgressSaver.SoundOn)
+            {
+                new Task(() => Console.Beep()).Start();
+            }
         }
 
         private void StatisticChanged(Statistics statistics)

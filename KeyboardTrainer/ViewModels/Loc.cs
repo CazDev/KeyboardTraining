@@ -49,6 +49,7 @@ namespace KeyboardTrainer.ViewModels
             AddTranslate("Updater", "Проверка обновлений");
             AddTranslate("Next >>", "Далее >>");
             AddTranslate("Exit", "Выйти");
+            AddTranslate("Settings", "Настройки");
         }
 
         public static void AddTranslate(string eng, string rus)

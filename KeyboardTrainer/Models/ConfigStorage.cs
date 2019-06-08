@@ -14,6 +14,7 @@ namespace KeyboardTrainer.ViewModels
 
         public bool IsFirstProgramLoad = true;
         public bool SayAboutUpdate = true;
+        public bool Sounds = false;
 
         static string pathToDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"\\KeyboardTrainer\\";
         static string fileName = "data.bin";
@@ -56,6 +57,12 @@ namespace KeyboardTrainer.ViewModels
             }
         }
 
+        public void DeleteProgess()
+        {
+            this.LevelsPassed = this.LevelsPassed_Eng = this.LevelsPassed_Rus = new List<int>();
+            File.Delete(fullPath);
+        }
+
         private static ConfigStorage OldLoad()//old type
         {
             try
@@ -68,6 +75,8 @@ namespace KeyboardTrainer.ViewModels
 
                     config.LevelsPassed_Rus = new List<int>();
                     config.LevelsPassed_Rus.AddRange(config.LevelsPassed);
+
+                    config.Sounds = false;
 
                     return config;
                 }

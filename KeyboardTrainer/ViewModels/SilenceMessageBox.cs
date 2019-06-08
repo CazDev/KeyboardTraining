@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KeyboardTrainer.ViewModels;
 using System.Windows;
 
 public class SilenceMessageBox
@@ -12,7 +7,14 @@ public class SilenceMessageBox
     {
         MessageBoxResult result;
 
-        result = MessageBox.Show(text, caption, buttons, MessageBoxImage.None);
+        if (UserProgressSaver.SoundOn)
+        {
+            result = MessageBox.Show(text, caption, buttons, icon);
+        }
+        else
+        {
+            result = MessageBox.Show(text, caption, buttons, MessageBoxImage.None);
+        }
 
         return result;
     }
