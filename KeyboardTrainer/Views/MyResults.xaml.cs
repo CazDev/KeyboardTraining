@@ -31,6 +31,8 @@ namespace KeyboardTrainer.Views
         {
             InitializeComponent();
 
+            this.ChangeTheme(this.grid, UserProgressSaver.GetTheme);
+
             this.Title = Loc.Translate("My results");            
             LessonMode = false;
 
@@ -53,6 +55,9 @@ namespace KeyboardTrainer.Views
             }
 
             InitializeComponent();
+
+            this.ChangeTheme(this.grid, UserProgressSaver.GetTheme);
+
             this.Title = Loc.Translate("Lesson") + " " + numOfLesson;
             LessonMode = true;
 

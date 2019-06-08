@@ -16,6 +16,8 @@ namespace KeyboardTrainer.ViewModels
         public bool SayAboutUpdate = true;
         public bool Sounds = false;
 
+        public MTheme Theme = MTheme.DARK;
+
         static string pathToDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + $"\\KeyboardTrainer\\";
         static string fileName = "data.bin";
         static string fullPath = pathToDir + fileName;
@@ -77,6 +79,7 @@ namespace KeyboardTrainer.ViewModels
                     config.LevelsPassed_Rus.AddRange(config.LevelsPassed);
 
                     config.Sounds = false;
+                    config.Theme = MTheme.DARK;
 
                     return config;
                 }

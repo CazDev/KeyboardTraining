@@ -16,6 +16,7 @@ namespace KeyboardTrainer.Views.MainMenu
         public SelectLesson(MLanguage language)
         {
             InitializeComponent();
+
             this.Title = Loc.Translate("Select lesson");
 
             for (int i = 1; i <= 17; i++)
@@ -34,6 +35,8 @@ namespace KeyboardTrainer.Views.MainMenu
                 stackPanel.Children.Add(btn);
                 buttons.Add(btn);
             }
+
+            this.ChangeTheme(this.stackPanel, UserProgressSaver.GetTheme);
         }
 
         private static string GetLessonPrefix(int numOfLesson)

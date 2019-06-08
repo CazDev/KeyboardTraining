@@ -46,7 +46,7 @@
 
     </Window.Resources>
     <ScrollViewer Background="Gray">
-        <StackPanel Margin="10" x:Name="stackPanel" CanVerticallyScroll="True">
+        <StackPanel x:Name="stackPanel" CanVerticallyScroll="True">
 
         </StackPanel>
     </ScrollViewer>

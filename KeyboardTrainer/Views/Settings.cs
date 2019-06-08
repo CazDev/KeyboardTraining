@@ -8,18 +8,35 @@ namespace KeyboardTrainer.Views
         public Settings()
         {
             InitializeComponent();
+
             Loc.AddTranslate("Sounds", "Звуки");
             Loc.AddTranslate("Wipe all data", "Отчистить данные");
+            Loc.AddTranslate("Themes", "Темы");
+            Loc.AddTranslate("Light", "Светлая");
+            Loc.AddTranslate("Dark", "Тёмная");
+            Loc.AddTranslate("Red", "Красная");
+            Loc.AddTranslate("Green", "Зелёная");
 
-            LoadProgress();
+            LoadShowProgress();
 
             lbl_title.Text = Loc.Translate("Settings");
+            this.Text = Loc.Translate("Settings");
             groupBox.Text = Loc.Translate("Settings");
             checkbx_Sound.Text = Loc.Translate("Sounds");
             btn_wipeData.Text = Loc.Translate("Wipe all data");
+            groupBox2.Text = Loc.Translate("Themes");
+            btn_darkTheme.Text = Loc.Translate("Dark");
+            btn_lightTheme.Text = Loc.Translate("Light");
+            btn_redTheme.Text = Loc.Translate("Red");
+            btn_greenTheme.Text = Loc.Translate("Green");
+
+            btn_darkTheme.Click += (s, e) => UserProgressSaver.ChangeTheme(MTheme.DARK);
+            btn_lightTheme.Click += (s, e) => UserProgressSaver.ChangeTheme(MTheme.LIGHT);
+            btn_redTheme.Click += (s, e) => UserProgressSaver.ChangeTheme(MTheme.RED);
+            btn_greenTheme.Click += (s, e) => UserProgressSaver.ChangeTheme(MTheme.GREEN);
         }
 
-        void LoadProgress()
+        void LoadShowProgress()
         {
             checkbx_Sound.Checked = UserProgressSaver.SoundOn;
         }

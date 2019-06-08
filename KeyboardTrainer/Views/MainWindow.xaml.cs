@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace KeyboardTrainer
 {
@@ -14,8 +15,11 @@ namespace KeyboardTrainer
         public MainWindow()
         {
             InitializeComponent();
+
             Loc.Curr_Language = GetSelectedLanguage();
             UserProgressSaver.LoadProgress();
+
+            this.ChangeTheme(this.grid, UserProgressSaver.GetTheme);
 
             this.Icon = Properties.Resources.MainWindowIcon.ToImageSource();
             this.image_githubLink.Source = Properties.Resources.githubIcon.ToImageSource();
@@ -47,7 +51,7 @@ namespace KeyboardTrainer
 
             image_githubLink.MouseDown += (s, e) => Process.Start("https://github.com/tavvi1337/KeyboardTraining");
             image_Info.MouseDown += (s, e) => SilenceMessageBox.Show($"{Loc.Translate("Product version")} - {GitUpdater.ThisVersion}\n{Loc.Translate("Developed by tavvi")}", Loc.Translate("Information"), MessageBoxButton.OK, MessageBoxImage.Information);
-            image_Settings.MouseDown += (s, e) => new Settings().ShowDialog();
+            image_Settings.MouseDown += (s, e) => { new Settings().ShowDialog(); this.ChangeTheme(this.grid, UserProgressSaver.GetTheme); };
             image_Update.MouseDown += (s, e) => UpdateMessage();
         }
 
@@ -129,7 +133,7 @@ namespace KeyboardTrainer
         {
             Loc.Curr_Language = GetSelectedLanguage();
             this.Title = Loc.Translate("MainWindow");
-
+            //TODO: remove comments
             btn_learning.Content = Loc.Translate("Lessons");
             btn_training.Content = Loc.Translate("My results");
             btn_manual.Content = Loc.Translate("Manual");

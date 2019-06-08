@@ -48,7 +48,7 @@
 
     </Window.Resources>
 
-    <Grid Background="Gray">
+    <Grid x:Name="grid" Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="150*"/>
