@@ -13,7 +13,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Training">
-    <Grid Background="Gray">
+    <Grid Background="Gray" x:Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="550*"/>
