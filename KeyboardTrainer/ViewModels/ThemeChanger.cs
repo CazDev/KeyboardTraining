@@ -12,7 +12,7 @@ namespace KeyboardTrainer.ViewModels
         {
             if (theme == MTheme.DARK)
             {
-                panel.Background = Brushes.Gray;
+                panel.Background = new SolidColorBrush(Color.FromRgb(128, 128, 128));
             }
             else if (theme == MTheme.LIGHT)
             {
@@ -48,33 +48,33 @@ namespace KeyboardTrainer.ViewModels
                     }
                     else if(theme == MTheme.GREEN)
                     {
-                        ChangeControlTheme(element as Button, Color.FromRgb(56, 253, 57), Color.FromRgb(0, 77, 64), Color.FromRgb(255, 255, 255));
+                        ChangeControlTheme(element as Button, Color.FromRgb(0, 77, 64), Color.FromRgb(56, 253, 57), Color.FromRgb(255, 255, 255));
                     }
                 }
                 else if ((element is TextBlock))
                 {
                     if (theme == MTheme.DARK)
                     {
-                        ChangeControlTheme(element as TextBlock, Color.FromRgb(29, 29, 29), Color.FromRgb(255, 255, 255));
+                        ChangeControlTheme(element as TextBlock, Color.FromRgb(128, 128, 128), Color.FromRgb(0, 0, 0));
                     }
                     else if (theme == MTheme.LIGHT)
                     {
-                        ChangeControlTheme(element as TextBlock, Color.FromRgb(128, 216, 255), Color.FromRgb(29, 29, 29));
+                        ChangeControlTheme(element as TextBlock, Color.FromRgb(225, 245, 254), Color.FromRgb(29, 29, 29));
                     }
                     else if (theme == MTheme.RED)
                     {
-                        ChangeControlTheme(element as TextBlock, Color.FromRgb(144, 42, 40), Color.FromRgb(207, 205, 206));
+                        ChangeControlTheme(element as TextBlock, Color.FromRgb(1, 0, 3), Color.FromRgb(207, 205, 206));
                     }
                     else if (theme == MTheme.GREEN)
                     {
-                        ChangeControlTheme(element as TextBlock, Color.FromRgb(56, 253, 57), Color.FromRgb(255, 255, 255));
+                        ChangeControlTheme(element as TextBlock, Color.FromRgb(10, 10, 10), Color.FromRgb(255, 255, 255));
                     }
                 }
                 else if (element is Label)
                 {
                     if (theme == MTheme.DARK)
                     {
-                        ChangeControlTheme(element as Label, Color.FromRgb(255, 255, 255));
+                        ChangeControlTheme(element as Label, Color.FromRgb(0, 0, 0));
                     }
                     else if (theme == MTheme.LIGHT)
                     {
