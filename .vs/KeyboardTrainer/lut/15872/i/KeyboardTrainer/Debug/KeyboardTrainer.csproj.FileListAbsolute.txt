@@ -22,3 +22,4 @@ C:\C#\KeyboardTraining\.vs\KeyboardTrainer\lut\0\i\KeyboardTrainer\Debug\Keyboar
 C:\C#\KeyboardTraining\.vs\KeyboardTrainer\lut\0\i\KeyboardTrainer\Debug\KeyboardTrainer.csproj.CopyComplete
 C:\C#\KeyboardTraining\.vs\KeyboardTrainer\lut\0\i\KeyboardTrainer\Debug\KeyboardTrainer.exe
 C:\C#\KeyboardTraining\.vs\KeyboardTrainer\lut\0\i\KeyboardTrainer\Debug\KeyboardTrainer.pdb
+C:\C#\KeyboardTraining\.vs\KeyboardTrainer\lut\0\i\KeyboardTrainer\Debug\KeyboardTrainer.csprojAssemblyReference.cache
