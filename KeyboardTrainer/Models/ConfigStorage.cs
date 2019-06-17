@@ -15,6 +15,7 @@ namespace KeyboardTrainer.ViewModels
         public bool IsFirstProgramLoad = true;
         public bool SayAboutUpdate = true;
         public bool Sounds = false;
+        static bool CanSave = true;//cant save when data is wiped
 
         public MTheme Theme = MTheme.DARK;
 
@@ -24,6 +25,10 @@ namespace KeyboardTrainer.ViewModels
 
         public static void Save(ConfigStorage config)
         {
+            if (!CanSave)
+            {
+                return;
+            }
             if (!Directory.Exists(pathToDir))
             {
                 Directory.CreateDirectory(pathToDir);
@@ -61,8 +66,18 @@ namespace KeyboardTrainer.ViewModels
 
         public void DeleteProgess()
         {
+            CanSave = false;
             this.LevelsPassed = this.LevelsPassed_Eng = this.LevelsPassed_Rus = new List<int>();
-            File.Delete(fullPath);
+            if (File.Exists(fullPath))
+            {
+                File.Delete(fullPath);
+            }
+            try
+            {
+                Directory.Delete(pathToDir);
+            }
+            catch { }
+            Environment.Exit(0);
         }
 
         private static ConfigStorage OldLoad()//old type
