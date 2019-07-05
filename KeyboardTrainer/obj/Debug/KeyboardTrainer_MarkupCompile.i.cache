@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\C#\KeyboardTraining\KeyboardTrainer\App.xaml
-4-625327690
+4-1699861397
 
-28-2143800922
+29-524113195
 161951004989
-Views\MainWindow.xaml;Views\Manual.xaml;Views\MyResults.xaml;Views\SelectLesson.xaml;
+Views\MainWindow.xaml;Views\Manual.xaml;Views\Train.xaml;Views\SelectLesson.xaml;
 
-True
+False
 

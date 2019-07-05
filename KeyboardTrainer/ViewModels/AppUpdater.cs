@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace KeyboardTrainer.ViewModels
+namespace KeyboardTrainer.Models
 {
     class AppUpdater
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace KeyboardTrainer.ViewModels
+namespace KeyboardTrainer.Models
 {
     [Serializable]
     public class ConfigStorage
@@ -11,6 +11,12 @@ namespace KeyboardTrainer.ViewModels
         public List<int> LevelsPassed { get; set; } = new List<int>(); // for old serialization
         public List<int> LevelsPassed_Rus { get; set; } = new List<int>();
         public List<int> LevelsPassed_Eng { get; set; } = new List<int>();
+
+        public WindowSize SelectLessonWindow = new WindowSize(400, 550);
+        public WindowSize TrainWindow = new WindowSize(600, 430);
+        public WindowSize ManualSize = new WindowSize(600, 350);
+
+        public MLanguage SelectedLanguage = MLanguage.ENGLISH;
 
         public bool IsFirstProgramLoad = true;
         public bool SayAboutUpdate = true;
@@ -54,7 +60,7 @@ namespace KeyboardTrainer.ViewModels
                         file.Close();
                         config = OldLoad();
                     }
-                    
+
                     return config;
                 }
             }

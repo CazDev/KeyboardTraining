@@ -1,4 +1,4 @@
-﻿using KeyboardTrainer.ViewModels;
+﻿using KeyboardTrainer.Models;
 using System.Windows.Forms;
 
 namespace KeyboardTrainer.Views

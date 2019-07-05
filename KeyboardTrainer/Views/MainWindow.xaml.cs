@@ -1,4 +1,4 @@
-﻿using KeyboardTrainer.ViewModels;
+﻿using KeyboardTrainer.Models;
 using KeyboardTrainer.Views;
 using KeyboardTrainer.Views.MainMenu;
 using KeyboardTrainer.Views.Manual_;
@@ -6,7 +6,6 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace KeyboardTrainer
 {
@@ -16,8 +15,9 @@ namespace KeyboardTrainer
         {
             InitializeComponent();
 
-            Loc.Curr_Language = GetSelectedLanguage();
             UserProgressSaver.LoadProgress();
+
+            Loc.Curr_Language = UserProgressSaver.SelectedLanguage;
 
             this.ChangeTheme(this.grid, UserProgressSaver.GetTheme);
 
@@ -30,7 +30,16 @@ namespace KeyboardTrainer
             InitEvents();
 
             AppUpdater.Update(false);//check updates
-            cb_language.SelectedIndex = 0;
+
+            switch (UserProgressSaver.SelectedLanguage)
+            {
+                case MLanguage.RUSSIAN:
+                    cb_language.SelectedIndex = 0;
+                    break;
+                case MLanguage.ENGLISH:
+                    cb_language.SelectedIndex = 1;
+                    break;
+            }
         }
 
         private void InitEvents()
@@ -64,7 +73,9 @@ namespace KeyboardTrainer
                     SilenceMessageBox.Show(Loc.Translate("Updates not found"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
+                {
                     AppUpdater.Update(true);
+                }
             }
             catch (Exception ex)
             {
@@ -87,7 +98,7 @@ namespace KeyboardTrainer
         private void Btn_myResults_Click(object sender, RoutedEventArgs e)
         {
             MLanguage language = GetSelectedLanguage();
-            MyResults results = new MyResults();
+            Train results = new Train();
             this.Hide();
             if (results.ShowDialog() != null)
             {
@@ -132,8 +143,10 @@ namespace KeyboardTrainer
         private void cb_SelectedLangugeChanged(object sender, SelectionChangedEventArgs e)
         {
             Loc.Curr_Language = GetSelectedLanguage();
+            UserProgressSaver.SetLanguage(GetSelectedLanguage());
+
             this.Title = Loc.Translate("MainWindow");
-            //TODO: remove comments
+
             btn_learning.Content = Loc.Translate("Lessons");
             btn_training.Content = Loc.Translate("My results");
             btn_manual.Content = Loc.Translate("Manual");

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace KeyboardTrainer.ViewModels
+namespace KeyboardTrainer.Models
 {
     public static class ThemeChanger
     {

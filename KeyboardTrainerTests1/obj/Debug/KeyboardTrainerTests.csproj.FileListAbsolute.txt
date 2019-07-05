@@ -1,9 +1,6 @@
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
-C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
-C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\KeyboardTrainerTests1.dll
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\KeyboardTrainerTests1.pdb
 C:\C#\KeyboardTraining\KeyboardTrainerTests1\bin\Debug\KeyboardTrainer.exe

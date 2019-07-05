@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace KeyboardTrainer.ViewModels
+namespace KeyboardTrainer.Models
 {
     /// <summary>
     /// Localization, translator

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace KeyboardTrainer.ViewModels.Tests
+namespace KeyboardTrainer.Models.Tests
 {
     [TestClass()]
     public class LocTests

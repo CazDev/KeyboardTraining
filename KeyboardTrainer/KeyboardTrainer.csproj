@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\WindowSize.cs" />
     <Compile Include="Models\Database.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="Models\GitUpdater.cs" />
@@ -79,8 +80,8 @@
     <Compile Include="Models\MLanguage.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
     <Compile Include="ViewModels\TextType.cs" />
-    <Compile Include="Views\MyResults.xaml.cs">
-      <DependentUpon>MyResults.xaml</DependentUpon>
+    <Compile Include="Views\Train.xaml.cs">
+      <DependentUpon>Train.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectLesson.xaml.cs">
       <DependentUpon>SelectLesson.xaml</DependentUpon>
@@ -113,7 +114,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MyResults.xaml">
+    <Page Include="Views\Train.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

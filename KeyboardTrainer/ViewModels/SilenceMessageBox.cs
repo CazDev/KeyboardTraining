@@ -1,4 +1,4 @@
-﻿using KeyboardTrainer.ViewModels;
+﻿using KeyboardTrainer.Models;
 using System.Windows;
 
 public class SilenceMessageBox

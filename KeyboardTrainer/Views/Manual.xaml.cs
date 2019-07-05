@@ -1,5 +1,4 @@
-﻿using KeyboardTrainer.ViewModels;
-using KeyboardTrainer.Views.Training_.ViewModels;
+﻿using KeyboardTrainer.Models;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -18,6 +17,9 @@ namespace KeyboardTrainer.Views.Manual_
         public Manual()
         {
             InitializeComponent();
+
+            UserProgressSaver.ApplySizeForManual(this);
+            this.SizeChanged += (s, e) => UserProgressSaver.SaveSizeForManualSize(this);
 
             Loc.AddTranslate("Seat", txtbx0.Text);
             Loc.AddTranslate("Sit up straight and keep your back straight.", txtbx1.Text);

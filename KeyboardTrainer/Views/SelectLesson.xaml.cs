@@ -1,4 +1,4 @@
-﻿using KeyboardTrainer.ViewModels;
+﻿using KeyboardTrainer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,8 @@ namespace KeyboardTrainer.Views.MainMenu
 
             this.Title = Loc.Translate("Select lesson");
 
+            this.SizeChanged += (s, e) => UserProgressSaver.SaveSizeForSelectLessonWindow(this);
+
             for (int i = 1; i <= 17; i++)
             {
                 string ButtonSym;
@@ -36,6 +38,7 @@ namespace KeyboardTrainer.Views.MainMenu
                 buttons.Add(btn);
             }
 
+            UserProgressSaver.ApplySizeForSelectLessonWindow(this);
             this.ChangeTheme(this.stackPanel, UserProgressSaver.GetTheme);
         }
 
@@ -58,7 +61,7 @@ namespace KeyboardTrainer.Views.MainMenu
         {
             int numOfLesson = Convert.ToInt32((sender as Button).Content.ToString().Split(' ').Last());//get num of lesson (written on button)
 
-            MyResults lesson = new MyResults(numOfLesson);
+            Train lesson = new Train(numOfLesson);
             this.Hide();
             try
             {

@@ -14,11 +14,11 @@ C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.pdb
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.csprojAssemblyReference.cache
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainWindow.g.cs
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\Manual.g.cs
-C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MyResults.g.cs
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\SelectLesson.g.cs
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MainWindow.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\Manual.baml
-C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\MyResults.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\SelectLesson.baml
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.Views.UserGuideForm.resources
 C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\KeyboardTrainer.Views.Settings.resources
+C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\Train.g.cs
+C:\C#\KeyboardTraining\KeyboardTrainer\obj\Debug\Views\Train.baml

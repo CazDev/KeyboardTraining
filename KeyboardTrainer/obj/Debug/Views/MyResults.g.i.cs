@@ -39,7 +39,7 @@ namespace KeyboardTrainer.Views {
     /// <summary>
     /// MyResults
     /// </summary>
-    public partial class MyResults : System.Windows.Window, System.Windows.Markup.IComponentConnector {
+    public partial class Train : System.Windows.Window, System.Windows.Markup.IComponentConnector {
         
         
         #line 16 "..\..\..\Views\MyResults.xaml"
