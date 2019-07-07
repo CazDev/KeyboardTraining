@@ -20,6 +20,7 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Cursor" Value="Hand"/>
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -66,7 +67,7 @@
         <Button x:Name="btn_training" Grid.Row="2" Content="My results" Click="Btn_myResults_Click"/>
         <Button x:Name="btn_manual" Grid.Row="3" Content="Manual" Click="Btn_manual_Click"/>
 
-        <ComboBox Name="cb_language" Grid.Row="3" Height="30" VerticalAlignment="Bottom" SelectionChanged="cb_SelectedLangugeChanged">
+        <ComboBox Name="cb_language" Cursor="Hand" Grid.Row="3" Height="30" VerticalAlignment="Bottom" SelectionChanged="cb_SelectedLangugeChanged">
             <TextBlock>Russian</TextBlock>
             <TextBlock>English</TextBlock>
         </ComboBox>

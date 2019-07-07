@@ -2,7 +2,6 @@
 using KeyboardTrainer.Views;
 using KeyboardTrainer.Views.MainMenu;
 using KeyboardTrainer.Views.Manual_;
-using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,21 +45,26 @@ namespace KeyboardTrainer
         {
             this.Closing += (s, e) => UserProgressSaver.SaveProgress();
 
-            image_githubLink.MouseLeave += ImageSmaller;
-            image_githubLink.MouseEnter += ImageBigger;
+            image_githubLink.MouseLeave += ImageBigger;
+            image_githubLink.MouseEnter += ImageSmaller;
 
-            image_Settings.MouseLeave += ImageSmaller;
-            image_Settings.MouseEnter += ImageBigger;
+            image_Settings.MouseLeave += ImageBigger;
+            image_Settings.MouseEnter += ImageSmaller;
 
-            image_Update.MouseLeave += ImageSmaller;
-            image_Update.MouseEnter += ImageBigger;
+            image_Update.MouseLeave += ImageBigger;
+            image_Update.MouseEnter += ImageSmaller;
 
-            image_Info.MouseLeave += ImageSmaller;
-            image_Info.MouseEnter += ImageBigger;
+            image_Info.MouseLeave += ImageBigger;
+            image_Info.MouseEnter += ImageSmaller;
 
             image_githubLink.MouseDown += (s, e) => Process.Start("https://github.com/tavvi1337/KeyboardTraining");
             image_Info.MouseDown += (s, e) => SilenceMessageBox.Show($"{Loc.Translate("Product version")} - {GitUpdater.ThisVersion}\n{Loc.Translate("Developed by tavvi")}", Loc.Translate("Information"), MessageBoxButton.OK, MessageBoxImage.Information);
-            image_Settings.MouseDown += (s, e) => { new Settings().ShowDialog(); this.ChangeTheme(this.grid, UserProgressSaver.GetTheme); };
+            image_Settings.MouseDown += (s, e) =>
+            {
+                var settings = new Settings();
+                settings.ThemeChanged += () => this.ChangeTheme(this.grid, UserProgressSaver.GetTheme);
+                settings.ShowDialog();                
+            };
             image_Update.MouseDown += (s, e) => UpdateMessage();
         }
 
@@ -77,9 +81,9 @@ namespace KeyboardTrainer
                     AppUpdater.Update(true);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                SilenceMessageBox.Show(Loc.Translate("Update error") + ex.ToString(), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
+                SilenceMessageBox.Show(Loc.Translate("Update error"), Loc.Translate("Updater"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

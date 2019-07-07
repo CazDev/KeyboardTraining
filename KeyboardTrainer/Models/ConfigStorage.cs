@@ -21,7 +21,7 @@ namespace KeyboardTrainer.Models
         public bool IsFirstProgramLoad = true;
         public bool SayAboutUpdate = true;
         public bool Sounds = false;
-        static bool CanSave = true;//cant save when data is wiped
+        static bool CanSave = true;//dont save when data is wiped
 
         public MTheme Theme = MTheme.DARK;
 

@@ -25,7 +25,7 @@
             <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="btn_back" Background="Gray" Foreground="Black" BorderThickness="0" Content="←" FontSize="20" VerticalAlignment="Center" FontFamily="Arial" HorizontalAlignment="Left" Margin="0,2" Width="49"/>
+        <Button x:Name="btn_back" Cursor="Hand" Background="Gray" Foreground="Black" BorderThickness="0" Content="←" FontSize="20" VerticalAlignment="Center" FontFamily="Arial" HorizontalAlignment="Left" Margin="0,2" Width="49"/>
 
         <TextBlock x:Name="textblockText" Grid.Row="1"  Background="LightGray"  Text="" FontSize="30" TextAlignment="Left" VerticalAlignment="Center" Height="36" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="textInfo" Text="Type text" TextAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Row="2" Background="LightGray" Grid.ColumnSpan="2"/>

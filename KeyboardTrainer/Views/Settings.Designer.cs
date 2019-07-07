@@ -32,14 +32,15 @@
             this.checkbx_Sound = new System.Windows.Forms.CheckBox();
             this.lbl_title = new System.Windows.Forms.Label();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btn_redTheme = new System.Windows.Forms.Button();
-            this.btn_lightTheme = new System.Windows.Forms.Button();
-            this.btn_darkTheme = new System.Windows.Forms.Button();
+            this.gb_themes = new System.Windows.Forms.GroupBox();
+            this.rb_Green = new System.Windows.Forms.RadioButton();
+            this.rb_Red = new System.Windows.Forms.RadioButton();
+            this.rb_Light = new System.Windows.Forms.RadioButton();
+            this.rb_Dark = new System.Windows.Forms.RadioButton();
             this.btn_wipeData = new System.Windows.Forms.Button();
-            this.btn_greenTheme = new System.Windows.Forms.Button();
+            this.btn_done = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gb_themes.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkbx_Sound
@@ -65,60 +66,73 @@
             // 
             // groupBox
             // 
-            this.groupBox.Controls.Add(this.groupBox2);
+            this.groupBox.Controls.Add(this.gb_themes);
             this.groupBox.Controls.Add(this.btn_wipeData);
             this.groupBox.Controls.Add(this.checkbx_Sound);
             this.groupBox.Location = new System.Drawing.Point(12, 57);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(370, 279);
+            this.groupBox.Size = new System.Drawing.Size(370, 246);
             this.groupBox.TabIndex = 2;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Settings";
             // 
-            // groupBox2
+            // gb_themes
             // 
-            this.groupBox2.Controls.Add(this.btn_greenTheme);
-            this.groupBox2.Controls.Add(this.btn_redTheme);
-            this.groupBox2.Controls.Add(this.btn_lightTheme);
-            this.groupBox2.Controls.Add(this.btn_darkTheme);
-            this.groupBox2.Location = new System.Drawing.Point(12, 52);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(106, 144);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Themes";
+            this.gb_themes.Controls.Add(this.rb_Green);
+            this.gb_themes.Controls.Add(this.rb_Red);
+            this.gb_themes.Controls.Add(this.rb_Light);
+            this.gb_themes.Controls.Add(this.rb_Dark);
+            this.gb_themes.Location = new System.Drawing.Point(19, 52);
+            this.gb_themes.Name = "gb_themes";
+            this.gb_themes.Size = new System.Drawing.Size(87, 118);
+            this.gb_themes.TabIndex = 3;
+            this.gb_themes.TabStop = false;
+            this.gb_themes.Text = "Themes";
             // 
-            // btn_redTheme
+            // rb_Green
             // 
-            this.btn_redTheme.Location = new System.Drawing.Point(13, 82);
-            this.btn_redTheme.Name = "btn_redTheme";
-            this.btn_redTheme.Size = new System.Drawing.Size(75, 23);
-            this.btn_redTheme.TabIndex = 2;
-            this.btn_redTheme.Text = "Red";
-            this.btn_redTheme.UseVisualStyleBackColor = true;
+            this.rb_Green.AutoSize = true;
+            this.rb_Green.Location = new System.Drawing.Point(6, 91);
+            this.rb_Green.Name = "rb_Green";
+            this.rb_Green.Size = new System.Drawing.Size(54, 17);
+            this.rb_Green.TabIndex = 3;
+            this.rb_Green.Text = "Green";
+            this.rb_Green.UseVisualStyleBackColor = true;
             // 
-            // btn_lightTheme
+            // rb_Red
             // 
-            this.btn_lightTheme.Location = new System.Drawing.Point(13, 53);
-            this.btn_lightTheme.Name = "btn_lightTheme";
-            this.btn_lightTheme.Size = new System.Drawing.Size(75, 23);
-            this.btn_lightTheme.TabIndex = 1;
-            this.btn_lightTheme.Text = "Light";
-            this.btn_lightTheme.UseVisualStyleBackColor = true;
+            this.rb_Red.AutoSize = true;
+            this.rb_Red.Location = new System.Drawing.Point(6, 68);
+            this.rb_Red.Name = "rb_Red";
+            this.rb_Red.Size = new System.Drawing.Size(45, 17);
+            this.rb_Red.TabIndex = 2;
+            this.rb_Red.Text = "Red";
+            this.rb_Red.UseVisualStyleBackColor = true;
             // 
-            // btn_darkTheme
+            // rb_Light
             // 
-            this.btn_darkTheme.Location = new System.Drawing.Point(13, 24);
-            this.btn_darkTheme.Name = "btn_darkTheme";
-            this.btn_darkTheme.Size = new System.Drawing.Size(75, 23);
-            this.btn_darkTheme.TabIndex = 0;
-            this.btn_darkTheme.Text = "Dark";
-            this.btn_darkTheme.UseVisualStyleBackColor = true;
+            this.rb_Light.AutoSize = true;
+            this.rb_Light.Location = new System.Drawing.Point(6, 45);
+            this.rb_Light.Name = "rb_Light";
+            this.rb_Light.Size = new System.Drawing.Size(48, 17);
+            this.rb_Light.TabIndex = 1;
+            this.rb_Light.Text = "Light";
+            this.rb_Light.UseVisualStyleBackColor = true;
+            // 
+            // rb_Dark
+            // 
+            this.rb_Dark.AutoSize = true;
+            this.rb_Dark.Location = new System.Drawing.Point(6, 22);
+            this.rb_Dark.Name = "rb_Dark";
+            this.rb_Dark.Size = new System.Drawing.Size(48, 17);
+            this.rb_Dark.TabIndex = 0;
+            this.rb_Dark.Text = "Dark";
+            this.rb_Dark.UseVisualStyleBackColor = true;
             // 
             // btn_wipeData
             // 
             this.btn_wipeData.ForeColor = System.Drawing.Color.Black;
-            this.btn_wipeData.Location = new System.Drawing.Point(6, 236);
+            this.btn_wipeData.Location = new System.Drawing.Point(6, 203);
             this.btn_wipeData.Name = "btn_wipeData";
             this.btn_wipeData.Size = new System.Drawing.Size(112, 37);
             this.btn_wipeData.TabIndex = 1;
@@ -126,20 +140,21 @@
             this.btn_wipeData.UseVisualStyleBackColor = true;
             this.btn_wipeData.Click += new System.EventHandler(this.Btn_wipeData_Click);
             // 
-            // btn_greenTheme
+            // btn_done
             // 
-            this.btn_greenTheme.Location = new System.Drawing.Point(13, 111);
-            this.btn_greenTheme.Name = "btn_greenTheme";
-            this.btn_greenTheme.Size = new System.Drawing.Size(75, 23);
-            this.btn_greenTheme.TabIndex = 3;
-            this.btn_greenTheme.Text = "Green";
-            this.btn_greenTheme.UseVisualStyleBackColor = true;
+            this.btn_done.Location = new System.Drawing.Point(307, 309);
+            this.btn_done.Name = "btn_done";
+            this.btn_done.Size = new System.Drawing.Size(82, 29);
+            this.btn_done.TabIndex = 3;
+            this.btn_done.Text = "Done";
+            this.btn_done.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(401, 350);
+            this.Controls.Add(this.btn_done);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.lbl_title);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -150,7 +165,8 @@
             this.Text = "Settings";
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.gb_themes.ResumeLayout(false);
+            this.gb_themes.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,10 +178,11 @@
         private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Button btn_wipeData;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btn_lightTheme;
-        private System.Windows.Forms.Button btn_darkTheme;
-        private System.Windows.Forms.Button btn_redTheme;
-        private System.Windows.Forms.Button btn_greenTheme;
+        private System.Windows.Forms.GroupBox gb_themes;
+        private System.Windows.Forms.RadioButton rb_Green;
+        private System.Windows.Forms.RadioButton rb_Red;
+        private System.Windows.Forms.RadioButton rb_Light;
+        private System.Windows.Forms.RadioButton rb_Dark;
+        private System.Windows.Forms.Button btn_done;
     }
 }

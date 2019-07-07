@@ -16,11 +16,11 @@ namespace KeyboardTrainer.Models
             }
             else if (theme == MTheme.LIGHT)
             {
-                panel.Background = new SolidColorBrush(Color.FromRgb(225, 245, 254));
+                panel.Background = new SolidColorBrush(Color.FromRgb(250, 250, 250));
             }
             else if (theme == MTheme.RED)
             {
-                panel.Background = new SolidColorBrush(Color.FromRgb(1, 0, 3));
+                panel.Background = new SolidColorBrush(Color.FromRgb(15, 15, 15));
             }
             else if (theme == MTheme.GREEN)
             {
@@ -40,15 +40,15 @@ namespace KeyboardTrainer.Models
                     }
                     else if (theme == MTheme.LIGHT)
                     {
-                        ChangeControlTheme(element as Button, Color.FromRgb(128, 216, 255), Color.FromRgb(0, 171, 169), Color.FromRgb(29, 29, 29));
+                        ChangeControlTheme(element as Button, Color.FromRgb(128, 215, 255), Color.FromRgb(0, 171, 169), Color.FromRgb(29, 29, 29));
                     }
                     else if (theme == MTheme.RED)
                     {
-                        ChangeControlTheme(element as Button, Color.FromRgb(144, 42, 40), Color.FromRgb(100, 42, 40), Color.FromRgb(207, 205, 206));
+                        ChangeControlTheme(element as Button, Color.FromRgb(144, 45, 40), Color.FromRgb(100, 42, 40), Color.FromRgb(207, 205, 206));
                     }
                     else if(theme == MTheme.GREEN)
                     {
-                        ChangeControlTheme(element as Button, Color.FromRgb(0, 77, 64), Color.FromRgb(56, 253, 57), Color.FromRgb(255, 255, 255));
+                        ChangeControlTheme(element as Button, Color.FromRgb(0, 75, 64), Color.FromRgb(56, 253, 57), Color.FromRgb(255, 255, 255));
                     }
                 }
                 else if ((element is TextBlock))
@@ -59,11 +59,11 @@ namespace KeyboardTrainer.Models
                     }
                     else if (theme == MTheme.LIGHT)
                     {
-                        ChangeControlTheme(element as TextBlock, Color.FromRgb(225, 245, 254), Color.FromRgb(29, 29, 29));
+                        ChangeControlTheme(element as TextBlock, Color.FromRgb(250, 250, 250), Color.FromRgb(29, 29, 29));
                     }
                     else if (theme == MTheme.RED)
                     {
-                        ChangeControlTheme(element as TextBlock, Color.FromRgb(1, 0, 3), Color.FromRgb(207, 205, 206));
+                        ChangeControlTheme(element as TextBlock, Color.FromRgb(15, 15, 15), Color.FromRgb(207, 205, 206));
                     }
                     else if (theme == MTheme.GREEN)
                     {
