@@ -57,6 +57,7 @@ namespace KeyboardTrainer.Views
             this.ChangeTheme(this.grid, UserProgressSaver.GetTheme);
 
             this.Title = Loc.Translate("Lesson") + " " + numOfLesson;
+            UserProgressSaver.ApplySizeForTrainWindow(this);
             LessonMode = true;
 
             avaibleChrs = GetAvaibleChrs(Loc.Curr_Language, numOfLesson);
