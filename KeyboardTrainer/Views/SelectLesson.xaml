@@ -10,6 +10,7 @@
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.25' }" 
         MinHeight="550"
         MinWidth="400"
+        WindowStyle="None"
         Title="SelectLesson">
     <Window.Resources>
         <Style TargetType="Button">
@@ -46,9 +47,24 @@
         </Style>
 
     </Window.Resources>
-    <ScrollViewer Background="Gray">
-        <StackPanel x:Name="stackPanel" CanVerticallyScroll="True">
 
+    <Grid x:Name="grid" Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Label x:Name="btn_back" Cursor="Hand" Foreground="Black" BorderThickness="0" Content="←" FontSize="20" VerticalAlignment="Center" FontFamily="Arial" HorizontalAlignment="Left"/>
+            <Label x:Name="btn_maximize" Cursor="Hand" Foreground="Black" BorderThickness="0" Content="❏" FontSize="17" VerticalAlignment="Center" FontFamily="Arial" HorizontalAlignment="Center"/>
+            <Label x:Name="btn_normalize" Cursor="Hand" Foreground="Black" BorderThickness="0" Content="▣" FontSize="17" VerticalAlignment="Center" FontFamily="Arial" HorizontalAlignment="Right"/>
         </StackPanel>
-    </ScrollViewer>
+        
+        <ScrollViewer Grid.Row="1">
+            <StackPanel x:Name="stackPanel" CanVerticallyScroll="True">
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
 </Window>

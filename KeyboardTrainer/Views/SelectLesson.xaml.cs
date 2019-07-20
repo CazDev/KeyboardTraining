@@ -19,7 +19,24 @@ namespace KeyboardTrainer.Views.MainMenu
 
             this.Title = Loc.Translate("Select lesson");
 
-            this.SizeChanged += (s, e) => UserProgressSaver.SaveSizeForSelectLessonWindow(this);
+            stackPanel.MouseLeftButtonDown += (s, e) => this.DragMove();
+            btn_back.MouseDown += (s, e) => { UserProgressSaver.SaveSizeForSelectLessonWindow(this); this.Close(); };
+            btn_maximize.MouseDown += (s, e) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    ResizeMode = ResizeMode.NoResize;
+                    WindowState = WindowState.Maximized;
+                });
+            };
+            btn_normalize.MouseDown += (s, e) => 
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    ResizeMode = ResizeMode.CanResize;
+                    WindowState = WindowState.Normal;
+                });
+            };
 
             for (int i = 1; i <= 17; i++)
             {
@@ -39,7 +56,8 @@ namespace KeyboardTrainer.Views.MainMenu
             }
 
             UserProgressSaver.ApplySizeForSelectLessonWindow(this);
-            this.ChangeTheme(this.stackPanel, UserProgressSaver.GetTheme);
+            this.ChangeTheme(grid, UserProgressSaver.GetTheme);
+            this.ChangeTheme(stackPanel, UserProgressSaver.GetTheme);
         }
 
         private static string GetLessonPrefix(int numOfLesson)

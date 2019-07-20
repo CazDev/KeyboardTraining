@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows;
 
 namespace KeyboardTrainer.Models
 {
@@ -12,9 +13,9 @@ namespace KeyboardTrainer.Models
         public List<int> LevelsPassed_Rus { get; set; } = new List<int>();
         public List<int> LevelsPassed_Eng { get; set; } = new List<int>();
 
-        public WindowSize SelectLessonWindow = new WindowSize(400, 550);
-        public WindowSize TrainWindow = new WindowSize(600, 430);
-        public WindowSize ManualSize = new WindowSize(600, 350);
+        public WindowSize SelectLessonWindow = new WindowSize(400, 550, WindowState.Normal);
+        public WindowSize TrainWindow = new WindowSize(600, 430, WindowState.Normal);
+        public WindowSize ManualSize = new WindowSize(600, 350, WindowState.Normal);
 
         public MLanguage SelectedLanguage = MLanguage.ENGLISH;
 

@@ -9,7 +9,7 @@ using System.Text;
 
 public static class GitUpdater
 {
-    public static string ThisVersion { get; } = "1.1"; //TODO: Before commiting change version here and in file "version_info"
+    public static string ThisVersion { get; } = "1.2"; //TODO: Before commiting change version here and in file "version_info"
     private static readonly string linkForNewVersion = "https://github.com/tavvi1337/KeyboardTraining/blob/master/version_info";
     private static readonly string linkForDownloadFile = "https://github.com/tavvi1337/KeyboardTraining/raw/master/KeyboardTrainer/bin/Debug/KeyboardTrainer.exe";
     private static readonly string programName = "KeyboardTrainer";

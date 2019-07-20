@@ -108,6 +108,7 @@ namespace KeyboardTrainer
             {
                 this.Show();
             }
+            this.Show();
         }
 
         private MLanguage GetSelectedLanguage()

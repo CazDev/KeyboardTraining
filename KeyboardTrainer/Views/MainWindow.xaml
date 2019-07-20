@@ -51,18 +51,21 @@
 
     <Grid x:Name="grid" Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="150*"/>
-            <RowDefinition Height="150*"/>
-            <RowDefinition Height="150*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0" Height="auto">
+                <Image Height="15" Width="15" x:Name="image_githubLink" Margin="5, 3"/>
+                <Image Height="15" Width="15" x:Name="image_Update" Margin="5, 3"/>
+                <Image Height="15" Width="15" x:Name="image_Settings" Margin="5, 3"/>
+                <Image Height="15" Width="15" x:Name="image_Info" Margin="5, 3"/>
+            </StackPanel>
+        </Grid>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Image x:Name="image_githubLink" Margin="5, 3"/>
-            <Image x:Name="image_Update" Margin="5, 3"/>
-            <Image x:Name="image_Settings" Margin="5, 3"/>
-            <Image x:Name="image_Info" Margin="5, 3"/>
-        </StackPanel>
         <Button x:Name="btn_learning" Grid.Row="1" Content="Lessons" Click="Btn_learning_Click"/>
         <Button x:Name="btn_training" Grid.Row="2" Content="My results" Click="Btn_myResults_Click"/>
         <Button x:Name="btn_manual" Grid.Row="3" Content="Manual" Click="Btn_manual_Click"/>

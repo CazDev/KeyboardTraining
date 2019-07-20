@@ -31,7 +31,6 @@ namespace KeyboardTrainer.Models
 
             foreach (object element in allElements)
             {
-
                 if ((element is Button))
                 {
                     if (theme == MTheme.DARK)

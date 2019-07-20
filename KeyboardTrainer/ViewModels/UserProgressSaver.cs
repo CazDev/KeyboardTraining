@@ -36,33 +36,27 @@ namespace KeyboardTrainer.Models
         public static MTheme GetTheme => Config.Theme;
         public static void ApplySizeForSelectLessonWindow(Window win)
         {
-            win.Width = Config.SelectLessonWindow.Width;
-            win.Height = Config.SelectLessonWindow.Height;
+            Config.SelectLessonWindow.ApplySizeForWindow(win);
         }
         public static void SaveSizeForSelectLessonWindow(Window win)
         {
-            Config.SelectLessonWindow.Width = (int)win.ActualWidth;
-            Config.SelectLessonWindow.Height = (int)win.ActualHeight;
+            Config.SelectLessonWindow = new WindowSize(win);
         }
         public static void ApplySizeForTrainWindow(Window win)
         {
-            win.Width = Config.TrainWindow.Width;
-            win.Height = Config.TrainWindow.Height;
+            Config.TrainWindow.ApplySizeForWindow(win);
         }
         public static void SaveSizeForTrainWindow(Window win)
         {
-            Config.TrainWindow.Width = (int)win.ActualWidth;
-            Config.TrainWindow.Height = (int)win.ActualHeight;
+            Config.TrainWindow = new WindowSize(win);
         }
         public static void ApplySizeForManual(Window win)
         {
-            win.Width = Config.ManualSize.Width;
-            win.Height = Config.ManualSize.Height;
+            Config.ManualSize.ApplySizeForWindow(win);
         }
         public static void SaveSizeForManualSize(Window win)
         {
-            Config.ManualSize.Width = (int)win.ActualWidth;
-            Config.ManualSize.Height = (int)win.ActualHeight;
+            Config.ManualSize = new WindowSize(win);
         }
     }
 }

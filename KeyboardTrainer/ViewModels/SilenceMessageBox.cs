@@ -13,7 +13,7 @@ public class SilenceMessageBox
         }
         else
         {
-            result = MessageBox.Show(text, caption, buttons, MessageBoxImage.None);
+            result = MessageBox.Show(text, caption, buttons, MessageBoxImage.None); // if MessageBoxImage = none, no sound
         }
 
         return result;

@@ -16,13 +16,7 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         /// <summary>
         /// Speed of user's typing
         /// </summary>
-        private static double Speed
-        {
-            get
-            {
-                return FirstLength / ((DateTime.Now - Begin).TotalMilliseconds / 60000);
-            }
-        }
+        private static double Speed => FirstLength / ((DateTime.Now - Begin).TotalMilliseconds / 60000);
 
 
         public delegate void Mistake(string letter);
@@ -109,27 +103,37 @@ namespace KeyboardTrainer.Views.Training_.ViewModels
         public static string GetString(MLanguage mLanguage, int length)
         {
             string result = "";
+
+            string sperator = "";
+            string word = "";
             do
             {
-                result += GetWordFromDataBase(mLanguage) + GetRandomSperator();
+                string previousSperator = sperator;
+                sperator = GetRandomSperator();
+                word = GetWordFromDataBase(mLanguage);
+
+                if (previousSperator == ", " || previousSperator == ". " ||
+                    previousSperator == "! " || previousSperator == "? " 
+                    || previousSperator == "" /* if first word*/)
+                {
+                    word = char.ToUpper(word[0]) + word.Substring(1); //first letter to uppercase
+                }
+
+                result += word + sperator;
             } while (result.Length < length);
+
             result = result.Remove(result.Length - 1);//remove last space
             return result;
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern int GetWindowThreadProcessId(
-   [In] IntPtr hWnd,
-   [Out, Optional] IntPtr lpdwProcessId
-   );
+        [DllImport("user32.dll", SetLastError = true)]//used to get current layout
+        static extern int GetWindowThreadProcessId([In] IntPtr hWnd, [Out, Optional] IntPtr lpdwProcessId);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr GetForegroundWindow();
+        static extern IntPtr GetForegroundWindow(); //used to get current layout
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern ushort GetKeyboardLayout(//get current keyboard layout
-            [In] int idThread
-            );
+        static extern ushort GetKeyboardLayout([In] int idThread); //get current keyboard layout
 
         /// <summary>
         /// returns Id of keyboard layout.

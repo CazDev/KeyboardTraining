@@ -76,8 +76,24 @@ namespace KeyboardTrainer.Views
             this.TextInput += Win_TextInput;
             lbl_retry.MouseDown += (s, e) => StartGame();
             this.MouseLeftButtonDown += (s, e) => this.DragMove();
-            this.btn_back.Click += (s, e) => 
-            { UserProgressSaver.SaveSizeForTrainWindow(this); this.Close(); };
+            this.btn_back.MouseDown += (s, e) => 
+                { UserProgressSaver.SaveSizeForTrainWindow(this); this.Close(); };
+            this.btn_maximize.MouseDown += (s, e) => 
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    ResizeMode = ResizeMode.NoResize;
+                    WindowState = WindowState.Maximized;
+                });
+            };
+            this.btn_normalize.MouseDown += (s, e) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    ResizeMode = ResizeMode.CanResize;
+                    WindowState = WindowState.Normal;
+                });
+            };
         }
 
         private void TranslateUIElements()
